@@ -3,3 +3,11 @@ MS 윈도우용 유티리티 프로그램 개발
 ==========================
 
 * RenameFiles : 윈도우의 지정된 폴더의 파일 이름을 수정하는 프로그램
+  - 사용법
+    RenameFiles.exe {folder path} {old name} {new name}
+
+====
+참고
+====
+
+Publish 폴더에 본 프로젝트를 빌드한 프로그램들이 포함되어 있습니다.
