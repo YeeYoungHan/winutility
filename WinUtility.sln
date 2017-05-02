@@ -5,6 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RenameFiles", "RenameFiles\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BackupDirectory", "BackupDirectory\BackupDirectory.vcproj", "{78C1C048-52D9-4C85-BCC5-36BD95630347}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tail", "Tail\Tail.vcproj", "{5BDA6C2D-4536-4584-9C99-B15F4C40353F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -19,6 +21,10 @@ Global
 		{78C1C048-52D9-4C85-BCC5-36BD95630347}.Debug|Win32.Build.0 = Debug|Win32
 		{78C1C048-52D9-4C85-BCC5-36BD95630347}.Release|Win32.ActiveCfg = Release|Win32
 		{78C1C048-52D9-4C85-BCC5-36BD95630347}.Release|Win32.Build.0 = Release|Win32
+		{5BDA6C2D-4536-4584-9C99-B15F4C40353F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5BDA6C2D-4536-4584-9C99-B15F4C40353F}.Debug|Win32.Build.0 = Debug|Win32
+		{5BDA6C2D-4536-4584-9C99-B15F4C40353F}.Release|Win32.ActiveCfg = Release|Win32
+		{5BDA6C2D-4536-4584-9C99-B15F4C40353F}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
