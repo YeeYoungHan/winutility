@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RenameFiles", "RenameFiles\RenameFiles.vcproj", "{36A55424-F3FC-45BE-A7B9-F45C435FB63A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BackupDirectory", "BackupDirectory\BackupDirectory.vcproj", "{78C1C048-52D9-4C85-BCC5-36BD95630347}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -13,6 +15,10 @@ Global
 		{36A55424-F3FC-45BE-A7B9-F45C435FB63A}.Debug|Win32.Build.0 = Debug|Win32
 		{36A55424-F3FC-45BE-A7B9-F45C435FB63A}.Release|Win32.ActiveCfg = Release|Win32
 		{36A55424-F3FC-45BE-A7B9-F45C435FB63A}.Release|Win32.Build.0 = Release|Win32
+		{78C1C048-52D9-4C85-BCC5-36BD95630347}.Debug|Win32.ActiveCfg = Debug|Win32
+		{78C1C048-52D9-4C85-BCC5-36BD95630347}.Debug|Win32.Build.0 = Debug|Win32
+		{78C1C048-52D9-4C85-BCC5-36BD95630347}.Release|Win32.ActiveCfg = Release|Win32
+		{78C1C048-52D9-4C85-BCC5-36BD95630347}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
