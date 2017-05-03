@@ -36,7 +36,7 @@ int main( int argc, char * argv[] )
 {
 	if( argc != 4 )
 	{
-		printf( "[Usage] %s {folder path} {old name} {new name}\n" );
+		printf( "[Usage] %s {folder path} {old name} {new name}\n", argv[0] );
 		return 0;
 	}
 
