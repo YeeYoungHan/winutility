@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tail", "Tail\Tail.vcproj", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CleanDisk", "CleanDisk\CleanDisk.vcproj", "{F742C9B7-4317-48B5-84C0-5AF04ADE6816}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExecTime", "ExecTime\ExecTime.vcproj", "{3067F168-1EA1-4D2C-9DBC-EA6EB7824CD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -31,6 +33,10 @@ Global
 		{F742C9B7-4317-48B5-84C0-5AF04ADE6816}.Debug|Win32.Build.0 = Debug|Win32
 		{F742C9B7-4317-48B5-84C0-5AF04ADE6816}.Release|Win32.ActiveCfg = Release|Win32
 		{F742C9B7-4317-48B5-84C0-5AF04ADE6816}.Release|Win32.Build.0 = Release|Win32
+		{3067F168-1EA1-4D2C-9DBC-EA6EB7824CD0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3067F168-1EA1-4D2C-9DBC-EA6EB7824CD0}.Debug|Win32.Build.0 = Debug|Win32
+		{3067F168-1EA1-4D2C-9DBC-EA6EB7824CD0}.Release|Win32.ActiveCfg = Release|Win32
+		{3067F168-1EA1-4D2C-9DBC-EA6EB7824CD0}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
