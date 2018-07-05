@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CleanDisk", "CleanDisk\Clea
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExecTime", "ExecTime\ExecTime.vcproj", "{3067F168-1EA1-4D2C-9DBC-EA6EB7824CD0}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ResizeImage", "ResizeImage\ResizeImage.vcproj", "{A1ECBA68-CB82-4ADA-BA1E-AF8654BA4B53}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -37,6 +39,10 @@ Global
 		{3067F168-1EA1-4D2C-9DBC-EA6EB7824CD0}.Debug|Win32.Build.0 = Debug|Win32
 		{3067F168-1EA1-4D2C-9DBC-EA6EB7824CD0}.Release|Win32.ActiveCfg = Release|Win32
 		{3067F168-1EA1-4D2C-9DBC-EA6EB7824CD0}.Release|Win32.Build.0 = Release|Win32
+		{A1ECBA68-CB82-4ADA-BA1E-AF8654BA4B53}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A1ECBA68-CB82-4ADA-BA1E-AF8654BA4B53}.Debug|Win32.Build.0 = Debug|Win32
+		{A1ECBA68-CB82-4ADA-BA1E-AF8654BA4B53}.Release|Win32.ActiveCfg = Release|Win32
+		{A1ECBA68-CB82-4ADA-BA1E-AF8654BA4B53}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
