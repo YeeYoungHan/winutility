@@ -30,12 +30,12 @@ using namespace std;
 
 /**
  * @ingroup ResizeImage
- * @brief 
- * @param pszInput 
- * @param pszOutput 
- * @param iWidth 
- * @param iHeight 
- * @returns 
+ * @brief 이미지 파일의 폭과 높이를 수정한다.
+ * @param pszInput	입력 이미지 파일 이름
+ * @param pszOutput 출력 이미지 파일 이름
+ * @param iWidth		출력 이미지 파일 폭
+ * @param iHeight		출력 이미지 파일 높이
+ * @returns 성공하면 true 를 리턴하고 그렇지 않으면 false 를 리턴한다.
  */
 bool ResizeImage( const char * pszInput, const char * pszOutput, int iWidth, int iHeight )
 {
