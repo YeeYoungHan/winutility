@@ -13,15 +13,19 @@ MS 윈도우 도스 유틸리티 프로그램 개발 프로젝트
  
  * BackupDirectory
    - 폴더 백업 프로그램
+   - 사용법
+     dos> BackupDirectory.exe c:\Data d:\Data
 
  * CleanDisk
    - 디스크의 남은 공간만큼 파일을 생성한 후, 삭제하는 프로그램
    - 디스크가 빈 상태에서 실행하면 디스크에 저장된 모든 데이터를 삭제할 수 있다.
+   - 사용법
+     dos> CleanDisk.exe d:\
 
  * ExecTime
    - 도스 프로그램 실행 시간 측정 프로그램
    - 사용법
-     dos> ExecTime dir/w
+     dos> ExecTime.exe dir/w
 
  * Publish
    - 본 프로젝트를 빌드한 release 프로그램
