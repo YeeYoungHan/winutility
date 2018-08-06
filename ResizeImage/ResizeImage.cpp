@@ -23,11 +23,6 @@
 #define new DEBUG_NEW
 #endif
 
-
-CWinApp theApp;
-
-using namespace std;
-
 /**
  * @ingroup ResizeImage
  * @brief 이미지 파일의 폭과 높이를 수정한다.
@@ -88,34 +83,4 @@ bool ResizeImage( const char * pszInput, const char * pszOutput, int iWidth, int
 	}
 
 	return bRes;
-}
-
-int _tmain( int argc, TCHAR* argv[], TCHAR* envp[] )
-{
-	int nRetCode = 0;
-
-	// MFC를 초기화합니다. 초기화하지 못한 경우 오류를 인쇄합니다.
-	if (!AfxWinInit(::GetModuleHandle(NULL), NULL, ::GetCommandLine(), 0))
-	{
-		_tprintf(_T("AfxWinInit error\n"));
-		nRetCode = 1;
-	}
-	else
-	{
-		if( argc != 5 )
-		{
-			printf( "[Usage] %s {input image filename} {output image filename} {width} {height}\n", argv[0] );
-		}
-		else
-		{
-			const char * pszInput = argv[1];
-			const char * pszOutput = argv[2];
-			int iWidth = atoi( argv[3] );
-			int iHeight = atoi( argv[4] );
-
-			ResizeImage( pszInput, pszOutput, iWidth, iHeight );
-		}
-	}
-
-	return nRetCode;
 }

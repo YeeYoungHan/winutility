@@ -19,3 +19,5 @@
 #pragma once
 
 #include "resource.h"
+
+bool ResizeImage( const char * pszInput, const char * pszOutput, int iWidth, int iHeight );

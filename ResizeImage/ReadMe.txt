@@ -13,3 +13,7 @@
  ResizeImage.exe {input image filename} {output image filename} {output image width} {output image height}
 
  dos> ResizeImage.exe input.jpg output.jpg 640 480
+
+ 지정된 폴더에 포함된 모든 이미지 파일의 크기를 수정하고 싶으면 아래와 같이 실행하시면 됩니다.
+
+ dos> ResizeImage.exe -d c:\temp\test 640 480
