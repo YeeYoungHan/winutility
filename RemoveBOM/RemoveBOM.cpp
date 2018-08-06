@@ -16,115 +16,22 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
  */
 
-#define _CRT_SECURE_NO_WARNINGS
+#include "RemoveBOM.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/stat.h>
-
-// BOM 파일인지 검사한다.
-// 참고자료 : https://ko.wikipedia.org/wiki/%EB%B0%94%EC%9D%B4%ED%8A%B8_%EC%88%9C%EC%84%9C_%ED%91%9C%EC%8B%9D
-int GetBOMLen( unsigned char * pszBuf, int iReadSize )
+/**
+ * @ingroup RemoveBOM
+ * @brief BOM 헤더를 저장하고 있는 파일을 읽어서 BOM 헤더를 제거하여서 저장한다.
+ * @param pszInputFileName	[in] BOM 헤더를 저장하고 있는 파일 이름
+ * @param pszOutputFileName [out] BOM 헤더가 제거된 파일 이름
+ * @returns 성공하면 true 를 리턴하고 그렇지 않으면 false 를 리턴한다.
+ */
+bool RemoveBOM( const char * pszInputFileName, const char * pszOutputFileName )
 {
-	int		iBOMLen = 0;
-
-	if( iReadSize >= 2 )
-	{
-		if( pszBuf[0] == 0xFE && pszBuf[1] == 0xFF )
-		{
-			// UTF-16 (BE)
-			iBOMLen = 2;
-		}
-		else if( pszBuf[0] == 0xFF && pszBuf[1] == 0xFE )
-		{
-			// UTF-16 (LE)
-			iBOMLen = 2;
-		}
-	}
-
-	if( iBOMLen == 0 && iReadSize >= 3 )
-	{
-		if( pszBuf[0] == 0xEF && pszBuf[1] == 0xBB && pszBuf[2] == 0xBF )
-		{
-			// UTF-8
-			iBOMLen = 3;
-		}
-		else if( pszBuf[0] == 0xF7 && pszBuf[1] == 0x64 && pszBuf[2] == 0x4C )
-		{
-			// UTF-1
-			iBOMLen = 3;
-		}
-		else if( pszBuf[0] == 0x0E && pszBuf[1] == 0xFE && pszBuf[2] == 0xFF )
-		{
-			// SCSU
-			iBOMLen = 3;
-		}
-		else if( pszBuf[0] == 0xFB && pszBuf[1] == 0xEE && pszBuf[2] == 0x28 )
-		{
-			// BOCU-1
-			iBOMLen = 3;
-		}
-	}
-
-	if( iBOMLen == 0 && iReadSize >= 4 )
-	{
-		if( pszBuf[0] == 0x00 && pszBuf[1] == 0x00 && pszBuf[2] == 0xFE && pszBuf[3] == 0xFF )
-		{
-			// UTF-32 (BE)
-			iBOMLen = 4;
-		}
-		else if( pszBuf[0] == 0xFF && pszBuf[1] == 0xFE && pszBuf[2] == 0x00 && pszBuf[3] == 0x00 )
-		{
-			// UTF-32 (LE)
-			iBOMLen = 4;
-		}
-		else if( pszBuf[0] == 0x2B && pszBuf[1] == 0x2F && pszBuf[2] == 0x76 )
-		{
-			// UTF-7
-			if( pszBuf[3] == 0x38 )
-			{
-				iBOMLen = 4;
-				if( iReadSize == 5 && pszBuf[4] == 0x2D )
-				{
-					iBOMLen = 5;
-				}
-			}
-			else if( pszBuf[3] == 0x39 || pszBuf[3] == 0x2B || pszBuf[3] == 0x2F )
-			{
-				iBOMLen = 4;
-			}
-		}
-		else if( pszBuf[0] == 0xDD && pszBuf[1] == 0x73 && pszBuf[2] == 0x66 && pszBuf[3] == 0x73 )
-		{
-			// UTF-EBCDIC
-			iBOMLen = 4;
-		}
-		else if( pszBuf[0] == 0x84 && pszBuf[1] == 0x31 && pszBuf[2] == 0x95 && pszBuf[3] == 0x33 )
-		{
-			// GB-18030
-			iBOMLen = 4;
-		}
-	}
-
-	return iBOMLen;
-}
-
-int main( int argc, char * argv[] )
-{
-	if( argc != 3 )
-	{
-		printf( "[Usage] %s {input filename} {output filename}\n", argv[0] );
-		return 0;
-	}
-
-	const char * pszInputFileName = argv[1];
-	const char * pszOutputFileName = argv[2];
-
 	FILE * fd = fopen( pszInputFileName, "rb" );
 	if( fd == NULL )
 	{
 		printf( "input file(%s) open error\n", pszInputFileName );
-		return 0;
+		return false;
 	}
 
 	unsigned char	szBuf[5];
@@ -175,7 +82,7 @@ int main( int argc, char * argv[] )
 		if( fd == NULL )
 		{
 			printf( "output file(%s) open error\n", pszOutputFileName );
-			return 0;
+			return false;
 		}
 
 		if( fwrite( pszBuf, 1, iBufSize, fd ) != iBufSize )

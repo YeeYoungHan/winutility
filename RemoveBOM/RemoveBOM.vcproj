@@ -171,7 +171,19 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\BOMLen.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Main.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\RemoveBOM.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\RemoveBOM.h"
 				>
 			</File>
 		</Filter>
