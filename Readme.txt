@@ -27,6 +27,11 @@ MS 윈도우 도스 유틸리티 프로그램 개발 프로젝트
    - 사용법
      dos> ExecTime.exe dir/w
 
+ * PrintDoc
+   - 도스창에서 문서 인쇄하는 프로그램
+   - 사용법
+     dos> PrintDoc.exe c:\temp\dir.txt
+
  * Publish
    - 본 프로젝트를 빌드한 release 프로그램
 
