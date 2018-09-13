@@ -41,6 +41,11 @@ MS 윈도우 도스 유틸리티 프로그램 개발 프로젝트
      dos> RemoveBOM.exe c:\temp\BOM.java c:\temp\clean.java
           RemoveBOM.exe c:\temp\BOM.java c:\temp\BOM.java
 
+ * RemoveSVN
+   - 폴더에 포함된 모든 .svn 폴더를 제거하는 프로그램
+   - 사용법
+     dos> RemoveSVN.exe c:\temp\svn_folder
+
  * RenameFiles
    - 폴더에 포함된 파일이름을 일괄 수정하는 프로그램
 
