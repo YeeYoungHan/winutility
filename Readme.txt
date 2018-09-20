@@ -22,6 +22,11 @@ MS 윈도우 도스 유틸리티 프로그램 개발 프로젝트
    - 사용법
      dos> CleanDisk.exe d:\
 
+ * CopyFile
+   - 파일에 지정된 부분만 복사하는 프로그램
+   - 사용법
+     dos> CopyFile.exe c:\temp\src.txt c:\temp\dest.txt 5 10
+
  * ExecTime
    - 도스 프로그램 실행 시간 측정 프로그램
    - 사용법
