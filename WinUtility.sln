@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RemoveSVN", "RemoveSVN\Remo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CopyFile", "CopyFile\CopyFile.vcproj", "{157A49A3-D2EF-407F-BC17-9A846A1FD70C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KillProcess", "KillProcess\KillProcess.vcproj", "{C9F496CC-D50C-45F9-BDD6-097BEFDFB20A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -67,6 +69,10 @@ Global
 		{157A49A3-D2EF-407F-BC17-9A846A1FD70C}.Debug|Win32.Build.0 = Debug|Win32
 		{157A49A3-D2EF-407F-BC17-9A846A1FD70C}.Release|Win32.ActiveCfg = Release|Win32
 		{157A49A3-D2EF-407F-BC17-9A846A1FD70C}.Release|Win32.Build.0 = Release|Win32
+		{C9F496CC-D50C-45F9-BDD6-097BEFDFB20A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C9F496CC-D50C-45F9-BDD6-097BEFDFB20A}.Debug|Win32.Build.0 = Debug|Win32
+		{C9F496CC-D50C-45F9-BDD6-097BEFDFB20A}.Release|Win32.ActiveCfg = Release|Win32
+		{C9F496CC-D50C-45F9-BDD6-097BEFDFB20A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

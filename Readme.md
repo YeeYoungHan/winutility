@@ -40,6 +40,9 @@
  dos> ExecTime.exe dir/w
 ```
 
+* KillProcess
+  * 도스창에서 프로세스 종료하는 프로그
+
 * PrintDoc
   * 도스창에서 문서 인쇄하는 프로그램
   * 사용법
