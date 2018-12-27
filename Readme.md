@@ -33,6 +33,13 @@
  dos> CopyFile.exe c:\temp\src.txt c:\temp\dest.txt 5 10
 ```
 
+* DiffFile
+  * 2개의 파일 내용이 동일한지 비교하는 프로그램
+  * 사용법
+```
+dos> DiffFile.exe {first file path} {second file path}
+```
+
 * ExecTime
   * 도스 프로그램 실행 시간 측정 프로그램
   * 사용법
