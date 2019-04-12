@@ -131,6 +131,7 @@ BEGIN_MESSAGE_MAP(CCropImageControl, CWnd)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
 	ON_WM_MOUSEMOVE()
+	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
 // CCropImageControl 메시지 처리기입니다.
@@ -141,16 +142,36 @@ void CCropImageControl::OnPaint()
 
 	if( m_bLoad )
 	{
-		m_clsImage.StretchBlt( dc, 0, 0, m_iPaintWidth, m_iPaintHeight, 0, 0, m_iImageWidth, m_iImageHeight, SRCCOPY );
-		
+		// 더블버퍼링을 위한 메모리 DC 생성
+		RECT sttRect;
+
+		GetClientRect( &sttRect );
+		CDC clsDC;
+		CBitmap clsBitmap, * pclsBitmap;
+
+		clsDC.CreateCompatibleDC( &dc ); 
+
+		clsBitmap.CreateCompatibleBitmap( &dc, sttRect.right, sttRect.bottom );
+		pclsBitmap = clsDC.SelectObject( &clsBitmap );
+
+		// 메모리 DC 에 그리기
 		CBrush clsBrush, * pclsBrush;
 
+		clsBrush.CreateSolidBrush( RGB(240,240,240) );
+		pclsBrush = clsDC.SelectObject( &clsBrush );
+		clsDC.FillRect( &sttRect, &clsBrush );
+		clsDC.SelectObject( pclsBrush );
+
+		m_clsImage.StretchBlt( clsDC, 0, 0, m_iPaintWidth, m_iPaintHeight, 0, 0, m_iImageWidth, m_iImageHeight, SRCCOPY );
+
 		clsBrush.CreateStockObject( NULL_BRUSH );
+		pclsBrush = clsDC.SelectObject( &clsBrush );
+		clsDC.Rectangle( &m_sttBoxRect );
+		clsDC.SelectObject( pclsBrush );
 
-		pclsBrush = dc.SelectObject( &clsBrush );
-		dc.Rectangle( &m_sttBoxRect );
-
-		dc.SelectObject( pclsBrush );
+		// 메모리 DC 에 그리기 연산을 모두 수행한 후, 메모리 DC 의 비트맵을 CPaintDC 에 복사한다.
+		dc.BitBlt( 0, 0, sttRect.right, sttRect.bottom, &clsDC, 0, 0, SRCCOPY );
+		clsDC.SelectObject( pclsBitmap );
 	}
 }
 
@@ -219,4 +240,9 @@ void CCropImageControl::OnMouseMove(UINT nFlags, CPoint point)
 	}
 
 	CWnd::OnMouseMove(nFlags, point);
+}
+
+BOOL CCropImageControl::OnEraseBkgnd(CDC* pDC)
+{
+	return FALSE;
 }
