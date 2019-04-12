@@ -38,6 +38,7 @@ public:
 protected:
 	HICON m_hIcon;
 	CCropImageControl m_clsCropImage;
+	int m_iId;
 
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
@@ -49,4 +50,5 @@ public:
 	afx_msg void OnBnClickedOk();
 	afx_msg void OnBnClickedCancel();
 	afx_msg void OnBnClickedSetup();
+	afx_msg void OnBnClickedOpenFile();
 };

@@ -67,6 +67,7 @@ CCropImageDlg::CCropImageDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CCropImageDlg::IDD, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	m_iId = 0;
 }
 
 void CCropImageDlg::DoDataExchange(CDataExchange* pDX)
@@ -83,6 +84,7 @@ BEGIN_MESSAGE_MAP(CCropImageDlg, CDialog)
 	ON_BN_CLICKED(IDOK, &CCropImageDlg::OnBnClickedOk)
 	ON_BN_CLICKED(IDCANCEL, &CCropImageDlg::OnBnClickedCancel)
 	ON_BN_CLICKED(IDC_SETUP, &CCropImageDlg::OnBnClickedSetup)
+	ON_BN_CLICKED(IDC_OPEN_FILE, &CCropImageDlg::OnBnClickedOpenFile)
 END_MESSAGE_MAP()
 
 
@@ -176,7 +178,30 @@ HCURSOR CCropImageDlg::OnQueryDragIcon()
 
 void CCropImageDlg::OnBnClickedOk()
 {
-	//m_clsCropImage.SaveFile( "c:\\temp\\town\\1.png" );
+	if( gclsSetup.m_strOutputFolderPath.empty() )
+	{
+		MessageBox( "Output folder is not selected. Click Setup button and set output folder." );
+		return;
+	}
+
+	if( m_clsCropImage.IsLoad() == false )
+	{
+		MessageBox( "Image file is not opened. Click Open file button." );
+		return;
+	}
+
+	char szId[11];
+
+	++m_iId;
+	
+	_snprintf( szId, sizeof(szId), "%d", m_iId );
+
+	std::string strFilePath = gclsSetup.m_strOutputFolderPath;
+	strFilePath.append( "\\" );
+	strFilePath.append( szId );
+	strFilePath.append( ".png" );
+
+	m_clsCropImage.SaveFile( strFilePath.c_str() );
 }
 
 void CCropImageDlg::OnBnClickedCancel()
@@ -191,5 +216,17 @@ void CCropImageDlg::OnBnClickedSetup()
 	if( clsDlg.DoModal() == IDOK )
 	{
 		m_clsCropImage.Update();
+	}
+}
+
+void CCropImageDlg::OnBnClickedOpenFile()
+{
+	CFileDialog clsDlg( TRUE, NULL, NULL, OFN_HIDEREADONLY, "이미지 파일(*.jpg, *.png)|*jpg;*png||" );
+	if( clsDlg.DoModal() == IDOK )
+	{
+		if( m_clsCropImage.SetFile( clsDlg.GetPathName() ) == false )
+		{
+			MessageBox( "이미지 파일 읽기 오류가 발생하였습니다." );
+		}
 	}
 }

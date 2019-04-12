@@ -29,6 +29,7 @@ CSetupDlg::CSetupDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CSetupDlg::IDD, pParent)
 	, m_iCropWidth(0)
 	, m_iCropHeight(0)
+	, m_strCropOutputFolder(_T(""))
 {
 
 }
@@ -42,11 +43,13 @@ void CSetupDlg::DoDataExchange(CDataExchange* pDX)
 	CDialog::DoDataExchange(pDX);
 	DDX_Text(pDX, IDC_CROP_WIDTH, m_iCropWidth);
 	DDX_Text(pDX, IDC_CROP_HEIGHT, m_iCropHeight);
+	DDX_Text(pDX, IDC_CROP_OUTPUT_FOLDER, m_strCropOutputFolder);
 }
 
 
 BEGIN_MESSAGE_MAP(CSetupDlg, CDialog)
 	ON_BN_CLICKED(IDOK, &CSetupDlg::OnBnClickedOk)
+	ON_BN_CLICKED(IDC_SELECT_OUTPUT_FOLDER, &CSetupDlg::OnBnClickedSelectOutputFolder)
 END_MESSAGE_MAP()
 
 
@@ -58,6 +61,7 @@ BOOL CSetupDlg::OnInitDialog()
 
 	m_iCropWidth = gclsSetup.m_iCropWidth;
 	m_iCropHeight = gclsSetup.m_iCropHeight;
+	m_strCropOutputFolder = gclsSetup.m_strOutputFolderPath.c_str();
 
 	UpdateData(FALSE);
 
@@ -81,8 +85,35 @@ void CSetupDlg::OnBnClickedOk()
 		return;
 	}
 
+	if( m_strCropOutputFolder.IsEmpty() )
+	{
+		MessageBox( "Invalid crop output folder" );
+		return;
+	}
+
 	gclsSetup.m_iCropWidth = m_iCropWidth;
 	gclsSetup.m_iCropHeight = m_iCropHeight;
+	gclsSetup.m_strOutputFolderPath = m_strCropOutputFolder;
+	gclsSetup.Put();
 
 	OnOK();
+}
+
+void CSetupDlg::OnBnClickedSelectOutputFolder()
+{
+	BROWSEINFO sttInfo;
+	char szFolder[1024];
+
+	memset( &sttInfo, 0, sizeof(sttInfo) );
+	memset( szFolder, 0, sizeof(szFolder) );
+
+  sttInfo.hwndOwner = GetSafeHwnd();
+  sttInfo.lpszTitle = "Select crop image save folder";
+  sttInfo.ulFlags = BIF_NEWDIALOGSTYLE | BIF_RETURNONLYFSDIRS;
+  LPITEMIDLIST pItemIdList = ::SHBrowseForFolder(&sttInfo);
+  ::SHGetPathFromIDList( pItemIdList, szFolder );
+
+	m_strCropOutputFolder = szFolder;
+
+	UpdateData(FALSE);
 }

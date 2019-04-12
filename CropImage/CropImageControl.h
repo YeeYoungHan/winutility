@@ -32,6 +32,7 @@ public:
 	bool SetFile( const char * pszFileName );
 	bool SaveFile( const char * pszFileName );
 	bool Update( bool bForce = false );
+	bool IsLoad( );
 
 protected:
 	DECLARE_MESSAGE_MAP()

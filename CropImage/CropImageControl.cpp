@@ -65,6 +65,8 @@ BOOL CCropImageControl::RegisterWindowClass()
 
 bool CCropImageControl::SetFile( const char * pszFileName )
 {
+	m_clsImage.Destroy();
+
 	HRESULT hr = m_clsImage.Load( pszFileName );
 
 	if( SUCCEEDED(hr) )
@@ -151,8 +153,15 @@ bool CCropImageControl::Update( bool bForce )
 	return true;
 }
 
+bool CCropImageControl::IsLoad( )
+{
+	return m_bLoad;
+}
+
 bool CCropImageControl::SaveFile( const char * pszFileName )
 {
+	if( m_bLoad == false ) return false;
+
 	CImage clsOutput;
 	bool bRes = false;
 	double dbRatio = (double)m_iImageWidth / m_iBoxWidth;

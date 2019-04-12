@@ -41,4 +41,6 @@ public:
 
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedOk();
+	CString m_strCropOutputFolder;
+	afx_msg void OnBnClickedSelectOutputFolder();
 };
