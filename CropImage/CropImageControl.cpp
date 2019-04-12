@@ -19,6 +19,7 @@
 #include "stdafx.h"
 #include "CropImage.h"
 #include "CropImageControl.h"
+#include "Setup.h"
 
 #define CROP_IMAGE_CONTROL_CLASSNAME _T("CropImageControl")
 
@@ -28,8 +29,6 @@ IMPLEMENT_DYNAMIC(CCropImageControl, CWnd)
 
 CCropImageControl::CCropImageControl() : m_bDrag(false), m_bLoad(false), m_bWidth(true)
 {
-	m_iCropWidth = 847;
-	m_iCropHeight = 551;
 }
 
 CCropImageControl::~CCropImageControl()
@@ -66,7 +65,29 @@ BOOL CCropImageControl::RegisterWindowClass()
 
 bool CCropImageControl::SetFile( const char * pszFileName )
 {
-	m_clsImage.Load( pszFileName );
+	HRESULT hr = m_clsImage.Load( pszFileName );
+
+	if( SUCCEEDED(hr) )
+	{
+		Update( true );
+		return true;
+	}
+
+	m_bLoad = false;
+	RedrawWindow();
+
+	return false;
+}
+
+bool CCropImageControl::Update( bool bForce )
+{
+	if( bForce == false )
+	{
+		if( m_bLoad == false )
+		{
+			return false;
+		}
+	}
 
 	RECT sttRect;
 
@@ -89,12 +110,12 @@ bool CCropImageControl::SetFile( const char * pszFileName )
 
 	memset( &m_sttBoxRect, 0, sizeof(m_sttBoxRect) );
 
-	if( m_iCropWidth >= m_iCropHeight )
+	if( gclsSetup.m_iCropWidth >= gclsSetup.m_iCropHeight )
 	{
-		m_iBoxHeight = (int)((double)m_iPaintWidth * m_iCropHeight / m_iCropWidth);
+		m_iBoxHeight = (int)((double)m_iPaintWidth * gclsSetup.m_iCropHeight / gclsSetup.m_iCropWidth);
 		if( m_sttBoxRect.bottom > m_iPaintHeight )
 		{
-			m_iBoxWidth = (int)((double)m_iPaintHeight * m_iCropWidth / m_iCropHeight);
+			m_iBoxWidth = (int)((double)m_iPaintHeight * gclsSetup.m_iCropWidth / gclsSetup.m_iCropHeight);
 			m_iBoxHeight = m_iPaintHeight;
 			m_bWidth = false;
 		}
@@ -106,11 +127,11 @@ bool CCropImageControl::SetFile( const char * pszFileName )
 	}
 	else
 	{
-		m_iBoxWidth = (int)((double)m_iPaintHeight * m_iCropWidth / m_iCropHeight);
+		m_iBoxWidth = (int)((double)m_iPaintHeight * gclsSetup.m_iCropWidth / gclsSetup.m_iCropHeight);
 		if( m_sttBoxRect.right > m_iPaintWidth )
 		{
 			m_iBoxWidth = m_iPaintWidth;
-			m_iBoxHeight = (int)((double)m_iPaintWidth * m_iCropHeight / m_iCropWidth);
+			m_iBoxHeight = (int)((double)m_iPaintWidth * gclsSetup.m_iCropHeight / gclsSetup.m_iCropWidth);
 			m_bWidth = true;
 		}
 		else
@@ -146,7 +167,7 @@ bool CCropImageControl::SaveFile( const char * pszFileName )
 	int iWidth = (int)(m_iBoxWidth * dbRatio);
 	int iHeight = (int)(m_iBoxHeight * dbRatio);
 
-	if( clsOutput.Create( m_iCropWidth, m_iCropHeight, m_clsImage.GetBPP() ) == FALSE )
+	if( clsOutput.Create( gclsSetup.m_iCropWidth, gclsSetup.m_iCropHeight, m_clsImage.GetBPP() ) == FALSE )
 	{
 		return false;
 	}
@@ -159,7 +180,7 @@ bool CCropImageControl::SaveFile( const char * pszFileName )
 
 	SetStretchBltMode( hDC, HALFTONE );
 
-	if( m_clsImage.StretchBlt( hDC, 0, 0, m_iCropWidth, m_iCropHeight, iLeft, iTop, iWidth, iHeight, SRCCOPY ) )
+	if( m_clsImage.StretchBlt( hDC, 0, 0, gclsSetup.m_iCropWidth, gclsSetup.m_iCropHeight, iLeft, iTop, iWidth, iHeight, SRCCOPY ) )
 	{
 		HRESULT hr = clsOutput.Save( pszFileName );
 		

@@ -31,6 +31,7 @@ public:
 	static BOOL RegisterWindowClass();
 	bool SetFile( const char * pszFileName );
 	bool SaveFile( const char * pszFileName );
+	bool Update( bool bForce = false );
 
 protected:
 	DECLARE_MESSAGE_MAP()
@@ -46,9 +47,6 @@ protected:
 	RECT m_sttBoxRect;
 	int	m_iBoxWidth;
 	int m_iBoxHeight;
-
-	int m_iCropWidth;
-	int m_iCropHeight;
 
 	bool m_bDrag;
 	bool m_bLoad;

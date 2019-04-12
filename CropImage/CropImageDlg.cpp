@@ -19,6 +19,8 @@
 #include "stdafx.h"
 #include "CropImage.h"
 #include "CropImageDlg.h"
+#include "Setup.h"
+#include "SetupDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -115,6 +117,8 @@ BOOL CCropImageDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
+	gclsSetup.Get();
+
 	//m_clsCropImage.SetFile( "c:\\temp\\town\\2.jpg" );
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -182,5 +186,10 @@ void CCropImageDlg::OnBnClickedCancel()
 
 void CCropImageDlg::OnBnClickedSetup()
 {
+	CSetupDlg clsDlg;
 
+	if( clsDlg.DoModal() == IDOK )
+	{
+		m_clsCropImage.Update();
+	}
 }

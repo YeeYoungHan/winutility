@@ -36,7 +36,9 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnBnClickedOk();
 	int m_iCropWidth;
 	int m_iCropHeight;
+
+	virtual BOOL OnInitDialog();
+	afx_msg void OnBnClickedOk();
 };

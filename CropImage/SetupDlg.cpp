@@ -19,7 +19,7 @@
 #include "stdafx.h"
 #include "CropImage.h"
 #include "SetupDlg.h"
-
+#include "Setup.h"
 
 // CSetupDlg 대화 상자입니다.
 
@@ -52,7 +52,37 @@ END_MESSAGE_MAP()
 
 // CSetupDlg 메시지 처리기입니다.
 
+BOOL CSetupDlg::OnInitDialog()
+{
+	CDialog::OnInitDialog();
+
+	m_iCropWidth = gclsSetup.m_iCropWidth;
+	m_iCropHeight = gclsSetup.m_iCropHeight;
+
+	UpdateData(FALSE);
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+}
+
 void CSetupDlg::OnBnClickedOk()
 {
+	UpdateData(TRUE);
+
+	if( m_iCropWidth <= 0 )
+	{
+		MessageBox( "Invalid crop image width" );
+		return;
+	}
+
+	if( m_iCropHeight <= 0 )
+	{
+		MessageBox( "Invalid crop image height" );
+		return;
+	}
+
+	gclsSetup.m_iCropWidth = m_iCropWidth;
+	gclsSetup.m_iCropHeight = m_iCropHeight;
+
 	OnOK();
 }
