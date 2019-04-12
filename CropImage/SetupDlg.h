@@ -16,28 +16,27 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
  */
 
-#include "stdafx.h"
+#pragma once
 
-const char * GetProgramDirectory( )
+// CSetupDlg 대화 상자입니다.
+
+class CSetupDlg : public CDialog
 {
-	static char	szDir[1024];
+	DECLARE_DYNAMIC(CSetupDlg)
 
-	if( strlen(szDir) == 0 )
-	{
-		HMODULE	hThis;
+public:
+	CSetupDlg(CWnd* pParent = NULL);   // 표준 생성자입니다.
+	virtual ~CSetupDlg();
 
-		hThis = GetModuleHandle( NULL );
+// 대화 상자 데이터입니다.
+	enum { IDD = IDD_SETUP };
 
-		GetModuleFileName( hThis, szDir, sizeof(szDir));
-		for( int i = (int)strlen( szDir) - 1; i >= 0; i-- )
-		{
-			if( szDir[i] == '\\' ) 
-			{
-				szDir[i] = '\0';
-				break;
-			}
-		}
-	}
+protected:
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
-	return szDir;
-}
+	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnBnClickedOk();
+	int m_iCropWidth;
+	int m_iCropHeight;
+};

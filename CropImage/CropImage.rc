@@ -71,6 +71,47 @@ END
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDR_MAINFRAME           ICON                    "res\\CropImage.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_SETUP DIALOGEX 0, 0, 164, 121
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Setup"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,53,100,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,106,100,50,14
+    GROUPBOX        " Crop Image",IDC_STATIC,7,7,150,76
+    LTEXT           "Width",IDC_STATIC,19,29,20,8
+    LTEXT           "Height",IDC_STATIC,19,48,22,8
+    EDITTEXT        IDC_CROP_WIDTH,47,27,59,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_CROP_HEIGHT,47,46,59,14,ES_AUTOHSCROLL
+    LTEXT           "px",IDC_STATIC,111,29,9,8
+    LTEXT           "px",IDC_STATIC,111,48,9,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_SETUP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 157
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 114
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
 #endif    // ÇÑ±¹¾î resources
 /////////////////////////////////////////////////////////////////////////////
 
@@ -106,9 +147,10 @@ EXSTYLE WS_EX_APPWINDOW
 CAPTION "CropImage"
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,279,323,50,14
+    DEFPUSHBUTTON   "Save",IDOK,279,323,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,334,323,50,14
     CONTROL         "Custom1",IDC_CROP_IMAGE_CONTROL,"CropImageControl",WS_TABSTOP,7,7,377,310
+    PUSHBUTTON      "Setup",IDC_SETUP,7,323,50,14
 END
 
 

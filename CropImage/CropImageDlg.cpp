@@ -80,6 +80,7 @@ BEGIN_MESSAGE_MAP(CCropImageDlg, CDialog)
 	//}}AFX_MSG_MAP
 	ON_BN_CLICKED(IDOK, &CCropImageDlg::OnBnClickedOk)
 	ON_BN_CLICKED(IDCANCEL, &CCropImageDlg::OnBnClickedCancel)
+	ON_BN_CLICKED(IDC_SETUP, &CCropImageDlg::OnBnClickedSetup)
 END_MESSAGE_MAP()
 
 
@@ -114,7 +115,7 @@ BOOL CCropImageDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
-	m_clsCropImage.SetFile( "c:\\temp\\town\\1.jpg" );
+	//m_clsCropImage.SetFile( "c:\\temp\\town\\2.jpg" );
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -171,11 +172,15 @@ HCURSOR CCropImageDlg::OnQueryDragIcon()
 
 void CCropImageDlg::OnBnClickedOk()
 {
-	m_clsCropImage.SaveFile( "c:\\temp\\town\\1.png" );
+	//m_clsCropImage.SaveFile( "c:\\temp\\town\\1.png" );
 }
 
 void CCropImageDlg::OnBnClickedCancel()
 {
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	OnCancel();
+}
+
+void CCropImageDlg::OnBnClickedSetup()
+{
+
 }

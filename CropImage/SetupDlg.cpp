@@ -17,27 +17,42 @@
  */
 
 #include "stdafx.h"
+#include "CropImage.h"
+#include "SetupDlg.h"
 
-const char * GetProgramDirectory( )
+
+// CSetupDlg 대화 상자입니다.
+
+IMPLEMENT_DYNAMIC(CSetupDlg, CDialog)
+
+CSetupDlg::CSetupDlg(CWnd* pParent /*=NULL*/)
+	: CDialog(CSetupDlg::IDD, pParent)
+	, m_iCropWidth(0)
+	, m_iCropHeight(0)
 {
-	static char	szDir[1024];
 
-	if( strlen(szDir) == 0 )
-	{
-		HMODULE	hThis;
+}
 
-		hThis = GetModuleHandle( NULL );
+CSetupDlg::~CSetupDlg()
+{
+}
 
-		GetModuleFileName( hThis, szDir, sizeof(szDir));
-		for( int i = (int)strlen( szDir) - 1; i >= 0; i-- )
-		{
-			if( szDir[i] == '\\' ) 
-			{
-				szDir[i] = '\0';
-				break;
-			}
-		}
-	}
+void CSetupDlg::DoDataExchange(CDataExchange* pDX)
+{
+	CDialog::DoDataExchange(pDX);
+	DDX_Text(pDX, IDC_CROP_WIDTH, m_iCropWidth);
+	DDX_Text(pDX, IDC_CROP_HEIGHT, m_iCropHeight);
+}
 
-	return szDir;
+
+BEGIN_MESSAGE_MAP(CSetupDlg, CDialog)
+	ON_BN_CLICKED(IDOK, &CSetupDlg::OnBnClickedOk)
+END_MESSAGE_MAP()
+
+
+// CSetupDlg 메시지 처리기입니다.
+
+void CSetupDlg::OnBnClickedOk()
+{
+	OnOK();
 }
