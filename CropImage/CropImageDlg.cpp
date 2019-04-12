@@ -121,8 +121,6 @@ BOOL CCropImageDlg::OnInitDialog()
 
 	gclsSetup.Get();
 
-	//m_clsCropImage.SetFile( "c:\\temp\\town\\2.jpg" );
-
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -243,7 +241,7 @@ void CCropImageDlg::OnBnClickedSetup()
 
 void CCropImageDlg::OnBnClickedOpenFile()
 {
-	CFileDialog clsDlg( TRUE, NULL, NULL, OFN_HIDEREADONLY, "이미지 파일(*.jpg, *.png)|*jpg;*.jpeg;*png||" );
+	CFileDialog clsDlg( TRUE, NULL, NULL, 0, "이미지 파일(*.jpg, *.png)|*jpg;*.jpeg;*png||" );
 	if( clsDlg.DoModal() == IDOK )
 	{
 		if( m_clsCropImage.SetFile( clsDlg.GetPathName() ) == false )
