@@ -88,3 +88,25 @@ bool ResizeImage( const char * pszInput, const char * pszOutput, int iWidth, int
 
 	return bRes;
 }
+
+bool SelectFolder( std::string & strFolder )
+{
+	BROWSEINFO sttInfo;
+	char szFolder[1024];
+
+	memset( &sttInfo, 0, sizeof(sttInfo) );
+	memset( szFolder, 0, sizeof(szFolder) );
+
+  sttInfo.ulFlags = BIF_NEWDIALOGSTYLE | BIF_RETURNONLYFSDIRS;
+  LPITEMIDLIST pItemIdList = ::SHBrowseForFolder(&sttInfo);
+	if( pItemIdList )
+	{
+		::SHGetPathFromIDList( pItemIdList, szFolder );
+		::CoTaskMemFree( pItemIdList );
+		strFolder = szFolder;
+
+		return true;
+	}
+
+	return false;
+}

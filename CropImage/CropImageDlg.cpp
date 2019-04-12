@@ -65,6 +65,7 @@ END_MESSAGE_MAP()
 
 CCropImageDlg::CCropImageDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CCropImageDlg::IDD, pParent)
+	, m_strPage(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 	m_iId = 0;
@@ -74,6 +75,7 @@ void CCropImageDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_CROP_IMAGE_CONTROL, m_clsCropImage);
+	DDX_Text(pDX, IDC_PAGE, m_strPage);
 }
 
 BEGIN_MESSAGE_MAP(CCropImageDlg, CDialog)
@@ -85,6 +87,10 @@ BEGIN_MESSAGE_MAP(CCropImageDlg, CDialog)
 	ON_BN_CLICKED(IDCANCEL, &CCropImageDlg::OnBnClickedCancel)
 	ON_BN_CLICKED(IDC_SETUP, &CCropImageDlg::OnBnClickedSetup)
 	ON_BN_CLICKED(IDC_OPEN_FILE, &CCropImageDlg::OnBnClickedOpenFile)
+	ON_BN_CLICKED(IDC_OPEN_DIR, &CCropImageDlg::OnBnClickedOpenDir)
+	ON_BN_CLICKED(IDC_RESET_NO, &CCropImageDlg::OnBnClickedResetNo)
+	ON_BN_CLICKED(IDC_PREV, &CCropImageDlg::OnBnClickedPrev)
+	ON_BN_CLICKED(IDC_NEXT, &CCropImageDlg::OnBnClickedNext)
 END_MESSAGE_MAP()
 
 
@@ -249,4 +255,24 @@ void CCropImageDlg::OnBnClickedOpenFile()
 			MessageBox( "이미지 파일 읽기 오류가 발생하였습니다." );
 		}
 	}
+}
+
+void CCropImageDlg::OnBnClickedOpenDir()
+{
+	
+}
+
+void CCropImageDlg::OnBnClickedResetNo()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+}
+
+void CCropImageDlg::OnBnClickedPrev()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+}
+
+void CCropImageDlg::OnBnClickedNext()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }

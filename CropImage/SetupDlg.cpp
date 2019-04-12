@@ -145,19 +145,12 @@ void CSetupDlg::OnBnClickedOk()
 
 void CSetupDlg::OnBnClickedSelectOutputFolder()
 {
-	BROWSEINFO sttInfo;
-	char szFolder[1024];
+	std::string strFolder;
 
-	memset( &sttInfo, 0, sizeof(sttInfo) );
-	memset( szFolder, 0, sizeof(szFolder) );
-
-  sttInfo.hwndOwner = GetSafeHwnd();
-  sttInfo.ulFlags = BIF_NEWDIALOGSTYLE | BIF_RETURNONLYFSDIRS;
-  LPITEMIDLIST pItemIdList = ::SHBrowseForFolder(&sttInfo);
-  ::SHGetPathFromIDList( pItemIdList, szFolder );
-	::CoTaskMemFree( pItemIdList );
-
-	m_strCropOutputFolder = szFolder;
+	if( SelectFolder( strFolder ) )
+	{
+		m_strCropOutputFolder = strFolder.c_str();
+	}
 
 	UpdateData(FALSE);
 }

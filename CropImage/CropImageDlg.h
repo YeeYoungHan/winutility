@@ -51,4 +51,9 @@ public:
 	afx_msg void OnBnClickedCancel();
 	afx_msg void OnBnClickedSetup();
 	afx_msg void OnBnClickedOpenFile();
+	afx_msg void OnBnClickedOpenDir();
+	afx_msg void OnBnClickedResetNo();
+	afx_msg void OnBnClickedPrev();
+	afx_msg void OnBnClickedNext();
+	CString m_strPage;
 };
