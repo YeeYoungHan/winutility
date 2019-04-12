@@ -38,7 +38,7 @@ bool CSetup::Get()
 	m_iThumbnailWidth = ::GetPrivateProfileInt( SETUP_THUMBNAIL_IMAGE, SETUP_WIDTH, 102, m_strFilePath.c_str() );
 	m_iThumbnailHeight = ::GetPrivateProfileInt( SETUP_THUMBNAIL_IMAGE, SETUP_HEIGHT, 66, m_strFilePath.c_str() );
 
-	if( ::GetPrivateProfileString( SETUP_CROP_IMAGE, SETUP_THUMBNAIL_PREFIX, "", szTemp, sizeof(szTemp), m_strFilePath.c_str() ) > 0 )
+	if( ::GetPrivateProfileString( SETUP_THUMBNAIL_IMAGE, SETUP_THUMBNAIL_PREFIX, "", szTemp, sizeof(szTemp), m_strFilePath.c_str() ) > 0 )
 	{
 		m_strThumbnailPrefix = szTemp;
 	}

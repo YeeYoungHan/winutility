@@ -236,7 +236,7 @@ void CCropImageDlg::OnBnClickedSetup()
 
 void CCropImageDlg::OnBnClickedOpenFile()
 {
-	CFileDialog clsDlg( TRUE, NULL, NULL, OFN_HIDEREADONLY, "이미지 파일(*.jpg, *.png)|*jpg;*png||" );
+	CFileDialog clsDlg( TRUE, NULL, NULL, OFN_HIDEREADONLY, "이미지 파일(*.jpg, *.png)|*jpg;*.jpeg;*png||" );
 	if( clsDlg.DoModal() == IDOK )
 	{
 		if( m_clsCropImage.SetFile( clsDlg.GetPathName() ) == false )
