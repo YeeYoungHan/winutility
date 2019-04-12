@@ -3,7 +3,7 @@
 
 CSetup gclsSetup;
 
-CSetup::CSetup() : m_iCropWidth(847), m_iCropHeight(551), m_bUseThumbnail(false), m_iThumbnailWidth(102), m_iThumbnailHeight(66)
+CSetup::CSetup() : m_iCropWidth(847), m_iCropHeight(551), m_iCropFileStartNo(1), m_bUseThumbnail(false), m_iThumbnailWidth(102), m_iThumbnailHeight(66)
 {
 	m_strFilePath = GetProgramDirectory();
 	m_strFilePath.append( "\\CropImage.ini" );
@@ -19,6 +19,7 @@ bool CSetup::Get()
 
 	m_iCropWidth = ::GetPrivateProfileInt( SETUP_CROP_IMAGE, SETUP_WIDTH, 847, m_strFilePath.c_str() );
 	m_iCropHeight = ::GetPrivateProfileInt( SETUP_CROP_IMAGE, SETUP_HEIGHT, 551, m_strFilePath.c_str() );
+	m_iCropFileStartNo = ::GetPrivateProfileInt( SETUP_CROP_IMAGE, SETUP_START_NO, 1, m_strFilePath.c_str() );
 	
 	if( ::GetPrivateProfileString( SETUP_CROP_IMAGE, SETUP_OUTPUT_FOLDER, "", szTemp, sizeof(szTemp), m_strFilePath.c_str() ) > 0 )
 	{
@@ -50,6 +51,7 @@ bool CSetup::Put()
 {
 	SaveInt( SETUP_CROP_IMAGE, SETUP_WIDTH, m_iCropWidth );
 	SaveInt( SETUP_CROP_IMAGE, SETUP_HEIGHT, m_iCropHeight );
+	SaveInt( SETUP_CROP_IMAGE, SETUP_START_NO, m_iCropFileStartNo );
 
 	::WritePrivateProfileString( SETUP_CROP_IMAGE, SETUP_OUTPUT_FOLDER, m_strOutputFolderPath.c_str(), m_strFilePath.c_str() );
 

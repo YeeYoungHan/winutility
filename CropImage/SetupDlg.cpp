@@ -34,6 +34,7 @@ CSetupDlg::CSetupDlg(CWnd* pParent /*=NULL*/)
 	, m_iThumbnailWidth(0)
 	, m_iThumbnailHeight(0)
 	, m_strThumbnailPrefix(_T(""))
+	, m_iCropStartNo(0)
 {
 
 }
@@ -52,6 +53,7 @@ void CSetupDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_THUMBNAIL_WIDTH, m_iThumbnailWidth);
 	DDX_Text(pDX, IDC_THUMBNAIL_HEIGHT, m_iThumbnailHeight);
 	DDX_Text(pDX, IDC_THUMBNAIL_PREFIX, m_strThumbnailPrefix);
+	DDX_Text(pDX, IDC_CROP_START_NO, m_iCropStartNo);
 }
 
 
@@ -69,6 +71,7 @@ BOOL CSetupDlg::OnInitDialog()
 
 	m_iCropWidth = gclsSetup.m_iCropWidth;
 	m_iCropHeight = gclsSetup.m_iCropHeight;
+	m_iCropStartNo = gclsSetup.m_iCropFileStartNo;
 	m_strCropOutputFolder = gclsSetup.m_strOutputFolderPath.c_str();
 
 	m_bUseThumbnail = gclsSetup.m_bUseThumbnail ? TRUE : FALSE;
@@ -127,6 +130,7 @@ void CSetupDlg::OnBnClickedOk()
 
 	gclsSetup.m_iCropWidth = m_iCropWidth;
 	gclsSetup.m_iCropHeight = m_iCropHeight;
+	gclsSetup.m_iCropFileStartNo = m_iCropStartNo;
 	gclsSetup.m_strOutputFolderPath = m_strCropOutputFolder;
 
 	gclsSetup.m_bUseThumbnail = m_bUseThumbnail ? true : false;

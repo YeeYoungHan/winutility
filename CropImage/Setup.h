@@ -1,12 +1,13 @@
 #pragma once
 
-#define SETUP_CROP_IMAGE			"CropImage"
-#define SETUP_THUMBNAIL_IMAGE	"ThumbnailImage"
+#define SETUP_CROP_IMAGE				"CropImage"
+#define SETUP_THUMBNAIL_IMAGE		"ThumbnailImage"
 
-#define SETUP_WIDTH						"Width"
-#define SETUP_HEIGHT					"Height"
-#define SETUP_OUTPUT_FOLDER		"Folder"
-#define SETUP_USE_THUMBNAIL		"UseThumbnail"
+#define SETUP_WIDTH							"Width"
+#define SETUP_HEIGHT						"Height"
+#define SETUP_START_NO					"StartNo"
+#define SETUP_OUTPUT_FOLDER			"Folder"
+#define SETUP_USE_THUMBNAIL			"UseThumbnail"
 #define SETUP_THUMBNAIL_PREFIX	"Prefix"
 
 class CSetup
@@ -20,6 +21,7 @@ public:
 
 	int m_iCropWidth;
 	int m_iCropHeight;
+	int m_iCropFileStartNo;
 	std::string m_strOutputFolderPath;
 
 	bool m_bUseThumbnail;

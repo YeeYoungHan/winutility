@@ -19,8 +19,9 @@
 #define IDC_THUMBNAIL_WIDTH             1006
 #define IDC_THUMBNAIL_HEIGHT            1007
 #define IDC_USE_THUMBNAIL               1008
-#define IDC_THUMBNAIL_HEIGHT2           1009
 #define IDC_THUMBNAIL_PREFIX            1009
+#define IDC_CROP_HEIGHT2                1010
+#define IDC_CROP_START_NO               1010
 
 // Next default values for new objects
 // 

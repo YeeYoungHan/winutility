@@ -192,7 +192,14 @@ void CCropImageDlg::OnBnClickedOk()
 
 	char szId[11];
 
-	++m_iId;
+	if( m_iId == 0 )
+	{
+		m_iId = gclsSetup.m_iCropFileStartNo;
+	}
+	else
+	{
+		++m_iId;
+	}
 	
 	_snprintf( szId, sizeof(szId), "%d", m_iId );
 

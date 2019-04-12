@@ -77,33 +77,35 @@ IDR_MAINFRAME           ICON                    "res\\CropImage.ico"
 // Dialog
 //
 
-IDD_SETUP DIALOGEX 0, 0, 261, 224
+IDD_SETUP DIALOGEX 0, 0, 261, 262
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Setup"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,149,203,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,204,203,50,14
-    GROUPBOX        " Crop Image",IDC_STATIC,7,7,247,97
+    DEFPUSHBUTTON   "OK",IDOK,149,241,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,204,241,50,14
+    GROUPBOX        " Crop Image",IDC_STATIC,7,7,247,119
     LTEXT           "Width",IDC_STATIC,19,29,20,8
     LTEXT           "Height",IDC_STATIC,19,48,22,8
     EDITTEXT        IDC_CROP_WIDTH,47,27,59,14,ES_AUTOHSCROLL
     EDITTEXT        IDC_CROP_HEIGHT,47,46,59,14,ES_AUTOHSCROLL
     LTEXT           "px",IDC_STATIC,111,29,9,8
     LTEXT           "px",IDC_STATIC,111,48,9,8
-    LTEXT           "Output\r\nfolder",IDC_STATIC,19,67,23,17
-    EDITTEXT        IDC_CROP_OUTPUT_FOLDER,48,67,175,25,ES_MULTILINE | ES_AUTOHSCROLL | ES_READONLY
-    PUSHBUTTON      "...",IDC_SELECT_OUTPUT_FOLDER,228,67,26,15
-    GROUPBOX        " Thumbnail Image",IDC_STATIC,7,110,247,83
-    LTEXT           "Width",IDC_STATIC,19,132,20,8
-    LTEXT           "Height",IDC_STATIC,19,151,22,8
-    EDITTEXT        IDC_THUMBNAIL_WIDTH,47,130,59,14,ES_AUTOHSCROLL
-    EDITTEXT        IDC_THUMBNAIL_HEIGHT,47,149,59,14,ES_AUTOHSCROLL
-    LTEXT           "px",IDC_STATIC,111,132,9,8
-    LTEXT           "px",IDC_STATIC,111,151,9,8
-    CONTROL         "Save Thumbnail Image",IDC_USE_THUMBNAIL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,152,131,88,10
-    LTEXT           "Prefix",IDC_STATIC,19,169,20,8
-    EDITTEXT        IDC_THUMBNAIL_PREFIX,47,168,59,14,ES_AUTOHSCROLL
+    LTEXT           "Output\r\nfolder",IDC_STATIC,19,85,23,17
+    EDITTEXT        IDC_CROP_OUTPUT_FOLDER,48,85,175,25,ES_MULTILINE | ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "...",IDC_SELECT_OUTPUT_FOLDER,228,85,19,15
+    GROUPBOX        " Thumbnail Image",IDC_STATIC,7,141,247,83
+    LTEXT           "Width",IDC_STATIC,19,163,20,8
+    LTEXT           "Height",IDC_STATIC,19,182,22,8
+    EDITTEXT        IDC_THUMBNAIL_WIDTH,47,161,59,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_THUMBNAIL_HEIGHT,47,180,59,14,ES_AUTOHSCROLL
+    LTEXT           "px",IDC_STATIC,111,163,9,8
+    LTEXT           "px",IDC_STATIC,111,182,9,8
+    CONTROL         "Save Thumbnail Image",IDC_USE_THUMBNAIL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,152,162,88,10
+    LTEXT           "Prefix",IDC_STATIC,19,200,20,8
+    EDITTEXT        IDC_THUMBNAIL_PREFIX,47,199,59,14,ES_AUTOHSCROLL
+    LTEXT           "Start No",IDC_STATIC,19,67,28,8
+    EDITTEXT        IDC_CROP_START_NO,47,65,59,14,ES_AUTOHSCROLL
 END
 
 
@@ -120,7 +122,7 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 254
         TOPMARGIN, 7
-        BOTTOMMARGIN, 217
+        BOTTOMMARGIN, 255
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -216,13 +218,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "TODO: <Company name>"
-            VALUE "FileDescription", "TODO: <File description>"
+            VALUE "CompanyName", "Window Utility"
+            VALUE "FileDescription", "Crop Image"
             VALUE "FileVersion", "1.0.0.1"
             VALUE "InternalName", "CropImage.exe"
-            VALUE "LegalCopyright", "TODO: (c) <Company name>.  All rights reserved."
+            VALUE "LegalCopyright", "(c) websearch@naver.com.  All rights reserved."
             VALUE "OriginalFilename", "CropImage.exe"
-            VALUE "ProductName", "TODO: <Product name>"
+            VALUE "ProductName", "CropImage"
             VALUE "ProductVersion", "1.0.0.1"
         END
     END
