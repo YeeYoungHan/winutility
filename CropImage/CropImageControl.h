@@ -30,6 +30,7 @@ public:
 
 	static BOOL RegisterWindowClass();
 	bool SetFile( const char * pszFileName );
+	bool SaveFile( const char * pszFileName );
 
 protected:
 	DECLARE_MESSAGE_MAP()
@@ -51,6 +52,7 @@ protected:
 
 	bool m_bDrag;
 	bool m_bLoad;
+	bool m_bWidth;	// 폭 기준인가?
 	
 	CPoint m_clsMousePos;
 

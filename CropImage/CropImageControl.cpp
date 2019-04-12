@@ -26,7 +26,7 @@
 
 IMPLEMENT_DYNAMIC(CCropImageControl, CWnd)
 
-CCropImageControl::CCropImageControl() : m_bDrag(false), m_bLoad(false)
+CCropImageControl::CCropImageControl() : m_bDrag(false), m_bLoad(false), m_bWidth(true)
 {
 	m_iCropWidth = 847;
 	m_iCropHeight = 551;
@@ -96,10 +96,12 @@ bool CCropImageControl::SetFile( const char * pszFileName )
 		{
 			m_iBoxWidth = (int)((double)m_iPaintHeight * m_iCropWidth / m_iCropHeight);
 			m_iBoxHeight = m_iPaintHeight;
+			m_bWidth = false;
 		}
 		else
 		{
 			m_iBoxWidth = m_iPaintWidth;
+			m_bWidth = true;
 		}
 	}
 	else
@@ -109,10 +111,12 @@ bool CCropImageControl::SetFile( const char * pszFileName )
 		{
 			m_iBoxWidth = m_iPaintWidth;
 			m_iBoxHeight = (int)((double)m_iPaintWidth * m_iCropHeight / m_iCropWidth);
+			m_bWidth = true;
 		}
 		else
 		{
 			m_iBoxHeight = m_iPaintHeight;
+			m_bWidth = false;
 		}
 	}
 
@@ -124,6 +128,50 @@ bool CCropImageControl::SetFile( const char * pszFileName )
 	RedrawWindow();
 
 	return true;
+}
+
+bool CCropImageControl::SaveFile( const char * pszFileName )
+{
+	CImage clsOutput;
+	bool bRes = false;
+	double dbRatio = (double)m_iImageWidth / m_iBoxWidth;
+
+	if( m_bWidth == false )
+	{
+		dbRatio = (double)m_iImageHeight / m_iBoxHeight;
+	}
+
+	int iLeft = (int)(m_sttBoxRect.left * dbRatio);
+	int iTop = (int)(m_sttBoxRect.top * dbRatio);
+	int iWidth = (int)(m_iBoxWidth * dbRatio);
+	int iHeight = (int)(m_iBoxHeight * dbRatio);
+
+	if( clsOutput.Create( m_iCropWidth, m_iCropHeight, m_clsImage.GetBPP() ) == FALSE )
+	{
+		return false;
+	}
+
+	HDC hDC = clsOutput.GetDC();
+	if( hDC == NULL )
+	{
+		return false;
+	}
+
+	SetStretchBltMode( hDC, HALFTONE );
+
+	if( m_clsImage.StretchBlt( hDC, 0, 0, m_iCropWidth, m_iCropHeight, iLeft, iTop, iWidth, iHeight, SRCCOPY ) )
+	{
+		HRESULT hr = clsOutput.Save( pszFileName );
+		
+		if( SUCCEEDED(hr) )
+		{
+			bRes = true;
+		}
+	}
+
+	clsOutput.ReleaseDC();
+
+	return bRes;
 }
 
 BEGIN_MESSAGE_MAP(CCropImageControl, CWnd)
