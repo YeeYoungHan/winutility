@@ -201,7 +201,22 @@ void CCropImageDlg::OnBnClickedOk()
 	strFilePath.append( szId );
 	strFilePath.append( ".png" );
 
-	m_clsCropImage.SaveFile( strFilePath.c_str() );
+	if( m_clsCropImage.SaveFile( strFilePath.c_str() ) == false )
+	{
+		MessageBox( "Save error!!!" );
+		return;
+	}
+
+	if( gclsSetup.m_bUseThumbnail )
+	{
+		std::string strThumbnailFilePath = gclsSetup.m_strOutputFolderPath;
+		strThumbnailFilePath.append( "\\" );
+		strThumbnailFilePath.append( gclsSetup.m_strThumbnailPrefix );
+		strThumbnailFilePath.append( szId );
+		strThumbnailFilePath.append( ".png" );
+
+		ResizeImage( strFilePath.c_str(), strThumbnailFilePath.c_str(), gclsSetup.m_iThumbnailWidth, gclsSetup.m_iThumbnailHeight );
+	}
 }
 
 void CCropImageDlg::OnBnClickedCancel()

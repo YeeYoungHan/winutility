@@ -38,9 +38,13 @@ protected:
 public:
 	int m_iCropWidth;
 	int m_iCropHeight;
+	CString m_strCropOutputFolder;
+	BOOL m_bUseThumbnail;
+	int m_iThumbnailWidth;
+	int m_iThumbnailHeight;
+	CString m_strThumbnailPrefix;
 
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedOk();
-	CString m_strCropOutputFolder;
 	afx_msg void OnBnClickedSelectOutputFolder();
 };

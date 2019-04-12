@@ -62,3 +62,4 @@
 #endif
 
 const char * GetProgramDirectory( );
+bool ResizeImage( const char * pszInput, const char * pszOutput, int iWidth, int iHeight );

@@ -30,6 +30,10 @@ CSetupDlg::CSetupDlg(CWnd* pParent /*=NULL*/)
 	, m_iCropWidth(0)
 	, m_iCropHeight(0)
 	, m_strCropOutputFolder(_T(""))
+	, m_bUseThumbnail(FALSE)
+	, m_iThumbnailWidth(0)
+	, m_iThumbnailHeight(0)
+	, m_strThumbnailPrefix(_T(""))
 {
 
 }
@@ -44,6 +48,10 @@ void CSetupDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_CROP_WIDTH, m_iCropWidth);
 	DDX_Text(pDX, IDC_CROP_HEIGHT, m_iCropHeight);
 	DDX_Text(pDX, IDC_CROP_OUTPUT_FOLDER, m_strCropOutputFolder);
+	DDX_Check(pDX, IDC_USE_THUMBNAIL, m_bUseThumbnail);
+	DDX_Text(pDX, IDC_THUMBNAIL_WIDTH, m_iThumbnailWidth);
+	DDX_Text(pDX, IDC_THUMBNAIL_HEIGHT, m_iThumbnailHeight);
+	DDX_Text(pDX, IDC_THUMBNAIL_PREFIX, m_strThumbnailPrefix);
 }
 
 
@@ -62,6 +70,11 @@ BOOL CSetupDlg::OnInitDialog()
 	m_iCropWidth = gclsSetup.m_iCropWidth;
 	m_iCropHeight = gclsSetup.m_iCropHeight;
 	m_strCropOutputFolder = gclsSetup.m_strOutputFolderPath.c_str();
+
+	m_bUseThumbnail = gclsSetup.m_bUseThumbnail ? TRUE : FALSE;
+	m_iThumbnailWidth = gclsSetup.m_iThumbnailWidth;
+	m_iThumbnailHeight = gclsSetup.m_iThumbnailHeight;
+	m_strThumbnailPrefix = gclsSetup.m_strThumbnailPrefix.c_str();
 
 	UpdateData(FALSE);
 
@@ -91,9 +104,36 @@ void CSetupDlg::OnBnClickedOk()
 		return;
 	}
 
+	if( m_bUseThumbnail )
+	{
+		if( m_iThumbnailWidth <= 0 )
+		{
+			MessageBox( "Invalid thumbnail image width" );
+			return;
+		}
+
+		if( m_iThumbnailHeight <= 0 )
+		{
+			MessageBox( "Invalid thumbnail image height" );
+			return;
+		}
+
+		if( m_strThumbnailPrefix.IsEmpty() )
+		{
+			MessageBox( "Invalid thumbnail prefix" );
+			return;
+		}
+	}
+
 	gclsSetup.m_iCropWidth = m_iCropWidth;
 	gclsSetup.m_iCropHeight = m_iCropHeight;
 	gclsSetup.m_strOutputFolderPath = m_strCropOutputFolder;
+
+	gclsSetup.m_bUseThumbnail = m_bUseThumbnail ? true : false;
+	gclsSetup.m_iThumbnailWidth = m_iThumbnailWidth;
+	gclsSetup.m_iThumbnailHeight = m_iThumbnailHeight;
+	gclsSetup.m_strThumbnailPrefix = m_strThumbnailPrefix;
+
 	gclsSetup.Put();
 
 	OnOK();
