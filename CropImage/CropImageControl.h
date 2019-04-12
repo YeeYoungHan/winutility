@@ -29,19 +29,36 @@ public:
 	virtual ~CCropImageControl();
 
 	static BOOL RegisterWindowClass();
+	bool SetFile( const char * pszFileName );
 
 protected:
 	DECLARE_MESSAGE_MAP()
 
 	CImage m_clsImage;
-	RECT m_sttCropRect;
+
+	int m_iImageWidth;
+	int m_iImageHeight;
+
 	int m_iPaintWidth;
 	int m_iPaintHeight;
+
+	RECT m_sttBoxRect;
+	int	m_iBoxWidth;
+	int m_iBoxHeight;
+
 	int m_iCropWidth;
 	int m_iCropHeight;
 
+	bool m_bDrag;
+	bool m_bLoad;
+	
+	CPoint m_clsMousePos;
+
 public:
 	afx_msg void OnPaint();
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 };
 
 

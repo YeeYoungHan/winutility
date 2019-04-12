@@ -26,9 +26,8 @@
 
 IMPLEMENT_DYNAMIC(CCropImageControl, CWnd)
 
-CCropImageControl::CCropImageControl()
+CCropImageControl::CCropImageControl() : m_bDrag(false), m_bLoad(false)
 {
-	m_clsImage.Load( "c:\\temp\\town\\1.jpg" );
 	m_iCropWidth = 847;
 	m_iCropHeight = 551;
 }
@@ -65,15 +64,9 @@ BOOL CCropImageControl::RegisterWindowClass()
 	return TRUE;
 }
 
-BEGIN_MESSAGE_MAP(CCropImageControl, CWnd)
-	ON_WM_PAINT()
-END_MESSAGE_MAP()
-
-// CCropImageControl 메시지 처리기입니다.
-
-void CCropImageControl::OnPaint()
+bool CCropImageControl::SetFile( const char * pszFileName )
 {
-	CPaintDC dc(this); 
+	m_clsImage.Load( pszFileName );
 
 	RECT sttRect;
 
@@ -82,55 +75,148 @@ void CCropImageControl::OnPaint()
 	m_iPaintWidth = sttRect.right;
 	m_iPaintHeight = sttRect.bottom;
 
-	int iImageWidth = m_clsImage.GetWidth();
-	int iImageHeight = m_clsImage.GetHeight();
+	m_iImageWidth = m_clsImage.GetWidth();
+	m_iImageHeight = m_clsImage.GetHeight();
 	
-	if( iImageWidth >= iImageHeight )
+	if( m_iImageWidth >= m_iImageHeight )
 	{
-		m_iPaintHeight = (int)((double)iImageHeight / iImageWidth * m_iPaintWidth);
+		m_iPaintHeight = (int)((double)m_iImageHeight / m_iImageWidth * m_iPaintWidth);
 	}
 	else
 	{
-		m_iPaintWidth = (int)((double)iImageWidth / iImageHeight * m_iPaintHeight);
+		m_iPaintWidth = (int)((double)m_iImageWidth / m_iImageHeight * m_iPaintHeight);
 	}
 
-	m_clsImage.StretchBlt( dc, 0, 0, m_iPaintWidth, m_iPaintHeight, 0, 0, iImageWidth, iImageHeight, SRCCOPY );
+	memset( &m_sttBoxRect, 0, sizeof(m_sttBoxRect) );
 
-	memset( &m_sttCropRect, 0, sizeof(m_sttCropRect) );
-	
 	if( m_iCropWidth >= m_iCropHeight )
 	{
-		m_sttCropRect.bottom = (int)((double)m_iPaintWidth * m_iCropHeight / m_iCropWidth);
-		if( m_sttCropRect.bottom > m_iPaintHeight )
+		m_iBoxHeight = (int)((double)m_iPaintWidth * m_iCropHeight / m_iCropWidth);
+		if( m_sttBoxRect.bottom > m_iPaintHeight )
 		{
-			m_sttCropRect.right = (int)((double)m_iPaintHeight * m_iCropWidth / m_iCropHeight);
-			m_sttCropRect.bottom = m_iPaintHeight;
+			m_iBoxWidth = (int)((double)m_iPaintHeight * m_iCropWidth / m_iCropHeight);
+			m_iBoxHeight = m_iPaintHeight;
 		}
 		else
 		{
-			m_sttCropRect.right = m_iPaintWidth;
+			m_iBoxWidth = m_iPaintWidth;
 		}
 	}
 	else
 	{
-		m_sttCropRect.right = (int)((double)m_iPaintHeight * m_iCropWidth / m_iCropHeight);
-		if( m_sttCropRect.right > m_iPaintWidth )
+		m_iBoxWidth = (int)((double)m_iPaintHeight * m_iCropWidth / m_iCropHeight);
+		if( m_sttBoxRect.right > m_iPaintWidth )
 		{
-			m_sttCropRect.right = m_iPaintWidth;
-			m_sttCropRect.bottom = (int)((double)m_iPaintWidth * m_iCropHeight / m_iCropWidth);
+			m_iBoxWidth = m_iPaintWidth;
+			m_iBoxHeight = (int)((double)m_iPaintWidth * m_iCropHeight / m_iCropWidth);
 		}
 		else
 		{
-			m_sttCropRect.bottom = m_iPaintHeight;
+			m_iBoxHeight = m_iPaintHeight;
 		}
 	}
 
-	CBrush clsBrush, * pclsBrush;
+	m_sttBoxRect.right = m_iBoxWidth;
+	m_sttBoxRect.bottom = m_iBoxHeight;
 
-	clsBrush.CreateStockObject( NULL_BRUSH );
+	m_bLoad = true;
 
-	pclsBrush = dc.SelectObject( &clsBrush );
-	dc.Rectangle( &m_sttCropRect );
+	RedrawWindow();
 
-	dc.SelectObject( pclsBrush );
+	return true;
+}
+
+BEGIN_MESSAGE_MAP(CCropImageControl, CWnd)
+	ON_WM_PAINT()
+	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONUP()
+	ON_WM_MOUSEMOVE()
+END_MESSAGE_MAP()
+
+// CCropImageControl 메시지 처리기입니다.
+
+void CCropImageControl::OnPaint()
+{
+	CPaintDC dc(this); 
+
+	if( m_bLoad )
+	{
+		m_clsImage.StretchBlt( dc, 0, 0, m_iPaintWidth, m_iPaintHeight, 0, 0, m_iImageWidth, m_iImageHeight, SRCCOPY );
+		
+		CBrush clsBrush, * pclsBrush;
+
+		clsBrush.CreateStockObject( NULL_BRUSH );
+
+		pclsBrush = dc.SelectObject( &clsBrush );
+		dc.Rectangle( &m_sttBoxRect );
+
+		dc.SelectObject( pclsBrush );
+	}
+}
+
+void CCropImageControl::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	SetCapture();
+	m_bDrag = true;
+	m_clsMousePos = point;
+
+	CWnd::OnLButtonDown(nFlags, point);
+}
+
+void CCropImageControl::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	m_bDrag = false;
+	ReleaseCapture();
+
+	CWnd::OnLButtonUp(nFlags, point);
+}
+
+void CCropImageControl::OnMouseMove(UINT nFlags, CPoint point)
+{
+	if( m_bDrag )
+	{
+		CPoint clsPos = point - m_clsMousePos;
+		RECT sttRect = m_sttBoxRect;
+		m_clsMousePos = point;
+
+		if( m_iBoxWidth < m_iPaintWidth )
+		{
+			sttRect.left += clsPos.x;
+			if( sttRect.left <= 0 )
+			{
+				sttRect.left = 0;
+			}
+			else if( sttRect.left + m_iBoxWidth >= m_iPaintWidth )
+			{
+				sttRect.left = m_iPaintWidth - m_iBoxWidth;
+			}
+
+			sttRect.right = sttRect.left + m_iPaintWidth;
+		}
+
+		if( m_iBoxHeight < m_iPaintHeight )
+		{
+			sttRect.top += clsPos.y;
+			if( sttRect.top <= 0 )
+			{
+				sttRect.top = 0;
+			}
+			else if( sttRect.top + m_iBoxHeight >= m_iPaintHeight )
+			{
+				sttRect.top = m_iPaintHeight - m_iBoxHeight;
+			}
+
+			sttRect.bottom = sttRect.top + m_iBoxHeight;
+		}
+
+		//TRACE( "point(%d,%d) rect(%d,%d,%d,%d)\n", clsPos.x, clsPos.y, m_sttBoxRect.left, m_sttBoxRect.top, m_sttBoxRect.right, m_sttBoxRect.bottom );
+
+		if( sttRect.top != m_sttBoxRect.top || sttRect.left != m_sttBoxRect.left )
+		{
+			m_sttBoxRect = sttRect;
+			RedrawWindow();
+		}
+	}
+
+	CWnd::OnMouseMove(nFlags, point);
 }
