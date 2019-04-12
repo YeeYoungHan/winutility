@@ -152,10 +152,10 @@ void CSetupDlg::OnBnClickedSelectOutputFolder()
 	memset( szFolder, 0, sizeof(szFolder) );
 
   sttInfo.hwndOwner = GetSafeHwnd();
-  sttInfo.lpszTitle = "Select crop image save folder";
   sttInfo.ulFlags = BIF_NEWDIALOGSTYLE | BIF_RETURNONLYFSDIRS;
   LPITEMIDLIST pItemIdList = ::SHBrowseForFolder(&sttInfo);
   ::SHGetPathFromIDList( pItemIdList, szFolder );
+	::CoTaskMemFree( pItemIdList );
 
 	m_strCropOutputFolder = szFolder;
 
