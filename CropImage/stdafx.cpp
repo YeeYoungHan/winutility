@@ -113,9 +113,24 @@ bool SelectFolder( std::string & strFolder )
 
 bool IsImageFile( const char * pszFileName )
 {
-	if( strstr( pszFileName, ".jpg" ) || strstr( pszFileName, ".jpeg" ) || strstr( pszFileName, ".png" ) )
+	int iLen = strlen( pszFileName );
+	const char * pszExt = NULL;
+
+	for( int i = iLen - 1; i >= 0; --i )
 	{
-		return true;
+		if( pszFileName[i] == '.' )
+		{
+			pszExt = pszFileName + i;
+			break;
+		}
+	}
+
+	if( pszExt )
+	{
+		if( !_stricmp( pszExt, ".jpg" ) || !_stricmp( pszExt, ".jpeg" ) || !_stricmp( pszExt, ".png" ) )
+		{
+			return true;
+		}
 	}
 
 	return false;
