@@ -21,3 +21,7 @@
 
 ![Alt text](https://postfiles.pstatic.net/MjAxOTA0MTNfMjM4/MDAxNTU1MTI0MjQ4MDY1.LK61A1zmyUkvu_3sSXSpNQFewyoNoMJpiutQ5O0JUfUg.HgVkh1mkV80CAPgWND9bX-mYUF5jHhDdXNlOPwWIM1Ug.PNG.websearch/CropImage-2.png?type=w773)
 ![Alt text](https://postfiles.pstatic.net/MjAxOTA0MTNfMTQ3/MDAxNTU1MTI0NDMzNzU5.OKm3HpIAD1mdPhmmHY44BWP--1QajBRFrSv2Z14rQWYg._6ZGR-ZhQIUnGvmAIHpEFbNT_dPUIsktnULEREM1bCYg.PNG.websearch/CropImage-3.png?type=w773)
+
+### 알려진 문제
+
+* MFC CImage 클래스의 문제로 가로 < 세로인 이미지는 90도 회전해서 보여지는 현상이 있습니다.
