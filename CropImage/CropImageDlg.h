@@ -47,6 +47,7 @@ protected:
 	CButton m_btnNext;
 
 	void ShowPage();
+	void ShowFileList();
 
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
@@ -63,4 +64,5 @@ public:
 	afx_msg void OnBnClickedResetNo();
 	afx_msg void OnBnClickedPrev();
 	afx_msg void OnBnClickedNext();
+	afx_msg void OnDropFiles(HDROP hDropInfo);
 };

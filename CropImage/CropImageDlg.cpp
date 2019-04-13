@@ -93,6 +93,7 @@ BEGIN_MESSAGE_MAP(CCropImageDlg, CDialog)
 	ON_BN_CLICKED(IDC_RESET_NO, &CCropImageDlg::OnBnClickedResetNo)
 	ON_BN_CLICKED(IDC_PREV, &CCropImageDlg::OnBnClickedPrev)
 	ON_BN_CLICKED(IDC_NEXT, &CCropImageDlg::OnBnClickedNext)
+	ON_WM_DROPFILES()
 END_MESSAGE_MAP()
 
 
@@ -112,6 +113,38 @@ void CCropImageDlg::ShowPage()
 	m_strPage = szText;
 
 	UpdateData( FALSE );
+}
+
+void CCropImageDlg::ShowFileList()
+{
+	m_iFileIndex = 0;
+
+	int iCount = m_clsFileList.size();
+	if( iCount == 0 )
+	{
+		MessageBox( "There is no image file in folder." );
+	}
+	else
+	{
+		if( m_clsCropImage.SetFile( m_clsFileList[0].c_str() ) == false )
+		{
+			MessageBox( "Read image file error." );
+		}
+
+		if( iCount == 1 )
+		{
+			m_clsFileList.clear();
+			m_btnPrev.EnableWindow( FALSE );
+			m_btnNext.EnableWindow( FALSE );
+		}
+		else
+		{
+			m_btnPrev.EnableWindow( FALSE );
+			m_btnNext.EnableWindow( TRUE );
+		}
+	}
+
+	ShowPage();
 }
 
 // CCropImageDlg message handlers
@@ -144,6 +177,8 @@ BOOL CCropImageDlg::OnInitDialog()
 	//  when the application's main window is not a dialog
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
+
+	DragAcceptFiles( TRUE );
 
 	gclsSetup.Get();
 
@@ -295,35 +330,8 @@ void CCropImageDlg::OnBnClickedOpenDir()
 
 	if( SelectFolder( strFolder ) )
 	{
-		m_iFileIndex = 0;
-
 		GetFileList( strFolder.c_str(), m_clsFileList );
-		int iCount = m_clsFileList.size();
-		if( iCount == 0 )
-		{
-			MessageBox( "There is no image file in folder." );
-		}
-		else
-		{
-			if( m_clsCropImage.SetFile( m_clsFileList[0].c_str() ) == false )
-			{
-				MessageBox( "Read image file error." );
-			}
-
-			if( iCount == 1 )
-			{
-				m_clsFileList.clear();
-				m_btnPrev.EnableWindow( FALSE );
-				m_btnNext.EnableWindow( FALSE );
-			}
-			else
-			{
-				m_btnPrev.EnableWindow( FALSE );
-				m_btnNext.EnableWindow( TRUE );
-			}
-		}
-
-		ShowPage();
+		ShowFileList();
 	}
 }
 
@@ -372,4 +380,22 @@ void CCropImageDlg::OnBnClickedNext()
 
 		m_btnPrev.EnableWindow( TRUE );
 	}
+}
+
+void CCropImageDlg::OnDropFiles(HDROP hDropInfo)
+{
+	m_clsFileList.clear();
+
+	DWORD dwCount = DragQueryFile( hDropInfo, 0xFFFFFFFF, NULL, 0 );
+	char szFileName[2048];
+
+	for( DWORD i = 0; i < dwCount; ++i )
+	{
+		DragQueryFile( hDropInfo, i, szFileName, sizeof(szFileName) );
+		m_clsFileList.push_back( szFileName );
+	}
+
+	ShowFileList();
+
+	CDialog::OnDropFiles(hDropInfo);
 }
