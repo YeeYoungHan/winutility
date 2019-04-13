@@ -33,6 +33,10 @@
  dos> CopyFile.exe c:\temp\src.txt c:\temp\dest.txt 5 10
 ```
 
+* CropImage
+  * 이미지 파일들을 편리하게 커팅할 수 있는 프로그램
+  * https://blog.naver.com/websearch/221512614384
+
 * DiffFile
   * 2개의 파일 내용이 동일한지 비교하는 프로그램
   * 사용법
