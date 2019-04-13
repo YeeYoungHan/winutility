@@ -111,6 +111,16 @@ bool SelectFolder( std::string & strFolder )
 	return false;
 }
 
+bool IsImageFile( const char * pszFileName )
+{
+	if( strstr( pszFileName, ".jpg" ) || strstr( pszFileName, ".jpeg" ) || strstr( pszFileName, ".png" ) )
+	{
+		return true;
+	}
+
+	return false;
+}
+
 bool GetFileList( const char * pszDirName, FILE_LIST & clsFileList )
 {
 	clsFileList.clear();
@@ -133,7 +143,7 @@ bool GetFileList( const char * pszDirName, FILE_LIST & clsFileList )
 		if( !strcmp( sttFindData.cFileName, "." ) || !strcmp( sttFindData.cFileName, ".." ) ) continue;
 		if( sttFindData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY ) continue;
 
-		if( strstr( sttFindData.cFileName, ".jpg" ) || strstr( sttFindData.cFileName, ".jpeg" ) || strstr( sttFindData.cFileName, ".png" ) )
+		if( IsImageFile( sttFindData.cFileName ) )
 		{
 			std::string strFileName = pszDirName;
 			strFileName.append( "\\" );

@@ -392,7 +392,10 @@ void CCropImageDlg::OnDropFiles(HDROP hDropInfo)
 	for( DWORD i = 0; i < dwCount; ++i )
 	{
 		DragQueryFile( hDropInfo, i, szFileName, sizeof(szFileName) );
-		m_clsFileList.push_back( szFileName );
+		if( IsImageFile( szFileName ) )
+		{
+			m_clsFileList.push_back( szFileName );
+		}
 	}
 
 	ShowFileList();

@@ -64,6 +64,7 @@
 
 const char * GetProgramDirectory( );
 bool ResizeImage( const char * pszInput, const char * pszOutput, int iWidth, int iHeight );
+bool IsImageFile( const char * pszFileName );
 bool SelectFolder( std::string & strFolder );
 
 typedef std::vector< std::string > FILE_LIST;
