@@ -48,6 +48,7 @@
 
 #include <afxcontrolbars.h>     // MFC support for ribbons and control bars
 #include <string>
+#include <vector>
 
 #ifdef _UNICODE
 #if defined _M_IX86
@@ -64,3 +65,7 @@
 const char * GetProgramDirectory( );
 bool ResizeImage( const char * pszInput, const char * pszOutput, int iWidth, int iHeight );
 bool SelectFolder( std::string & strFolder );
+
+typedef std::vector< std::string > FILE_LIST;
+
+bool GetFileList( const char * pszDirName, FILE_LIST & clsFileList );

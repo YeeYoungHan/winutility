@@ -18,6 +18,7 @@
 
 #pragma once
 #include "cropimagecontrol.h"
+#include "afxwin.h"
 
 
 // CCropImageDlg dialog
@@ -39,6 +40,13 @@ protected:
 	HICON m_hIcon;
 	CCropImageControl m_clsCropImage;
 	int m_iId;
+	FILE_LIST m_clsFileList;
+	int m_iFileIndex;
+	CString m_strPage;
+	CButton m_btnPrev;
+	CButton m_btnNext;
+
+	void ShowPage();
 
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
@@ -55,5 +63,4 @@ public:
 	afx_msg void OnBnClickedResetNo();
 	afx_msg void OnBnClickedPrev();
 	afx_msg void OnBnClickedNext();
-	CString m_strPage;
 };

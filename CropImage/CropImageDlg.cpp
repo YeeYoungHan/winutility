@@ -76,6 +76,8 @@ void CCropImageDlg::DoDataExchange(CDataExchange* pDX)
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_CROP_IMAGE_CONTROL, m_clsCropImage);
 	DDX_Text(pDX, IDC_PAGE, m_strPage);
+	DDX_Control(pDX, IDC_PREV, m_btnPrev);
+	DDX_Control(pDX, IDC_NEXT, m_btnNext);
 }
 
 BEGIN_MESSAGE_MAP(CCropImageDlg, CDialog)
@@ -93,6 +95,24 @@ BEGIN_MESSAGE_MAP(CCropImageDlg, CDialog)
 	ON_BN_CLICKED(IDC_NEXT, &CCropImageDlg::OnBnClickedNext)
 END_MESSAGE_MAP()
 
+
+void CCropImageDlg::ShowPage()
+{
+	char szText[40];
+
+	if( m_clsFileList.empty() )
+	{
+		_snprintf( szText, sizeof(szText), "1/1" );
+	}
+	else
+	{
+		_snprintf( szText, sizeof(szText), "%d/%d", m_iFileIndex + 1, (int)m_clsFileList.size() );
+	}
+
+	m_strPage = szText;
+
+	UpdateData( FALSE );
+}
 
 // CCropImageDlg message handlers
 
@@ -228,6 +248,11 @@ void CCropImageDlg::OnBnClickedOk()
 
 		ResizeImage( strFilePath.c_str(), strThumbnailFilePath.c_str(), gclsSetup.m_iThumbnailWidth, gclsSetup.m_iThumbnailHeight );
 	}
+
+	if( m_clsFileList.empty() == false )
+	{
+		OnBnClickedNext();
+	}
 }
 
 void CCropImageDlg::OnBnClickedCancel()
@@ -247,32 +272,104 @@ void CCropImageDlg::OnBnClickedSetup()
 
 void CCropImageDlg::OnBnClickedOpenFile()
 {
-	CFileDialog clsDlg( TRUE, NULL, NULL, 0, "이미지 파일(*.jpg, *.png)|*jpg;*.jpeg;*png||" );
+	CFileDialog clsDlg( TRUE, NULL, NULL, 0, "Image file(*.jpg, *.png)|*jpg;*.jpeg;*png||" );
 	if( clsDlg.DoModal() == IDOK )
 	{
 		if( m_clsCropImage.SetFile( clsDlg.GetPathName() ) == false )
 		{
-			MessageBox( "이미지 파일 읽기 오류가 발생하였습니다." );
+			MessageBox( "Read image file error." );
+		}
+		else
+		{
+			m_clsFileList.clear();
+			m_btnPrev.EnableWindow( FALSE );
+			m_btnNext.EnableWindow( FALSE );
+			ShowPage();
 		}
 	}
 }
 
 void CCropImageDlg::OnBnClickedOpenDir()
 {
-	
+	std::string strFolder;
+
+	if( SelectFolder( strFolder ) )
+	{
+		m_iFileIndex = 0;
+
+		GetFileList( strFolder.c_str(), m_clsFileList );
+		int iCount = m_clsFileList.size();
+		if( iCount == 0 )
+		{
+			MessageBox( "There is no image file in folder." );
+		}
+		else
+		{
+			if( m_clsCropImage.SetFile( m_clsFileList[0].c_str() ) == false )
+			{
+				MessageBox( "Read image file error." );
+			}
+
+			if( iCount == 1 )
+			{
+				m_clsFileList.clear();
+				m_btnPrev.EnableWindow( FALSE );
+				m_btnNext.EnableWindow( FALSE );
+			}
+			else
+			{
+				m_btnPrev.EnableWindow( FALSE );
+				m_btnNext.EnableWindow( TRUE );
+			}
+		}
+
+		ShowPage();
+	}
 }
 
 void CCropImageDlg::OnBnClickedResetNo()
 {
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	m_iId = 0;
 }
 
 void CCropImageDlg::OnBnClickedPrev()
 {
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	if( m_iFileIndex > 0 )
+	{
+		--m_iFileIndex;
+		if( m_clsCropImage.SetFile( m_clsFileList[m_iFileIndex].c_str() ) == false )
+		{
+			MessageBox( "Read image file error." );
+		}
+
+		ShowPage();
+
+		if( m_iFileIndex == 0 )
+		{
+			m_btnPrev.EnableWindow( FALSE );
+		}
+
+		m_btnNext.EnableWindow( TRUE );
+	}
 }
 
 void CCropImageDlg::OnBnClickedNext()
 {
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	if( ( m_iFileIndex + 1 ) < (int)m_clsFileList.size() )
+	{
+		++m_iFileIndex;
+		if( m_clsCropImage.SetFile( m_clsFileList[m_iFileIndex].c_str() ) == false )
+		{
+			MessageBox( "Read image file error." );
+		}
+
+		ShowPage();
+
+		if( ( m_iFileIndex + 1 ) == (int)m_clsFileList.size() )
+		{
+			m_btnNext.EnableWindow( FALSE );
+		}
+
+		m_btnPrev.EnableWindow( TRUE );
+	}
 }

@@ -110,3 +110,41 @@ bool SelectFolder( std::string & strFolder )
 
 	return false;
 }
+
+bool GetFileList( const char * pszDirName, FILE_LIST & clsFileList )
+{
+	clsFileList.clear();
+
+	WIN32_FIND_DATA	sttFindData;
+	HANDLE			hFind;
+	BOOL				bNext = TRUE;
+	std::string	strPath = pszDirName;
+
+	strPath.append( "\\*.*" );
+
+	hFind = FindFirstFile( strPath.c_str(), &sttFindData );
+	if( hFind == INVALID_HANDLE_VALUE )
+	{
+		return false;
+	}
+
+	for( ; bNext == TRUE; bNext = FindNextFile( hFind, &sttFindData ) )
+	{
+		if( !strcmp( sttFindData.cFileName, "." ) || !strcmp( sttFindData.cFileName, ".." ) ) continue;
+		if( sttFindData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY ) continue;
+
+		if( strstr( sttFindData.cFileName, ".jpg" ) || strstr( sttFindData.cFileName, ".jpeg" ) || strstr( sttFindData.cFileName, ".png" ) )
+		{
+			std::string strFileName = pszDirName;
+			strFileName.append( "\\" );
+			strFileName.append( sttFindData.cFileName );
+
+			clsFileList.push_back( strFileName );
+		}
+	}
+
+	FindClose( hFind );
+
+	return true;
+}
+
