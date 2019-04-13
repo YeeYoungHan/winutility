@@ -115,7 +115,7 @@ bool CCropImageControl::Update( bool bForce )
 	if( gclsSetup.m_iCropWidth >= gclsSetup.m_iCropHeight )
 	{
 		m_iBoxHeight = (int)((double)m_iPaintWidth * gclsSetup.m_iCropHeight / gclsSetup.m_iCropWidth);
-		if( m_sttBoxRect.bottom > m_iPaintHeight )
+		if( m_iBoxHeight > m_iPaintHeight )
 		{
 			m_iBoxWidth = (int)((double)m_iPaintHeight * gclsSetup.m_iCropWidth / gclsSetup.m_iCropHeight);
 			m_iBoxHeight = m_iPaintHeight;
@@ -130,7 +130,7 @@ bool CCropImageControl::Update( bool bForce )
 	else
 	{
 		m_iBoxWidth = (int)((double)m_iPaintHeight * gclsSetup.m_iCropWidth / gclsSetup.m_iCropHeight);
-		if( m_sttBoxRect.right > m_iPaintWidth )
+		if( m_iBoxWidth > m_iPaintWidth )
 		{
 			m_iBoxWidth = m_iPaintWidth;
 			m_iBoxHeight = (int)((double)m_iPaintWidth * gclsSetup.m_iCropHeight / gclsSetup.m_iCropWidth);
