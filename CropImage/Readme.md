@@ -1,6 +1,7 @@
 # 이미지 파일들을 편리하게 커팅할 수 있는 프로그램
 
 ### 소개
+본 프로그램은 설정된 커팅 이미지 크기로 N 개의 파일을 편리하게 커팅하여서 저장할 수 있는 프로그램으로 아래와 같은 기능이 포함되어 있습니다.
 
 * 커팅하여서 저장할 이미지 크기를 설정 기능
 * 커팅하여서 저장한 이미지의 thumbnail 이미지 생성하는 기능
@@ -16,6 +17,7 @@
 * https://blog.naver.com/websearch/221512614384
 
 ### 실행화면
+실행화면에서는 이미지가 다소 어색하게 보이지만 커팅된 이미지는 정상적으로 보여집니다.
 
 ![Alt text](https://postfiles.pstatic.net/MjAxOTA0MTNfMjM4/MDAxNTU1MTI0MjQ4MDY1.LK61A1zmyUkvu_3sSXSpNQFewyoNoMJpiutQ5O0JUfUg.HgVkh1mkV80CAPgWND9bX-mYUF5jHhDdXNlOPwWIM1Ug.PNG.websearch/CropImage-2.png?type=w773)
 ![Alt text](https://postfiles.pstatic.net/MjAxOTA0MTNfMTQ3/MDAxNTU1MTI0NDMzNzU5.OKm3HpIAD1mdPhmmHY44BWP--1QajBRFrSv2Z14rQWYg._6ZGR-ZhQIUnGvmAIHpEFbNT_dPUIsktnULEREM1bCYg.PNG.websearch/CropImage-3.png?type=w773)
