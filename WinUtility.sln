@@ -27,6 +27,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DiffFile", "DiffFile\DiffFi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CropImage", "CropImage\CropImage.vcproj", "{5E4AC084-1FC4-4B25-9712-E20EB956F95D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ThumbnailImage", "ThumbnailImage\ThumbnailImage.vcproj", "{86A7CA11-02C8-4315-9523-E17FE9143E7A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -85,6 +87,10 @@ Global
 		{5E4AC084-1FC4-4B25-9712-E20EB956F95D}.Debug|Win32.Build.0 = Debug|Win32
 		{5E4AC084-1FC4-4B25-9712-E20EB956F95D}.Release|Win32.ActiveCfg = Release|Win32
 		{5E4AC084-1FC4-4B25-9712-E20EB956F95D}.Release|Win32.Build.0 = Release|Win32
+		{86A7CA11-02C8-4315-9523-E17FE9143E7A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{86A7CA11-02C8-4315-9523-E17FE9143E7A}.Debug|Win32.Build.0 = Debug|Win32
+		{86A7CA11-02C8-4315-9523-E17FE9143E7A}.Release|Win32.ActiveCfg = Release|Win32
+		{86A7CA11-02C8-4315-9523-E17FE9143E7A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
