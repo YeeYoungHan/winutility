@@ -18,8 +18,10 @@
 
 #pragma once
 
-// CCropImageControl
-
+/**
+ * @ingroup CropImage
+ * @brief 이미지를 보여주고 잘라질 이미지를 사각형 박스로 보여주는 윈도우 컨트롤러
+ */
 class CCropImageControl : public CWnd
 {
 	DECLARE_DYNAMIC(CCropImageControl)

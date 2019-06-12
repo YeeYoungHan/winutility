@@ -63,6 +63,12 @@ BOOL CCropImageControl::RegisterWindowClass()
 	return TRUE;
 }
 
+/**
+ * @ingroup CropImage
+ * @brief 이미지 파일을 로드한다.
+ * @param pszFileName 이미지 파일 이름
+ * @returns 성공하면 true 를 리턴하고 실패하면 false 를 리턴한다.
+ */
 bool CCropImageControl::SetFile( const char * pszFileName )
 {
 	m_clsImage.Destroy();
@@ -81,6 +87,12 @@ bool CCropImageControl::SetFile( const char * pszFileName )
 	return false;
 }
 
+/**
+ * @ingroup CropImage
+ * @brief 이미지 위에 잘라질 이미지 위치를 사각 박스로 표시한다.
+ * @param bForce false 로 입력하면 이미지 로드되지 않은 경우 실패로 처리한다.
+ * @returns 성공하면 true 를 리턴하고 실패하면 false 를 리턴한다.
+ */
 bool CCropImageControl::Update( bool bForce )
 {
 	if( bForce == false )
@@ -153,11 +165,22 @@ bool CCropImageControl::Update( bool bForce )
 	return true;
 }
 
+/**
+ * @ingroup CropImage
+ * @brief 이미지가 로드되어 있는지 검사한다.
+ * @returns 이미지가 로드되어 있으면 true 를 리턴하고 그렇지 않으면 false 를 리턴한다.
+ */
 bool CCropImageControl::IsLoad( )
 {
 	return m_bLoad;
 }
 
+/**
+ * @ingroup CropImage
+ * @brief 잘라진 이미지를 파일에 저장한다.
+ * @param pszFileName 저장 파일 이름
+ * @returns 성공하면 true 를 리턴하고 그렇지 않으면 false 를 리턴한다.
+ */
 bool CCropImageControl::SaveFile( const char * pszFileName )
 {
 	if( m_bLoad == false ) return false;

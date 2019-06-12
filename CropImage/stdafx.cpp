@@ -89,6 +89,12 @@ bool ResizeImage( const char * pszInput, const char * pszOutput, int iWidth, int
 	return bRes;
 }
 
+/**
+ * @ingroup CropImage
+ * @brief 사용자가 폴더를 선택할 수 있는 대화상자를 보여준다.
+ * @param strFolder [out] 사용자가 선택한 폴더
+ * @returns 사용자가 폴더를 선택하면 true 를 리턴하고 그렇지 않으면 false 를 리턴한다.
+ */
 bool SelectFolder( std::string & strFolder )
 {
 	BROWSEINFO sttInfo;
@@ -111,6 +117,12 @@ bool SelectFolder( std::string & strFolder )
 	return false;
 }
 
+/**
+ * @ingroup CropImage
+ * @brief 이미지 파일인지 검사한다.
+ * @param pszFileName 파일 이름
+ * @returns 이미지 파일이면 true 를 리턴하고 그렇지 않으면 false 를 리턴한다.
+ */
 bool IsImageFile( const char * pszFileName )
 {
 	int iLen = strlen( pszFileName );
@@ -136,6 +148,13 @@ bool IsImageFile( const char * pszFileName )
 	return false;
 }
 
+/**
+ * @ingroup CropImage
+ * @brief 폴더에 포함된 이미지 파일 리스트를 가져온다.
+ * @param pszDirName	폴더 full path
+ * @param clsFileList [out] 이미지 파일 리스트
+ * @returns 폴더에 포함된 이미지 파일들을 리스트에 저장한다.
+ */
 bool GetFileList( const char * pszDirName, FILE_LIST & clsFileList )
 {
 	clsFileList.clear();
