@@ -29,6 +29,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CropImage", "CropImage\Crop
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ThumbnailImage", "ThumbnailImage\ThumbnailImage.vcproj", "{86A7CA11-02C8-4315-9523-E17FE9143E7A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PcapViewer", "PcapViewer\PcapViewer.vcproj", "{35B3B2B6-D239-4EF4-916C-1B5ADCDC04BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -91,6 +93,10 @@ Global
 		{86A7CA11-02C8-4315-9523-E17FE9143E7A}.Debug|Win32.Build.0 = Debug|Win32
 		{86A7CA11-02C8-4315-9523-E17FE9143E7A}.Release|Win32.ActiveCfg = Release|Win32
 		{86A7CA11-02C8-4315-9523-E17FE9143E7A}.Release|Win32.Build.0 = Release|Win32
+		{35B3B2B6-D239-4EF4-916C-1B5ADCDC04BD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{35B3B2B6-D239-4EF4-916C-1B5ADCDC04BD}.Debug|Win32.Build.0 = Debug|Win32
+		{35B3B2B6-D239-4EF4-916C-1B5ADCDC04BD}.Release|Win32.ActiveCfg = Release|Win32
+		{35B3B2B6-D239-4EF4-916C-1B5ADCDC04BD}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
