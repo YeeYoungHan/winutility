@@ -28,6 +28,7 @@ public:
 	CPacket();
 	~CPacket();
 
+	int			m_iId;
 	struct pcap_pkthdr m_sttHeader;
 	u_char * m_pszPacket;
 };
@@ -49,6 +50,8 @@ public:
 	bool Save( const char * pszFileName );
 
 	void DeleteAll();
+
+	void ShowList( CListCtrl & clsList );
 
 	PACKET_LIST m_clsList;
 

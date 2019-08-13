@@ -17,8 +17,9 @@
  */
 
 #pragma once
-#include "afxcmn.h"
 
+#include "afxcmn.h"
+#include "PacketList.h"
 
 // CPcapViewerDlg dialog
 class CPcapViewerDlg : public CDialog
@@ -37,6 +38,10 @@ public:
 // Implementation
 protected:
 	HICON m_hIcon;
+	CPacketList m_clsPacketList;
+	CListCtrl m_lstPacket;
+
+	void ChangePacket( int iFirst, int iSecond );
 
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
@@ -49,5 +54,5 @@ public:
 	afx_msg void OnBnClickedOpen();
 	afx_msg void OnBnClickedUp();
 	afx_msg void OnBnClickedDown();
-	CListCtrl m_lstPacket;
+	afx_msg void OnBnClickedSave();
 };

@@ -114,6 +114,18 @@ void GetIpString( uint32_t iIp, char * pszIp, int iIpSize )
 
 /**
  * @ingroup PcapViewer
+ * @brief MAC 주소를 문자열로 저장한다.
+ * @param pszPacket MAC 주소
+ * @param pszMac		[out] MAC 주소 저장 변수
+ * @param iMacSize	pszMac 변수의 크기
+ */
+void GetMacString( const u_char * pszPacket, char * pszMac, int iMacSize )
+{
+	snprintf( pszMac, iMacSize, "%02X:%02X:%02X:%02X:%02X:%02X", pszPacket[0], pszPacket[1], pszPacket[2], pszPacket[3], pszPacket[4], pszPacket[5] );
+}
+
+/**
+ * @ingroup PcapViewer
  * @brief TCP 헤더 길이를 리턴한다.
  * @param psttTcpHeader TCP 헤더
  * @returns TCP 헤더 길이를 리턴한다.

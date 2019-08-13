@@ -10,8 +10,9 @@
 #define IDC_PACKET_LIST                 1000
 #define IDC_UP                          1001
 #define IDC_DOWN                        1002
-#define IDC_UP2                         1003
 #define IDC_OPEN                        1003
+#define IDC_UP2                         1004
+#define IDC_SAVE                        1004
 
 // Next default values for new objects
 // 

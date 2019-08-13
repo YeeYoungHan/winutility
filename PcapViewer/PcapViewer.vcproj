@@ -275,6 +275,10 @@
 				RelativePath=".\PacketList.h"
 				>
 			</File>
+			<File
+				RelativePath=".\PacketListShow.hpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="pcap"

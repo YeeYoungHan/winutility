@@ -47,6 +47,7 @@
 #endif // _AFX_NO_AFXCMN_SUPPORT
 
 #include <afxcontrolbars.h>     // MFC support for ribbons and control bars
+#include <string>
 
 #ifdef _UNICODE
 #if defined _M_IX86
@@ -61,3 +62,7 @@
 #endif
 
 #define snprintf		_snprintf
+
+void StringToHex( const char * pszInput, int iInputLen, std::string & strOutput );
+bool IsPrintString( const char * pszText, int iTextLen );
+bool IsExistFile( const char * pszFileName );

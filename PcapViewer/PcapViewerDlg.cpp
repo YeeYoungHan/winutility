@@ -19,6 +19,7 @@
 #include "stdafx.h"
 #include "PcapViewer.h"
 #include "PcapViewerDlg.h"
+#include "PacketHeader.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -67,6 +68,26 @@ CPcapViewerDlg::CPcapViewerDlg(CWnd* pParent /*=NULL*/)
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
+#define MAX_COL	7
+
+void CPcapViewerDlg::ChangePacket( int iFirst, int iSecond )
+{
+	CString arrFirstText[MAX_COL];
+	CString arrSecondText[MAX_COL];
+
+	for( int i = 0; i < MAX_COL; ++i )
+	{
+		arrFirstText[i] = m_lstPacket.GetItemText( iFirst, i );
+		arrSecondText[i] = m_lstPacket.GetItemText( iSecond, i );
+	}
+
+	for( int i = 0; i < MAX_COL; ++i )
+	{
+		m_lstPacket.SetItemText( iFirst, i, arrSecondText[i] );
+		m_lstPacket.SetItemText( iSecond, i, arrFirstText[i] );
+	}
+}
+
 void CPcapViewerDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
@@ -82,6 +103,7 @@ BEGIN_MESSAGE_MAP(CPcapViewerDlg, CDialog)
 	ON_BN_CLICKED(IDC_OPEN, &CPcapViewerDlg::OnBnClickedOpen)
 	ON_BN_CLICKED(IDC_UP, &CPcapViewerDlg::OnBnClickedUp)
 	ON_BN_CLICKED(IDC_DOWN, &CPcapViewerDlg::OnBnClickedDown)
+	ON_BN_CLICKED(IDC_SAVE, &CPcapViewerDlg::OnBnClickedSave)
 END_MESSAGE_MAP()
 
 
@@ -116,7 +138,13 @@ BOOL CPcapViewerDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
-	// TODO: Add extra initialization here
+	m_lstPacket.InsertColumn( 0, "No", LVCFMT_LEFT, 50 );
+	m_lstPacket.InsertColumn( 1, "Time", LVCFMT_LEFT, 100 );
+	m_lstPacket.InsertColumn( 2, "Source", LVCFMT_LEFT, 100 );
+	m_lstPacket.InsertColumn( 3, "Destination", LVCFMT_LEFT, 100 );
+	m_lstPacket.InsertColumn( 4, "Proto", LVCFMT_LEFT, 50 );
+	m_lstPacket.InsertColumn( 5, "Len", LVCFMT_LEFT, 40 );
+	m_lstPacket.InsertColumn( 6, "Info", LVCFMT_LEFT, 200 );
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -177,12 +205,73 @@ void CPcapViewerDlg::OnBnClickedOk()
 
 void CPcapViewerDlg::OnBnClickedOpen()
 {
+	CFileDialog clsDlg( TRUE, "pcap", NULL, 0, "pcap file(*.pcap)|*.pcap||" );
+	if( clsDlg.DoModal() == IDOK )
+	{
+		if( m_clsPacketList.Open( clsDlg.GetPathName() ) == false )
+		{
+			MessageBox( "pcap file open error", "ERROR", MB_OK | MB_ICONERROR );
+			return;
+		}
+
+		m_clsPacketList.ShowList( m_lstPacket );
+	}
+}
+
+void CPcapViewerDlg::OnBnClickedSave()
+{
+	CFileDialog clsDlg( FALSE, NULL, NULL, 0, "pcap file(*.pcap)|*.pcap||" );
+	if( clsDlg.DoModal() == IDOK )
+	{
+		const char * pszFileName = clsDlg.GetPathName();
+
+		if( IsExistFile( pszFileName ) )
+		{
+			MessageBox( "pcap file already exists", "ERROR", MB_OK | MB_ICONERROR );
+			return;
+		}
+
+		if( m_clsPacketList.Save( pszFileName ) == false )
+		{
+			MessageBox( "pcap file save error", "ERROR", MB_OK | MB_ICONERROR );
+			return;
+		}
+	}
 }
 
 void CPcapViewerDlg::OnBnClickedUp()
 {
+	POSITION pos = m_lstPacket.GetFirstSelectedItemPosition();
+	if( pos == NULL )
+	{
+		MessageBox( "no selection", "INFO", MB_OK | MB_ICONINFORMATION );
+	}
+	else
+	{
+		int iIndex = m_lstPacket.GetNextSelectedItem(pos);
+
+		if( m_clsPacketList.Up(iIndex) )
+		{
+			ChangePacket( iIndex - 1, iIndex );
+		}
+	}
 }
 
 void CPcapViewerDlg::OnBnClickedDown()
 {
+	POSITION pos = m_lstPacket.GetFirstSelectedItemPosition();
+	if( pos == NULL )
+	{
+		MessageBox( "no selection", "INFO", MB_OK | MB_ICONINFORMATION );
+	}
+	else
+	{
+		int iIndex = m_lstPacket.GetNextSelectedItem(pos);
+
+		if( m_clsPacketList.Down(iIndex) )
+		{
+			ChangePacket( iIndex, iIndex + 1 );
+		}
+	}
 }
+

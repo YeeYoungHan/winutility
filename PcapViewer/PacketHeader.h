@@ -122,6 +122,7 @@ bool IsUdpPacket( Ip4Header * psttIp4Header );
 bool IsTcpPacket( Ip4Header * psttIp4Header );
 int GetIpHeaderLength( Ip4Header * psttIp4Header );
 void GetIpString( uint32_t iIp, char * pszIp, int iIpSize );
+void GetMacString( const u_char * pszPacket, char * pszMac, int iMacSize );
 int GetTcpHeaderLength( TcpHeader * psttTcpHeader );
 
 #endif

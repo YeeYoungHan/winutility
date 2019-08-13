@@ -17,5 +17,59 @@
  */
 
 #include "stdafx.h"
+#include <sys/stat.h>
 
+/**
+ * @ingroup PcapViewer
+ * @brief 숫자가 저장된 문자열을 HEX 만 저장된 문자열로 변환한다.
+ * @param pszInput	숫자가 저장된 문자열
+ * @param iInputLen	pszInput 변수의 길이
+ * @param strOutput [out] HEX 만 저장된 문자열
+ */
+void StringToHex( const char * pszInput, int iInputLen, std::string & strOutput )
+{
+	char szHex[3];
 
+	strOutput.clear();
+
+	for( int i = 0; i < iInputLen; ++i )
+	{
+		snprintf( szHex, sizeof(szHex), "%02x", (unsigned char)pszInput[i] );
+		strOutput.append( szHex );
+	}
+}
+
+/**
+ * @ingroup PcapViewer
+ * @brief 문자열이 출력 가능한지 검사한다.
+ * @param pszText		문자열
+ * @param iTextLen	문자열 길이
+ * @returns 문자열이 출력 가능하면 true 를 리턴하고 그렇지 않으면 false 를 리턴한다.
+ */
+bool IsPrintString( const char * pszText, int iTextLen )
+{
+	for( int i = 0; i < iTextLen; ++i )
+	{
+		if( isprint( (unsigned char)pszText[i] ) == 0 ) return false;
+	}
+
+	return true;
+}
+
+/**
+ * @ingroup PcapViewer
+ * @brief 파일이 존재하는지 검사한다.
+ * @param pszFileName 파일 이름
+ * @returns 파일이 존재하면 true 를 리턴하고 그렇지 않으면 false 를 리턴한다.
+ */
+bool IsExistFile( const char * pszFileName )
+{
+	struct stat sttStat;
+
+	if( stat( pszFileName, &sttStat ) == -1 )
+	{
+		return false;
+	}
+
+	return true;
+}

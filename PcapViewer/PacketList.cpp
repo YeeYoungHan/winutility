@@ -18,8 +18,11 @@
 
 #include "stdafx.h"
 #include "PacketList.h"
+#include "PacketHeader.h"
 
-CPacket::CPacket() : m_pszPacket(NULL)
+#include "PacketListShow.hpp"
+
+CPacket::CPacket() : m_iId(0), m_pszPacket(NULL)
 {
 }
 
@@ -47,6 +50,7 @@ bool CPacketList::Open( const char * pszFileName )
 	struct pcap_pkthdr * psttHeader;
 	const		u_char * pszData;
 	bool		bError = false;
+	int			iId = 0;
 
 	Close();
 
@@ -76,6 +80,8 @@ bool CPacketList::Open( const char * pszFileName )
 		}
 
 		memcpy( pclsPacket->m_pszPacket, pszData, psttHeader->caplen );
+		pclsPacket->m_iId = iId;
+		++iId;
 
 		m_clsList.push_back( pclsPacket );
 	}
