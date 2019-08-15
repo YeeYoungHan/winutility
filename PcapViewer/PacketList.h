@@ -22,6 +22,10 @@
 #include "pcap.h"
 #include <list>
 
+/**
+ * @ingroup PcapViewer
+ * @brief 하나의 패킷 정보를 저장하는 클래스
+ */
 class CPacket
 {
 public:
@@ -35,6 +39,10 @@ public:
 
 typedef std::list< CPacket * > PACKET_LIST;
 
+/**
+ * @ingroup PcapViewer
+ * @brief pcap 파일을 읽어서 저장하는 클래스
+ */
 class CPacketList
 {
 public:

@@ -50,7 +50,12 @@ bool IsPrintString( const char * pszText, int iTextLen )
 {
 	for( int i = 0; i < iTextLen; ++i )
 	{
-		if( isprint( (unsigned char)pszText[i] ) == 0 ) return false;
+		if( isprint( (unsigned char)pszText[i] ) == 0 ) 
+		{
+			if( pszText[i] == 0x0d || pszText[i] == 0x0a ) continue;
+
+			return false;
+		}
 	}
 
 	return true;

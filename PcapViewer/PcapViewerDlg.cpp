@@ -59,9 +59,6 @@ END_MESSAGE_MAP()
 
 // CPcapViewerDlg dialog
 
-
-
-
 CPcapViewerDlg::CPcapViewerDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CPcapViewerDlg::IDD, pParent)
 {
@@ -140,8 +137,8 @@ BOOL CPcapViewerDlg::OnInitDialog()
 
 	m_lstPacket.InsertColumn( 0, "No", LVCFMT_LEFT, 50 );
 	m_lstPacket.InsertColumn( 1, "Time", LVCFMT_LEFT, 100 );
-	m_lstPacket.InsertColumn( 2, "Source", LVCFMT_LEFT, 100 );
-	m_lstPacket.InsertColumn( 3, "Destination", LVCFMT_LEFT, 100 );
+	m_lstPacket.InsertColumn( 2, "Source", LVCFMT_LEFT, 110 );
+	m_lstPacket.InsertColumn( 3, "Destination", LVCFMT_LEFT, 110 );
 	m_lstPacket.InsertColumn( 4, "Proto", LVCFMT_LEFT, 50 );
 	m_lstPacket.InsertColumn( 5, "Len", LVCFMT_LEFT, 40 );
 	m_lstPacket.InsertColumn( 6, "Info", LVCFMT_LEFT, 200 );
@@ -208,13 +205,17 @@ void CPcapViewerDlg::OnBnClickedOpen()
 	CFileDialog clsDlg( TRUE, "pcap", NULL, 0, "pcap file(*.pcap)|*.pcap||" );
 	if( clsDlg.DoModal() == IDOK )
 	{
-		if( m_clsPacketList.Open( clsDlg.GetPathName() ) == false )
+		CString strFileName = clsDlg.GetPathName();
+
+		if( m_clsPacketList.Open( strFileName ) == false )
 		{
 			MessageBox( "pcap file open error", "ERROR", MB_OK | MB_ICONERROR );
 			return;
 		}
 
 		m_clsPacketList.ShowList( m_lstPacket );
+
+		SetWindowText( "PcapViewer - " + strFileName );
 	}
 }
 

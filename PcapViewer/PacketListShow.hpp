@@ -16,6 +16,15 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
  */
 
+/**
+ * @ingroup PcapViewer
+ * @brief 패킷 내용을 CListCtrl 의 Info 컬럼에 보여준다.
+ * @param clsList					CListCtrl 객체
+ * @param iRow						ROW 인덱스
+ * @param pszUdpBody			패킷 body
+ * @param iUdpBodyLen			패킷 body 길이
+ * @param sFragmentOffset IP fragment offset
+ */
 void ShowPacketInfo( CListCtrl & clsList, int iRow, const char * pszUdpBody, int iUdpBodyLen, uint16_t sFragmentOffset )
 {
 	char szBuf[255];
@@ -24,11 +33,11 @@ void ShowPacketInfo( CListCtrl & clsList, int iRow, const char * pszUdpBody, int
 	{
 		if( iUdpBodyLen > ( sizeof(szBuf) - 1 ) )
 		{
-			snprintf( szBuf, sizeof(szBuf)-1, ".*s", sizeof(szBuf)-1, pszUdpBody );
+			snprintf( szBuf, sizeof(szBuf)-1, "%.*s", sizeof(szBuf)-1, pszUdpBody );
 		}
 		else
 		{
-			snprintf( szBuf, sizeof(szBuf), ".*s", iUdpBodyLen, pszUdpBody );
+			snprintf( szBuf, sizeof(szBuf), "%.*s", iUdpBodyLen, pszUdpBody );
 		}
 	}
 	else
@@ -49,6 +58,11 @@ void ShowPacketInfo( CListCtrl & clsList, int iRow, const char * pszUdpBody, int
 	}
 }
 
+/**
+ * @ingroup PcapViewer
+ * @brief CListCtrl 에 패킷 리스트를 보여준다.
+ * @param clsList CListCtrl 객체
+ */
 void CPacketList::ShowList( CListCtrl & clsList )
 {
 	PACKET_LIST::iterator itPL;
@@ -69,10 +83,10 @@ void CPacketList::ShowList( CListCtrl & clsList )
 
 	for( itPL = m_clsList.begin(); itPL != m_clsList.end(); ++itPL )
 	{
-		snprintf( szTemp, sizeof(szTemp), "%d", (*itPL)->m_iId );
+		snprintf( szTemp, sizeof(szTemp), "%d", (*itPL)->m_iId + 1 );
 		clsList.InsertItem( iRow, szTemp );
 
-		localtime_s( &sttTm, (time_t *)&(*itPL)->m_sttHeader.ts.tv_sec );
+		_localtime32_s( &sttTm, &(*itPL)->m_sttHeader.ts.tv_sec );
 		snprintf( szTemp, sizeof(szTemp), "%02d:%02d:%02d.%06d", sttTm.tm_hour, sttTm.tm_min, sttTm.tm_sec, (*itPL)->m_sttHeader.ts.tv_usec );
 		clsList.SetItemText( iRow, 1, szTemp );
 

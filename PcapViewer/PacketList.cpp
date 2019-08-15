@@ -44,6 +44,12 @@ CPacketList::~CPacketList()
 	Close();
 }
 
+/**
+ * @ingroup PcapViewer
+ * @brief pcap 파일을 읽어서 자료구조에 저장한다.
+ * @param pszFileName pcap 파일 full path
+ * @returns 성공하면 true 를 리턴하고 그렇지 않으면 false 를 리턴한다.
+ */
 bool CPacketList::Open( const char * pszFileName )
 {
 	char		szErrBuf[PCAP_ERRBUF_SIZE];
@@ -95,6 +101,11 @@ bool CPacketList::Open( const char * pszFileName )
 	return true;
 }
 
+/**
+ * @ingroup PcapViewer
+ * @brief pcap 파일을 close 한다.
+ * @returns true 를 리턴한다.
+ */
 bool CPacketList::Close()
 {
 	DeleteAll();
@@ -108,6 +119,12 @@ bool CPacketList::Close()
 	return true;
 }
 
+/**
+ * @ingroup PcapViewer
+ * @brief 입력된 인덱스의 패킷을 그 이전 패킷과 위치를 교체한다.
+ * @param iIndex 패킷 인덱스
+ * @returns 성공하면 true 를 리턴하고 그렇지 않으면 false 를 리턴한다.
+ */
 bool CPacketList::Up( int iIndex )
 {
 	if( m_clsList.empty() ) return false;
@@ -138,6 +155,12 @@ bool CPacketList::Up( int iIndex )
 	return bRes;
 }
 
+/**
+ * @ingroup PcapViewer
+ * @brief 입력된 인덱스의 패킷을 그 다음 패킷과 위치를 교체한다.
+ * @param iIndex 패킷 인덱스
+ * @returns 성공하면 true 를 리턴하고 그렇지 않으면 false 를 리턴한다.
+ */
 bool CPacketList::Down( int iIndex )
 {
 	if( m_clsList.empty() ) return false;
@@ -168,6 +191,12 @@ bool CPacketList::Down( int iIndex )
 	return bRes;
 }
 
+/**
+ * @ingroup PcapViewer
+ * @brief 자료구조에 저장된 패킷 정보들을 pcap 파일에 저장한다.
+ * @param pszFileName 저장 pcap 파일 full path
+ * @returns 성공하면 true 를 리턴하고 그렇지 않으면 false 를 리턴한다.
+ */
 bool CPacketList::Save( const char * pszFileName )
 {
 	if( m_psttPcap == NULL || m_clsList.empty() ) return false;
@@ -190,6 +219,10 @@ bool CPacketList::Save( const char * pszFileName )
 	return true;
 }
 
+/**
+ * @ingroup PcapViewer
+ * @brief 자료구조에 저장된 패킷 정보들을 삭제한다.
+ */
 void CPacketList::DeleteAll( )
 {
 	PACKET_LIST::iterator itPL;
