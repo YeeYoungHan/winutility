@@ -220,18 +220,18 @@ void CPcapViewerDlg::OnBnClickedOpen()
 
 void CPcapViewerDlg::OnBnClickedSave()
 {
-	CFileDialog clsDlg( FALSE, NULL, NULL, 0, "pcap file(*.pcap)|*.pcap||" );
+	CFileDialog clsDlg( FALSE, ".pcap", NULL, 0, "pcap file(*.pcap)|*.pcap||" );
 	if( clsDlg.DoModal() == IDOK )
 	{
-		const char * pszFileName = clsDlg.GetPathName();
+		CString strFileName = clsDlg.GetPathName();
 
-		if( IsExistFile( pszFileName ) )
+		if( IsExistFile( strFileName ) )
 		{
 			MessageBox( "pcap file already exists", "ERROR", MB_OK | MB_ICONERROR );
 			return;
 		}
 
-		if( m_clsPacketList.Save( pszFileName ) == false )
+		if( m_clsPacketList.Save( strFileName ) == false )
 		{
 			MessageBox( "pcap file save error", "ERROR", MB_OK | MB_ICONERROR );
 			return;
