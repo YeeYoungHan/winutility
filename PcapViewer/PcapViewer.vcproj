@@ -200,6 +200,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\PcapViewerDlgAbout.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -243,6 +247,10 @@
 			</File>
 			<File
 				RelativePath=".\targetver.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Version.h"
 				>
 			</File>
 		</Filter>
