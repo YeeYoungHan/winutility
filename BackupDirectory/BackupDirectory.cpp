@@ -231,7 +231,7 @@ int main( int argc, char * argv[] )
 	_snprintf( szFileName, sizeof(szFileName), "%s\\%04d%02d%02d_%02d%02d%02d_%03d.txt"
 		, szDir, st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds );
 
-	gpsttFd = fopen( szFileName, "w" );
+	gpsttFd = fopen( szFileName, "wb" );
 
 	CopyDirectory( argv[1], argv[2] );
 	DeleteDirectoryIfNotExist( argv[2], argv[1] );
