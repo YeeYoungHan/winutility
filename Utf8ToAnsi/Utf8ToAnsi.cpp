@@ -156,10 +156,11 @@ bool Utf8ToAnsi( const char * pszInputFileName, const char * pszOutputFileName, 
 /**
  * @ingroup Utf8ToAnsi
  * @brief 디렉토리에 포함된 모든 파일을 UTF8 에서 ANSI 로 변환한다.
- * @param pszDirectory 디렉토리
+ * @param pszDirectory	디렉토리
+ * @param pszExt				파일 확장자. NULL 을 입력하면 모든 파일을 변환하고 파일 확장자를 입력하면 해당 파일 확장자인 파일만 변환한다.
  * @returns 성공하면 true 를 리턴하고 실패하면 false 를 리턴한다.
  */
-bool Utf8ToAnsiDirectory( const char * pszDirectory )
+bool Utf8ToAnsiDirectory( const char * pszDirectory, const char * pszExt = NULL )
 {
 	char			szPath[2048];
 	char			szFileName[2048];
@@ -167,7 +168,14 @@ bool Utf8ToAnsiDirectory( const char * pszDirectory )
 	BOOL			fisOk = TRUE;
 	WIN32_FIND_DATA wfd;
 
-	_snprintf( szPath, sizeof(szPath), "%s\\*.*", pszDirectory );
+	if( pszExt )
+	{
+		_snprintf( szPath, sizeof(szPath), "%s\\*.%s", pszDirectory, pszExt );
+	}
+	else
+	{
+		_snprintf( szPath, sizeof(szPath), "%s\\*.*", pszDirectory );
+	}
 
 	memset( &wfd, 0, sizeof(wfd) );
 	hSearch = FindFirstFile( szPath, &wfd );
@@ -218,13 +226,20 @@ bool Utf8ToAnsiDirectory( const char * pszDirectory )
 
 int main( int argc, char * argv[] )
 {
-	if( argc != 2 )
+	if( argc == 1 )
 	{
-		printf( "[Usage] %s {folder}\n", argv[0] );
+		printf( "[Usage] %s {folder full path} {file ext}\n", argv[0] );
 		return 0;
 	}
 
-	Utf8ToAnsiDirectory( argv[1] );
+	if( argc == 3 )
+	{
+		Utf8ToAnsiDirectory( argv[1], argv[2] );
+	}
+	else
+	{
+		Utf8ToAnsiDirectory( argv[1] );
+	}
 
 	return 0;
 }
