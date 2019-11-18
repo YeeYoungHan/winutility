@@ -1,8 +1,9 @@
-# CPU core 1개를 100% 사용하는 프로그
+# CPU 를 100% 사용하는 프로그램
 
 ### 소개
 
-* CPU core 1개를 100% 사용하는 지속 시간을 측정하는 프로그
+* CPU 를 100% 사용하는 프로그램
+* CPU core 개수만큼 thread count 인자를 입력하면 CPU 를 100% 사용하게 된다.
 
 ### 라이선스
 
@@ -11,6 +12,6 @@
 ### 사용법
 
 ```
-dos> CpuOverload.exe
+dos> CpuOverload.exe {thread count} {loop count}
 ```
 
