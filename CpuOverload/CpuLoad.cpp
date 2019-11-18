@@ -15,18 +15,7 @@ void PrintString()
 
 int main( int argc, char * argv[] )
 {
-	if( argc != 2 )
-	{
-		printf( "[Usage] %s {loop count}\n", argv[0] );
-		return 0;
-	}
-
-	int iLoop = atoi( argv[1] );
-
-	for( int i = 0; i < iLoop; ++i )
-	{
-		PrintString( );
-	}
+	PrintString( );
 
 	return 0;
 }
