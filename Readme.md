@@ -46,7 +46,7 @@ dos> DiffFile.exe {first file path} {second file path}
 ```
 
 * DosCropImage
-  * 도스용 이미지 커팅 프로그
+  * 도스용 이미지 커팅 프로그램
 
 * ExecTime
   * 도스 프로그램 실행 시간 측정 프로그램
