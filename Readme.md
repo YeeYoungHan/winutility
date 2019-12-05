@@ -45,6 +45,9 @@
 dos> DiffFile.exe {first file path} {second file path}
 ```
 
+* DosCropImage
+  * 도스용 이미지 커팅 프로그
+
 * ExecTime
   * 도스 프로그램 실행 시간 측정 프로그램
   * 사용법
@@ -85,6 +88,9 @@ dos> DiffFile.exe {first file path} {second file path}
 
 * ResizeImage
   * 하나의 이미지 파일의 크기를 변환하여서 새로운 이미지 파일에 저장하는 프로그램
+
+* ShowTransparentImage
+  * 투명한 png 이미지 확인하는 프로그램
 
 * Tail
   * 윈도우 tail 프로그램
