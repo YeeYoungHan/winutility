@@ -35,6 +35,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Utf8ToAnsi", "Utf8ToAnsi\Ut
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CpuOverload", "CpuOverload\CpuOverload.vcproj", "{FC708AA8-882F-47F4-A2E2-B2212F0D9EF1}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DosCropImage", "DosCropImage\DosCropImage.vcproj", "{AA155241-24A1-451B-B787-EA9E37CB055A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -109,6 +111,10 @@ Global
 		{FC708AA8-882F-47F4-A2E2-B2212F0D9EF1}.Debug|Win32.Build.0 = Debug|Win32
 		{FC708AA8-882F-47F4-A2E2-B2212F0D9EF1}.Release|Win32.ActiveCfg = Release|Win32
 		{FC708AA8-882F-47F4-A2E2-B2212F0D9EF1}.Release|Win32.Build.0 = Release|Win32
+		{AA155241-24A1-451B-B787-EA9E37CB055A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AA155241-24A1-451B-B787-EA9E37CB055A}.Debug|Win32.Build.0 = Debug|Win32
+		{AA155241-24A1-451B-B787-EA9E37CB055A}.Release|Win32.ActiveCfg = Release|Win32
+		{AA155241-24A1-451B-B787-EA9E37CB055A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
