@@ -31,6 +31,7 @@ public:
 	static BOOL RegisterWindowClass();
 
 	bool SetFile( const char * pszFileName );
+	void SetAlphaColor( COLORREF iColor );
 
 protected:
 	DECLARE_MESSAGE_MAP()
@@ -38,6 +39,8 @@ protected:
 	CImage m_clsImage;
 
 	bool m_bLoad;
+	bool m_bAlpha;
+	COLORREF m_iAlphaColor;
 
 public:
 	afx_msg void OnPaint();

@@ -198,5 +198,18 @@ void CShowTransparentImageDlg::OnCbnSelchangeColor()
 		CString strText;
 
 		m_clsColor.GetLBText( iSel, strText );
+
+		if( strText == "red" )
+		{
+			m_clsControl.SetAlphaColor( RGB(255,0,0) );
+		}
+		else if( strText == "blue" )
+		{
+			m_clsControl.SetAlphaColor( RGB(0,0,255) );
+		}
+		else if( strText == "green" )
+		{
+			m_clsControl.SetAlphaColor( RGB(0,255,0) );
+		}
 	}
 }

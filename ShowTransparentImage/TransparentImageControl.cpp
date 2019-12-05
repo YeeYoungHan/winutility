@@ -25,9 +25,9 @@
 
 IMPLEMENT_DYNAMIC(CTransparentImageControl, CWnd)
 
-CTransparentImageControl::CTransparentImageControl() : m_bLoad(false)
+CTransparentImageControl::CTransparentImageControl() : m_bLoad(false), m_bAlpha(false)
 {
-
+	m_iAlphaColor = RGB(255,0,0);
 }
 
 CTransparentImageControl::~CTransparentImageControl()
@@ -62,14 +62,44 @@ BOOL CTransparentImageControl::RegisterWindowClass()
  return TRUE;
 }
 
+/**
+ * @ingroup ShowTransparentImage
+ * @brief 화면에 보여줄 이미지 파일을 설정한다.
+ * @param pszFileName 이미지 파일 full path
+ * @returns 성공하면 true 를 리턴하고 그렇지 않으면 false 를 리턴한다.
+ */
 bool CTransparentImageControl::SetFile( const char * pszFileName )
 {
 	m_clsImage.Destroy();
+
+	m_bAlpha = false;
 
 	HRESULT hr = m_clsImage.Load( pszFileName );
 
 	if( SUCCEEDED(hr) )
 	{
+		if( m_clsImage.GetBPP() == 32 )
+		{
+			int iWidth = m_clsImage.GetWidth();
+			int iHeight = m_clsImage.GetHeight();
+
+			for( int i = 0; i < iWidth; ++i )
+			{
+				for( int j = 0; j < iHeight; ++j )
+				{
+					BYTE * p = (BYTE *)m_clsImage.GetPixelAddress( i, j );
+					if( p[3] != 255 )
+					{
+						p[0] = ((p[0] * p[3]) + 127) / 255;
+						p[1] = ((p[1] * p[3]) + 127) / 255;
+						p[2] = ((p[2] * p[3]) + 127) / 255;
+
+						m_bAlpha = true;
+					}
+				}
+			}
+		}
+
 		m_bLoad = true;
 		RedrawWindow();
 		return true;
@@ -79,6 +109,17 @@ bool CTransparentImageControl::SetFile( const char * pszFileName )
 	RedrawWindow();
 
 	return false;
+}
+
+/**
+ * @ingroup ShowTransparentImage
+ * @brief 투명한 영역에 보여줄 색상을 저장한다.
+ * @param iColor 투명한 영역에 보여줄 색상
+ */
+void CTransparentImageControl::SetAlphaColor( COLORREF iColor )
+{
+	m_iAlphaColor = iColor;
+	RedrawWindow();
 }
 
 BEGIN_MESSAGE_MAP(CTransparentImageControl, CWnd)
@@ -111,18 +152,19 @@ void CTransparentImageControl::OnPaint()
 
 		// 메모리 DC 에 그리기
 		CBrush clsBrush, * pclsBrush;
-
-		clsBrush.CreateSolidBrush( RGB(255,0,0) );
+		clsBrush.CreateSolidBrush( m_bAlpha ? m_iAlphaColor : RGB(240,240,240) );
 		pclsBrush = clsDC.SelectObject( &clsBrush );
 		clsDC.FillRect( &sttRect, &clsBrush );
 		clsDC.SelectObject( pclsBrush );
 
-		//m_clsImage.BitBlt( clsDC, 0, 0, sttRect.right, sttRect.bottom, 0, 0, SRCCOPY );
-
-		// CImage 의 m_iTransparentColor 가 -1 이어서 정상적으로 동작하지 않는다.
-		//m_clsImage.TransparentBlt( clsDC, 0, 0, sttRect.right, sttRect.bottom, 0, 0, sttRect.right, sttRect.bottom );
-
-		m_clsImage.AlphaBlend( clsDC, 0, 0, sttRect.right, sttRect.bottom, 0, 0, sttRect.right, sttRect.bottom );
+		if( m_bAlpha )
+		{
+			m_clsImage.AlphaBlend( clsDC, 0, 0, sttRect.right, sttRect.bottom, 0, 0, sttRect.right, sttRect.bottom );
+		}
+		else
+		{
+			m_clsImage.BitBlt( clsDC, 0, 0, sttRect.right, sttRect.bottom, 0, 0, SRCCOPY );
+		}
 
 		// 메모리 DC 에 그리기 연산을 모두 수행한 후, 메모리 DC 의 비트맵을 CPaintDC 에 복사한다.
 		dc.BitBlt( 0, 0, sttRect.right, sttRect.bottom, &clsDC, 0, 0, SRCCOPY );
