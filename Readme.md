@@ -47,6 +47,9 @@ dos> DiffFile.exe {first file path} {second file path}
 
 * DosCropImage
   * 도스용 이미지 커팅 프로그램
+```
+dos> DosCropImage.exe {input image filename} {output image filename} {x} {y} {width} {height}
+```
 
 * ExecTime
   * 도스 프로그램 실행 시간 측정 프로그램
@@ -56,7 +59,7 @@ dos> DiffFile.exe {first file path} {second file path}
 ```
 
 * KillProcess
-  * 도스창에서 프로세스 종료하는 프로그
+  * 도스창에서 프로세스 종료하는 프로그램
 
 * PrintDoc
   * 도스창에서 문서 인쇄하는 프로그램
