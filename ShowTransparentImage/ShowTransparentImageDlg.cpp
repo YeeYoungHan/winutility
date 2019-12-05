@@ -180,7 +180,7 @@ void CShowTransparentImageDlg::OnBnClickedOk()
 
 void CShowTransparentImageDlg::OnBnClickedOpen()
 {
-	CFileDialog clsDlg( TRUE, NULL, NULL, 0, "Image file(*.jpg, *.png)|*jpg;*.jpeg;*png||" );
+	CFileDialog clsDlg( TRUE, NULL, NULL, 0, "Image file(*.png)|*png||" );
 	if( clsDlg.DoModal() == IDOK )
 	{
 		if( m_clsControl.SetFile( clsDlg.GetPathName() ) == false )
