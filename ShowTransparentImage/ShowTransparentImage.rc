@@ -54,7 +54,7 @@ BEGIN
     "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
     "LANGUAGE 9, 1\r\n"
     "#pragma code_page(1252)\r\n"
-    "#include ""res\\CropImage.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""res\\ShowTransparentImage.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
     "#include ""afxres.rc""     // Standard components\r\n"
     "#endif\r\n"
     "\0"
@@ -70,63 +70,7 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDR_MAINFRAME           ICON                    "res\\CropImage.ico"
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Dialog
-//
-
-IDD_SETUP DIALOGEX 0, 0, 261, 262
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Setup"
-FONT 8, "MS Shell Dlg", 400, 0, 0x1
-BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,149,241,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,204,241,50,14
-    GROUPBOX        " Crop Image",IDC_STATIC,7,7,247,119
-    LTEXT           "Width",IDC_STATIC,19,29,20,8
-    LTEXT           "Height",IDC_STATIC,19,48,22,8
-    EDITTEXT        IDC_CROP_WIDTH,47,27,59,14,ES_AUTOHSCROLL
-    EDITTEXT        IDC_CROP_HEIGHT,47,46,59,14,ES_AUTOHSCROLL
-    LTEXT           "px",IDC_STATIC,111,29,9,8
-    LTEXT           "px",IDC_STATIC,111,48,9,8
-    LTEXT           "Output\r\nfolder",IDC_STATIC,19,85,23,17
-    EDITTEXT        IDC_CROP_OUTPUT_FOLDER,48,85,175,25,ES_MULTILINE | ES_AUTOHSCROLL | ES_READONLY
-    PUSHBUTTON      "...",IDC_SELECT_OUTPUT_FOLDER,228,85,19,15
-    GROUPBOX        " Thumbnail Image",IDC_STATIC,7,141,247,83
-    LTEXT           "Width",IDC_STATIC,19,163,20,8
-    LTEXT           "Height",IDC_STATIC,19,182,22,8
-    EDITTEXT        IDC_THUMBNAIL_WIDTH,47,161,59,14,ES_AUTOHSCROLL
-    EDITTEXT        IDC_THUMBNAIL_HEIGHT,47,180,59,14,ES_AUTOHSCROLL
-    LTEXT           "px",IDC_STATIC,111,163,9,8
-    LTEXT           "px",IDC_STATIC,111,182,9,8
-    CONTROL         "Save Thumbnail Image",IDC_USE_THUMBNAIL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,152,162,88,10
-    LTEXT           "Prefix",IDC_STATIC,19,200,20,8
-    EDITTEXT        IDC_THUMBNAIL_PREFIX,47,199,59,14,ES_AUTOHSCROLL
-    LTEXT           "Start No",IDC_STATIC,19,67,28,8
-    EDITTEXT        IDC_CROP_START_NO,47,65,59,14,ES_AUTOHSCROLL
-END
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// DESIGNINFO
-//
-
-#ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
-BEGIN
-    IDD_SETUP, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 254
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 255
-    END
-END
-#endif    // APSTUDIO_INVOKED
-
+IDR_MAINFRAME           ICON                    "res\\ShowTransparentImage.ico"
 #endif    // 한국어 resources
 /////////////////////////////////////////////////////////////////////////////
 
@@ -147,58 +91,25 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 
 IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "About CropImage"
+CAPTION "About ShowTransparentImage"
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,14,14,21,20
-    LTEXT           "CropImage, Version 1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "ShowTransparentImage, Version 1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
     LTEXT           "Copyright (C) 2019",IDC_STATIC,42,26,114,8
     DEFPUSHBUTTON   "OK",IDOK,113,41,50,14,WS_GROUP
 END
 
-IDD_CROPIMAGE_DIALOG DIALOGEX 0, 0, 391, 342
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_SHOWTRANSPARENTIMAGE_DIALOG DIALOGEX 0, 0, 320, 200
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_APPWINDOW
-CAPTION "CropImage"
+CAPTION "ShowTransparentImage"
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "Save",IDOK,334,321,50,14
-    CONTROL         "Custom1",IDC_CROP_IMAGE_CONTROL,"CropImageControl",WS_TABSTOP,7,7,377,310
-    PUSHBUTTON      "Setup",IDC_SETUP,7,321,43,14
-    PUSHBUTTON      "Open file",IDC_OPEN_FILE,51,321,43,14
-    PUSHBUTTON      "Open dir",IDC_OPEN_DIR,95,321,43,14
-    PUSHBUTTON      "Reset num",IDC_RESET_NO,139,321,43,14
-    LTEXT           "",IDC_PAGE,229,324,34,8
-    PUSHBUTTON      "<",IDC_PREV,183,321,19,14
-    PUSHBUTTON      ">",IDC_NEXT,204,321,19,14
+    PUSHBUTTON      "Open",IDC_OPEN,7,7,50,14
+    CONTROL         "Custom1",IDC_TRANSPARENT_IMAGE,"TransparentImage",WS_TABSTOP,7,25,306,168
+    COMBOBOX        IDC_COLOR,251,7,62,400,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
 END
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// DESIGNINFO
-//
-
-#ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
-BEGIN
-    IDD_ABOUTBOX, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 163
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 55
-    END
-
-    IDD_CROPIMAGE_DIALOG, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 384
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 335
-    END
-END
-#endif    // APSTUDIO_INVOKED
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -223,13 +134,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "Window Utility"
-            VALUE "FileDescription", "Crop Image"
+            VALUE "CompanyName", "Window utility"
+            VALUE "FileDescription", "ShowTransparentImage"
             VALUE "FileVersion", "1.0.0.1"
-            VALUE "InternalName", "CropImage.exe"
-            VALUE "LegalCopyright", "websearch@naver.com.  All rights reserved."
-            VALUE "OriginalFilename", "CropImage.exe"
-            VALUE "ProductName", "CropImage"
+            VALUE "InternalName", "ShowTransparentImage.exe"
+            VALUE "LegalCopyright", "websearch@naver.com  All rights reserved."
+            VALUE "OriginalFilename", "ShowTransparentImage.exe"
+            VALUE "ProductName", "ShowTransparentImage"
             VALUE "ProductVersion", "1.0.0.1"
         END
     END
@@ -242,12 +153,39 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 163
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 55
+    END
+
+    IDD_SHOWTRANSPARENTIMAGE_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 313
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 193
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // String Table
 //
 
 STRINGTABLE 
 BEGIN
-    IDS_ABOUTBOX            "&About CropImage..."
+    IDS_ABOUTBOX            "&About ShowTransparentImage..."
 END
 
 #endif    // 영어(미국) resources
@@ -268,7 +206,7 @@ END
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 LANGUAGE 9, 1
 #pragma code_page(1252)
-#include "res\CropImage.rc2"  // non-Microsoft Visual C++ edited resources
+#include "res\ShowTransparentImage.rc2"  // non-Microsoft Visual C++ edited resources
 #include "afxres.rc"     // Standard components
 #endif
 

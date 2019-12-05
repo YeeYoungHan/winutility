@@ -37,6 +37,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CpuOverload", "CpuOverload\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DosCropImage", "DosCropImage\DosCropImage.vcproj", "{AA155241-24A1-451B-B787-EA9E37CB055A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ShowTransparentImage", "ShowTransparentImage\ShowTransparentImage.vcproj", "{FFBA9A9B-A214-429D-8190-9D00957670FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -115,6 +117,10 @@ Global
 		{AA155241-24A1-451B-B787-EA9E37CB055A}.Debug|Win32.Build.0 = Debug|Win32
 		{AA155241-24A1-451B-B787-EA9E37CB055A}.Release|Win32.ActiveCfg = Release|Win32
 		{AA155241-24A1-451B-B787-EA9E37CB055A}.Release|Win32.Build.0 = Release|Win32
+		{FFBA9A9B-A214-429D-8190-9D00957670FC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FFBA9A9B-A214-429D-8190-9D00957670FC}.Debug|Win32.Build.0 = Debug|Win32
+		{FFBA9A9B-A214-429D-8190-9D00957670FC}.Release|Win32.ActiveCfg = Release|Win32
+		{FFBA9A9B-A214-429D-8190-9D00957670FC}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
