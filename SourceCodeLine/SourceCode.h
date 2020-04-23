@@ -22,6 +22,10 @@
 #include <list>
 #include <map>
 
+/**
+ * @ingroup SourceCodeLine
+ * @brief 소스 코드 폴더의 라인 개수 저장 클래스
+ */
 class CSourceFolder
 {
 public:
@@ -34,6 +38,10 @@ public:
 typedef std::list< CSourceFolder > SOURCE_FOLDER;
 typedef std::map< std::string, char > EXT_MAP;
 
+/**
+ * @ingroup SourceCodeLine
+ * @brief 소스 코드의 라인 개수를 저장하는 클래스
+ */
 class CSourceCode
 {
 public:
@@ -48,12 +56,16 @@ public:
 	void InsertExt( const char * pszExt );
 	bool IsSourceCodeFile( const char * pszFileName );
 
+	bool ReadExtFile( const char * pszFileName );
+
 	HWND m_hWnd;
 	std::string m_strFolder;
 
 	SOURCE_FOLDER m_clsFolderList;
-	EXT_MAP	m_clsExtMap;
 
 	bool m_bStop;
 	bool m_bRun;
+
+private:
+	EXT_MAP	m_clsExtMap;
 };

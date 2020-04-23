@@ -54,4 +54,5 @@ public:
 	CListCtrl m_clsFolderList;
 	CProgressCtrl m_clsProgress;
 	CString m_strPercent;
+	afx_msg void OnLvnItemchangedFolderList(NMHDR *pNMHDR, LRESULT *pResult);
 };

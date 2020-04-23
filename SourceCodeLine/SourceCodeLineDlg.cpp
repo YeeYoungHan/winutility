@@ -84,6 +84,7 @@ BEGIN_MESSAGE_MAP(CSourceCodeLineDlg, CDialog)
 	ON_BN_CLICKED(IDOK, &CSourceCodeLineDlg::OnBnClickedOk)
 	ON_BN_CLICKED(IDCANCEL, &CSourceCodeLineDlg::OnBnClickedCancel)
 	ON_BN_CLICKED(IDC_SELECT_FOLDER, &CSourceCodeLineDlg::OnBnClickedSelectFolder)
+	ON_NOTIFY(LVN_ITEMCHANGED, IDC_FOLDER_LIST, &CSourceCodeLineDlg::OnLvnItemchangedFolderList)
 END_MESSAGE_MAP()
 
 
@@ -117,6 +118,8 @@ BOOL CSourceCodeLineDlg::OnInitDialog()
 	//  when the application's main window is not a dialog
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
+
+	m_clsFolderList.SetExtendedStyle( LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES | LVS_EX_CHECKBOXES );
 
 	m_clsFolderList.InsertColumn( 0, "Name", LVCFMT_LEFT, 300 );
 	m_clsFolderList.InsertColumn( 1, "Line", LVCFMT_RIGHT, 130 );
@@ -179,32 +182,29 @@ LRESULT CSourceCodeLineDlg::OnSourceEvent( WPARAM wParam, LPARAM lParam )
 {
 	if( wParam == WPARAM_END )
 	{
+		// 소스 코드 라인 분석 완료 이벤트
 		SOURCE_FOLDER::iterator itSF;
 		int iRow = 0;
 		int iLineCount = 0;
-		char szTemp[21];
 		std::string strLineCount;
 
 		m_clsFolderList.DeleteAllItems();
 
 		for( itSF = m_clsSourceCode.m_clsFolderList.begin(); itSF != m_clsSourceCode.m_clsFolderList.end(); ++itSF )
 		{
-			m_clsFolderList.InsertItem( iRow, itSF->m_strName.c_str() );
+			GetLineCount( itSF->m_iLineCount, strLineCount );
 
-			_snprintf( szTemp, sizeof(szTemp), "%d", itSF->m_iLineCount );
-			strLineCount = szTemp;
-			CommaSepString( strLineCount );
+			m_clsFolderList.InsertItem( iRow, itSF->m_strName.c_str() );
 			m_clsFolderList.SetItemText( iRow, 1, strLineCount.c_str() );
+			m_clsFolderList.SetCheck( iRow, TRUE );
 
 			iLineCount += itSF->m_iLineCount;
 			++iRow;
 		}
 
-		m_clsFolderList.InsertItem( iRow, "# TOTAL #" );
+		GetLineCount( iLineCount, strLineCount );
 
-		_snprintf( szTemp, sizeof(szTemp), "%d", iLineCount );
-		strLineCount = szTemp;
-		CommaSepString( strLineCount );
+		m_clsFolderList.InsertItem( iRow, "# TOTAL #" );
 		m_clsFolderList.SetItemText( iRow, 1, strLineCount.c_str() );
 
 		m_clsProgress.SetPos( 100 );
@@ -213,6 +213,7 @@ LRESULT CSourceCodeLineDlg::OnSourceEvent( WPARAM wParam, LPARAM lParam )
 	}
 	else if( wParam == WPARAM_PERCENT )
 	{
+		// 소스 코드 라인 분석 페센트 이벤트
 		int iPercent = lParam;
 
 		m_clsProgress.SetPos( iPercent );
@@ -226,7 +227,6 @@ LRESULT CSourceCodeLineDlg::OnSourceEvent( WPARAM wParam, LPARAM lParam )
 
 void CSourceCodeLineDlg::OnBnClickedOk()
 {
-	//OnOK();
 }
 
 void CSourceCodeLineDlg::OnBnClickedCancel()
@@ -262,4 +262,30 @@ void CSourceCodeLineDlg::OnBnClickedSelectFolder()
 	{
 		MessageBox( "Select folder!!!", "Error", MB_OK | MB_ICONERROR );
 	}
+}
+
+void CSourceCodeLineDlg::OnLvnItemchangedFolderList(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+	
+	// 체크된 폴더의 라인 개수만 TOTAL 개수에 저장한다.
+	SOURCE_FOLDER::iterator itSF;
+	int iRow = 0;
+	int iLineCount = 0;
+	std::string strLineCount;
+
+	for( itSF = m_clsSourceCode.m_clsFolderList.begin(); itSF != m_clsSourceCode.m_clsFolderList.end(); ++itSF )
+	{
+		if( m_clsFolderList.GetCheck( iRow ) )
+		{
+			iLineCount += itSF->m_iLineCount;
+		}
+
+		++iRow;
+	}
+
+	GetLineCount( iLineCount, strLineCount );
+	m_clsFolderList.SetItemText( iRow, 1, strLineCount.c_str() );
+	
+	*pResult = 0;
 }

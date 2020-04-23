@@ -17,6 +17,7 @@
  */
 
 #include "stdafx.h"
+#include <algorithm>
 
 void CommaSepString( std::string & strText )
 {
@@ -31,6 +32,15 @@ void CommaSepString( std::string & strText )
 			++iCount;
 		}
 	}
+}
+
+void GetLineCount( int iLineCount, std::string & strLineCount )
+{
+	char szLineCount[21];
+
+	_snprintf( szLineCount, sizeof(szLineCount), "%d", iLineCount );
+	strLineCount = szLineCount;
+	CommaSepString( strLineCount );
 }
 
 bool GetFileExt( const char * pszFilePath, std::string & strExt )
@@ -59,4 +69,34 @@ bool GetFileExt( const char * pszFilePath, std::string & strExt )
 	}
 
 	return false;
+}
+
+char * GetProgramDirectory( )
+{
+	static char szDir[2048];
+
+	if( strlen(szDir) == 0 )
+	{
+		int		i;
+		HMODULE	hThis;
+
+		hThis = GetModuleHandle( NULL );
+
+		GetModuleFileName( hThis, szDir, sizeof(szDir));
+		for( i = strlen( szDir) - 1; i >= 0; i-- )
+		{
+			if( szDir[i] == '\\' ) 
+			{
+				szDir[i] = '\0';
+				break;
+			}
+		}
+	}
+
+	return szDir;
+}
+
+void ToLower( std::string & strBuf )
+{
+	std::transform( strBuf.begin(), strBuf.end(), strBuf.begin(), ::tolower );
 }

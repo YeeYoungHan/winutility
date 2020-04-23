@@ -13,6 +13,15 @@
 * Folder 를 선택하면 해당 폴더에 포함된 모든 폴더의 소스 코드 라인 개수를 출력한다.
 * 소스 코드로 인식하는 파일 확장자는 다음과 같다.
 
-'''
-"cpp", "c", "hpp", "h", "m", "mm", "cc", "java", "js", "kt", "cs", "html", "htm", "css", "php"
-'''
+```
+cpp, c, hpp, h, m, mm, cc, java, js, kt, cs, html, htm, css, php
+```
+
+* 소스 코드로 인식하는 파일 확장자를 사용자가 지정하고 싶으면 SourceCodeList.exe 프로그램이 존재하는 폴더에 ext.txt 파일을 생성한 후, 아래와 같이 소스 코드 파일 확장자를 정의하면 됩니다.
+
+```
+cpp
+c
+hpp
+h
+```

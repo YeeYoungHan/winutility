@@ -59,4 +59,7 @@
 #include <string>
 
 void CommaSepString( std::string & strText );
+void GetLineCount( int iLineCount, std::string & strLineCount );
 bool GetFileExt( const char * pszFilePath, std::string & strExt );
+char * GetProgramDirectory( );
+void ToLower( std::string & strBuf );

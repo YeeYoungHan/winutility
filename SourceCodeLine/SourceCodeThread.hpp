@@ -17,6 +17,12 @@
  */
 
 
+/**
+ * @ingroup SourceCodeLine
+ * @brief 소스 코드의 라인 개수를 리턴한다.
+ * @param pszFileName 파일 이름
+ * @returns 소스 코드의 라인 개수를 리턴한다.
+ */
 int GetFileLineCount( const char * pszFileName )
 {
 	int iLineCount = 0;
@@ -36,6 +42,13 @@ int GetFileLineCount( const char * pszFileName )
 	return iLineCount;
 }
 
+/**
+ * @ingroup SourceCodeLine
+ * @brief 폴더에 포함된 소스 코드들의 라인 개수를 리턴한다.
+ * @param pclsArg		객체 포인터
+ * @param pszFolder 폴더 경로
+ * @returns 폴더에 포함된 소스 코드들의 라인 개수를 리턴한다.
+ */
 int GetFolderLineCount( CSourceCode * pclsArg, const char * pszFolder )
 {
 	int				iLineCount = 0;
@@ -76,6 +89,12 @@ int GetFolderLineCount( CSourceCode * pclsArg, const char * pszFolder )
 	return iLineCount;
 }
 
+/**
+ * @ingroup SourceCodeLine
+ * @brief 폴더에 포함된 소스 코드들의 라인 개수를 저장하는 쓰레드
+ * @param lpParameter CSourceCode 객체의 포인터
+ * @returns 0 을 리턴한다.
+ */
 DWORD WINAPI SourceCodeThread( LPVOID lpParameter )
 {
 	CSourceCode * pclsArg = (CSourceCode *)lpParameter;
