@@ -28,7 +28,7 @@ h
 
 ### 실행화면
 
-![Alt text](https://blog.naver.com/PostView.nhn?blogId=websearch&Redirect=View&logNo=221925554752&categoryNo=118&isAfterWrite=true&isMrblogPost=false&isHappyBeanLeverage=true&contentLength=12302#)
+![Alt text](https://postfiles.pstatic.net/MjAyMDA0MjNfMjM1/MDAxNTg3NjUyNDEwOTk3.5TQdViNRmxf5Ne9w_bV2RNPbHuyqBu8N6HMGLvNd5z0g.6C04l--O2v9R4pBVTzWG5ZdSQx7xf98BTK-c4mDSdMUg.PNG.websearch/%EC%86%8C%EC%8A%A4%EC%BD%94%EB%93%9C%EB%9D%BC%EC%9D%B8%EA%B0%9C%EC%88%98%EC%B8%A1%EC%A0%95%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-1.png?type=w773)
 
 ### 관련 포스트
 
