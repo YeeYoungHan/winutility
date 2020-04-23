@@ -95,6 +95,9 @@ dos> DosCropImage.exe {input image filename} {output image filename} {x} {y} {wi
 * ShowTransparentImage
   * 투명한 png 이미지 확인하는 프로그램
 
+* SourceCodeLine
+  * 폴더에 포함된 모든 소스 코드의 라인 개수를 출력하는 프로그
+
 * Tail
   * 윈도우 tail 프로그램
 
