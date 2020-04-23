@@ -70,7 +70,7 @@ int GetFolderLineCount( CSourceCode * pclsArg, const char * pszFolder )
 			bFind = FindNextFile( hSearch, &wfd );
 		}
 
-		FindClose(hSearch);
+		FindClose( hSearch );
 	}
 
 	return iLineCount;
@@ -82,10 +82,40 @@ DWORD WINAPI SourceCodeThread( LPVOID lpParameter )
 
 	pclsArg->m_bRun = true;
 
-	int       iLineCount = 0;
+	int       iLineCount = 0, iFolderCount = 0, iFileCount = 0, iFolderIndex = 0, iPercent;
 	char			szPath[2048];
 	HANDLE		hSearch;
 	WIN32_FIND_DATA wfd;
+
+	_snprintf( szPath, sizeof(szPath), "%s\\*.*", pclsArg->m_strFolder.c_str() );
+
+	memset( &wfd, 0, sizeof(wfd) );
+	hSearch = FindFirstFile( szPath, &wfd );
+	if( hSearch != INVALID_HANDLE_VALUE )
+	{
+		BOOL	bFind = TRUE;
+
+		while( bFind && pclsArg->m_bStop == false )
+		{
+			if( strcmp( wfd.cFileName, "." ) && strcmp( wfd.cFileName, ".." ) )
+			{
+				_snprintf( szPath, sizeof(szPath), "%s\\%s", pclsArg->m_strFolder.c_str(), wfd.cFileName );
+
+				if( wfd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY )
+				{
+					++iFolderCount;
+				}
+				else if( pclsArg->IsSourceCodeFile( wfd.cFileName ) )
+				{
+					++iFileCount;
+				}
+			}
+
+			bFind = FindNextFile( hSearch, &wfd );
+		}
+
+		FindClose( hSearch );
+	}
 
 	_snprintf( szPath, sizeof(szPath), "%s\\*.*", pclsArg->m_strFolder.c_str() );
 
@@ -109,6 +139,10 @@ DWORD WINAPI SourceCodeThread( LPVOID lpParameter )
 					{
 						pclsArg->Insert( wfd.cFileName, iFolderLineCount );
 					}
+
+					++iFolderIndex;
+					iPercent = iFolderIndex * 100 / iFolderCount;
+					::SendMessage( pclsArg->m_hWnd, MESSAGE_SOURCE_EVENT, WPARAM_PERCENT, iPercent );
 				}
 				else if( pclsArg->IsSourceCodeFile( wfd.cFileName ) )
 				{
@@ -119,7 +153,7 @@ DWORD WINAPI SourceCodeThread( LPVOID lpParameter )
 			bFind = FindNextFile( hSearch, &wfd );
 		}
 
-		FindClose(hSearch);
+		FindClose( hSearch );
 	}
 
 	if( iLineCount > 0 )

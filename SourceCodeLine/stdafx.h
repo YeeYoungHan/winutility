@@ -54,6 +54,7 @@
 #define MESSAGE_SOURCE_EVENT		(WM_USER + 0x0100)
 
 #define WPARAM_END							1
+#define WPARAM_PERCENT					2
 
 #include <string>
 

@@ -58,12 +58,10 @@ END_MESSAGE_MAP()
 
 // CSourceCodeLineDlg dialog
 
-
-
-
 CSourceCodeLineDlg::CSourceCodeLineDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CSourceCodeLineDlg::IDD, pParent)
 	, m_strFolder(_T(""))
+	, m_strPercent(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -73,6 +71,8 @@ void CSourceCodeLineDlg::DoDataExchange(CDataExchange* pDX)
 	CDialog::DoDataExchange(pDX);
 	DDX_Text(pDX, IDC_FOLDER, m_strFolder);
 	DDX_Control(pDX, IDC_FOLDER_LIST, m_clsFolderList);
+	DDX_Control(pDX, IDC_PROGRESS, m_clsProgress);
+	DDX_Text(pDX, IDC_PERCENT, m_strPercent);
 }
 
 BEGIN_MESSAGE_MAP(CSourceCodeLineDlg, CDialog)
@@ -120,6 +120,8 @@ BOOL CSourceCodeLineDlg::OnInitDialog()
 
 	m_clsFolderList.InsertColumn( 0, "Name", LVCFMT_LEFT, 300 );
 	m_clsFolderList.InsertColumn( 1, "Line", LVCFMT_RIGHT, 130 );
+
+	m_clsProgress.SetRange( 0, 100 );
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -198,12 +200,25 @@ LRESULT CSourceCodeLineDlg::OnSourceEvent( WPARAM wParam, LPARAM lParam )
 			++iRow;
 		}
 
-		m_clsFolderList.InsertItem( iRow, "#" );
+		m_clsFolderList.InsertItem( iRow, "# TOTAL #" );
 
 		_snprintf( szTemp, sizeof(szTemp), "%d", iLineCount );
 		strLineCount = szTemp;
 		CommaSepString( strLineCount );
 		m_clsFolderList.SetItemText( iRow, 1, strLineCount.c_str() );
+
+		m_clsProgress.SetPos( 100 );
+		m_strPercent = "100%";
+		UpdateData( FALSE );
+	}
+	else if( wParam == WPARAM_PERCENT )
+	{
+		int iPercent = lParam;
+
+		m_clsProgress.SetPos( iPercent );
+
+		m_strPercent.Format( "%d%%", iPercent );
+		UpdateData( FALSE );
 	}
 
 	return 0;
@@ -237,8 +252,14 @@ void CSourceCodeLineDlg::OnBnClickedSelectFolder()
 	if( szFolder[0] )
 	{
 		m_strFolder = szFolder;
+		m_clsProgress.SetPos( 0 );
+		m_strPercent = "0%";
 		UpdateData( FALSE );
 
 		m_clsSourceCode.Start( GetSafeHwnd(), szFolder );
+	}
+	else
+	{
+		MessageBox( "Select folder!!!", "Error", MB_OK | MB_ICONERROR );
 	}
 }

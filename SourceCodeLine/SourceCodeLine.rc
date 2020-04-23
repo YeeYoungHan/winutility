@@ -106,9 +106,11 @@ EXSTYLE WS_EX_APPWINDOW
 CAPTION "SourceCodeLine"
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    CONTROL         "",IDC_FOLDER_LIST,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,28,306,165
-    EDITTEXT        IDC_FOLDER,7,7,249,14,ES_AUTOHSCROLL | ES_READONLY
     PUSHBUTTON      "Folder",IDC_SELECT_FOLDER,263,7,50,14
+    CONTROL         "",IDC_FOLDER_LIST,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,28,306,148
+    EDITTEXT        IDC_FOLDER,7,7,249,14,ES_AUTOHSCROLL | ES_READONLY
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,7,183,274,10
+    RTEXT           "",IDC_PERCENT,289,183,24,8
 END
 
 
@@ -134,13 +136,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "TODO: <Company name>"
-            VALUE "FileDescription", "TODO: <File description>"
+            VALUE "CompanyName", "Window utility"
+            VALUE "FileDescription", "Print source code line count"
             VALUE "FileVersion", "1.0.0.1"
             VALUE "InternalName", "SourceCodeLine.exe"
-            VALUE "LegalCopyright", "TODO: (c) <Company name>.  All rights reserved."
+            VALUE "LegalCopyright", "websearch@naver.com.  All rights reserved."
             VALUE "OriginalFilename", "SourceCodeLine.exe"
-            VALUE "ProductName", "TODO: <Product name>"
+            VALUE "ProductName", "SourceCodeLine"
             VALUE "ProductVersion", "1.0.0.1"
         END
     END

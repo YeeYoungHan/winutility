@@ -52,4 +52,6 @@ public:
 	afx_msg void OnBnClickedSelectFolder();
 	CString m_strFolder;
 	CListCtrl m_clsFolderList;
+	CProgressCtrl m_clsProgress;
+	CString m_strPercent;
 };
