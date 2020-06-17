@@ -5,7 +5,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string>
+#include "pcap.h"
+#include "PacketHeader.h"
 
 #define snprintf		_snprintf
+#define strcasecmp	_stricmp
 
 #endif
