@@ -54,10 +54,14 @@ void ParsePacket( struct pcap_pkthdr * psttHeader, const u_char * pszData )
 		if( gbUdp )
 		{
 			UdpHeader * psttUdpHeader = (UdpHeader *)( pszData + iIpPos + iIpHeaderLen );
-			pszBody = pszData + iIpPos + iIpHeaderLen + 8;
-			iBodyLen = psttHeader->caplen - ( iIpPos + iIpHeaderLen + 8 );
 			sSrcPort = ntohs( psttUdpHeader->sport );
 			sDstPort = ntohs( psttUdpHeader->dport );
+
+			if( giPort == sSrcPort || giPort == sDstPort )
+			{
+				pszBody = pszData + iIpPos + iIpHeaderLen + 8;
+				iBodyLen = psttHeader->caplen - ( iIpPos + iIpHeaderLen + 8 );
+			}
 		}
 	}
 	else if( IsTcpPacket( psttIp4Header ) )
@@ -65,11 +69,15 @@ void ParsePacket( struct pcap_pkthdr * psttHeader, const u_char * pszData )
 		if( gbUdp == false )
 		{
 			TcpHeader * psttTcpHeader = (TcpHeader *)( pszData + iIpPos + iIpHeaderLen );
-			int iTcpHeaderLen = GetTcpHeaderLength( psttTcpHeader );
-			pszBody = pszData + iIpPos + iIpHeaderLen + iTcpHeaderLen;
-			iBodyLen = psttHeader->caplen - ( iIpPos + iIpHeaderLen + iTcpHeaderLen );
 			sSrcPort = ntohs( psttTcpHeader->sport );
 			sDstPort = ntohs( psttTcpHeader->dport );
+
+			if( giPort == sSrcPort || giPort == sDstPort )
+			{
+				int iTcpHeaderLen = GetTcpHeaderLength( psttTcpHeader );
+				pszBody = pszData + iIpPos + iIpHeaderLen + iTcpHeaderLen;
+				iBodyLen = psttHeader->caplen - ( iIpPos + iIpHeaderLen + iTcpHeaderLen );
+			}
 		}
 	}
 
