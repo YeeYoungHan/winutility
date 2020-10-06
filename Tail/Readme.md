@@ -16,6 +16,7 @@ dos> tail {-f filename}
           {-h} : show help message
           {-v} : show program version
           {-t} : search file from start position
+          {-u} : Converted to utf8 string and output
 ```
 
 
