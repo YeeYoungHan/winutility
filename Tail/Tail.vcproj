@@ -171,7 +171,19 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\GetOpt.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\StringUtility.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Tail.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Tail.h"
 				>
 			</File>
 		</Filter>
