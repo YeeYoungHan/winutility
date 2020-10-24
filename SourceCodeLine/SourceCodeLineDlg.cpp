@@ -64,6 +64,7 @@ CSourceCodeLineDlg::CSourceCodeLineDlg(CWnd* pParent /*=NULL*/)
 	, m_strPercent(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	memset( m_szFolder, 0, sizeof(m_szFolder) );
 }
 
 void CSourceCodeLineDlg::DoDataExchange(CDataExchange* pDX)
@@ -235,16 +236,33 @@ void CSourceCodeLineDlg::OnBnClickedCancel()
 	OnCancel();
 }
 
+int CALLBACK BrowseCallBack( HWND hwnd, UINT uMsg, LPARAM lParam, LPARAM lpData )
+{
+	if( uMsg == BFFM_INITIALIZED )
+	{
+		SendMessage( hwnd, BFFM_SETSELECTION, TRUE, lpData );
+	}
+
+	return 0;
+}
+
 void CSourceCodeLineDlg::OnBnClickedSelectFolder()
 {
 	BROWSEINFO sttInfo;
 	char szFolder[1024]; // 선택된 폴더 full path 를 저장할 변수
-	
+
 	memset( &sttInfo, 0, sizeof(sttInfo) );
 	memset( szFolder, 0, sizeof(szFolder) );
 	
 	sttInfo.hwndOwner = GetSafeHwnd();
-	sttInfo.ulFlags = BIF_NEWDIALOGSTYLE | BIF_RETURNONLYFSDIRS;
+	sttInfo.ulFlags = BIF_NEWDIALOGSTYLE | BIF_RETURNONLYFSDIRS | BIF_VALIDATE;
+
+	if( strlen( m_szFolder ) > 0 )
+	{
+		sttInfo.lpfn = BrowseCallBack;
+		sttInfo.lParam = (LPARAM)m_szFolder;
+	}
+
 	LPITEMIDLIST pItemIdList = ::SHBrowseForFolder(&sttInfo);
 	::SHGetPathFromIDList( pItemIdList, szFolder );
 	::CoTaskMemFree( pItemIdList );
@@ -252,6 +270,7 @@ void CSourceCodeLineDlg::OnBnClickedSelectFolder()
 	if( szFolder[0] )
 	{
 		m_strFolder = szFolder;
+		_snprintf( m_szFolder, sizeof(m_szFolder), "%s", szFolder );
 		m_clsProgress.SetPos( 0 );
 		m_strPercent = "0%";
 		UpdateData( FALSE );

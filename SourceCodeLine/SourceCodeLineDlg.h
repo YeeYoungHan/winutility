@@ -50,9 +50,13 @@ public:
 	afx_msg void OnBnClickedOk();
 	afx_msg void OnBnClickedCancel();
 	afx_msg void OnBnClickedSelectFolder();
+	afx_msg void OnLvnItemchangedFolderList(NMHDR *pNMHDR, LRESULT *pResult);
+
 	CString m_strFolder;
+	CString m_strPercent;
+
 	CListCtrl m_clsFolderList;
 	CProgressCtrl m_clsProgress;
-	CString m_strPercent;
-	afx_msg void OnLvnItemchangedFolderList(NMHDR *pNMHDR, LRESULT *pResult);
+
+	char m_szFolder[1024];
 };
