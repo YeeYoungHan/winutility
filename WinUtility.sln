@@ -45,6 +45,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Percent", "Percent\Percent.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PcapToText", "PcapToText\PcapToText.vcproj", "{0ACC8BA2-445B-4376-8F8F-BC3905565191}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PcapSend", "PcapSend\PcapSend.vcproj", "{64F4FB93-2DDA-426B-AB52-1B9F04AB9945}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -139,6 +141,10 @@ Global
 		{0ACC8BA2-445B-4376-8F8F-BC3905565191}.Debug|Win32.Build.0 = Debug|Win32
 		{0ACC8BA2-445B-4376-8F8F-BC3905565191}.Release|Win32.ActiveCfg = Release|Win32
 		{0ACC8BA2-445B-4376-8F8F-BC3905565191}.Release|Win32.Build.0 = Release|Win32
+		{64F4FB93-2DDA-426B-AB52-1B9F04AB9945}.Debug|Win32.ActiveCfg = Debug|Win32
+		{64F4FB93-2DDA-426B-AB52-1B9F04AB9945}.Debug|Win32.Build.0 = Debug|Win32
+		{64F4FB93-2DDA-426B-AB52-1B9F04AB9945}.Release|Win32.ActiveCfg = Release|Win32
+		{64F4FB93-2DDA-426B-AB52-1B9F04AB9945}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
