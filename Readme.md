@@ -113,6 +113,9 @@ dos> DosCropImage.exe {input image filename} {output image filename} {x} {y} {wi
 * ThumbnailImage
   * thumbnail 이미지 생성 프로그램
 
+* TTS
+  * 텍스트를 wav 파일로 생성하는 프로그
+
 * Utf8ToAnsi
   * 폴더에 존재하는 모든 파일들을 UTF8 에서 ANSI 로 변환하는 프로그램
 

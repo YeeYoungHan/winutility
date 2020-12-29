@@ -47,6 +47,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PcapToText", "PcapToText\Pc
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PcapSend", "PcapSend\PcapSend.vcproj", "{64F4FB93-2DDA-426B-AB52-1B9F04AB9945}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TTS", "TTS\TTS.vcproj", "{F15E673D-B867-4F89-B067-39C60CADDE75}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -145,6 +147,10 @@ Global
 		{64F4FB93-2DDA-426B-AB52-1B9F04AB9945}.Debug|Win32.Build.0 = Debug|Win32
 		{64F4FB93-2DDA-426B-AB52-1B9F04AB9945}.Release|Win32.ActiveCfg = Release|Win32
 		{64F4FB93-2DDA-426B-AB52-1B9F04AB9945}.Release|Win32.Build.0 = Release|Win32
+		{F15E673D-B867-4F89-B067-39C60CADDE75}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F15E673D-B867-4F89-B067-39C60CADDE75}.Debug|Win32.Build.0 = Debug|Win32
+		{F15E673D-B867-4F89-B067-39C60CADDE75}.Release|Win32.ActiveCfg = Release|Win32
+		{F15E673D-B867-4F89-B067-39C60CADDE75}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
