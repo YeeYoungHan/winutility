@@ -10,41 +10,34 @@ bool TTS( const char * pszVoice, const char * pszText, const char * pszWaveFile 
 	CoInitialize(NULL);
 
 	hr = cpVoice.CoCreateInstance( CLSID_SpVoice );
+	if( !SUCCEEDED( hr ) ) goto FUNC_END;
 
-  if( SUCCEEDED(hr) )
+	hr = cAudioFmt.AssignFormat( SPSF_CCITT_uLaw_8kHzMono );
+	if( !SUCCEEDED( hr ) ) goto FUNC_END;
+	
+	hr = SPBindToFile( pszWaveFile,  SPFM_CREATE_ALWAYS, &cpStream, &cAudioFmt.FormatId(),cAudioFmt.WaveFormatExPtr() );
+	if( !SUCCEEDED( hr ) ) goto FUNC_END;
+	
+	hr = cpVoice->SetOutput( cpStream, TRUE );
+	if( !SUCCEEDED( hr ) ) goto FUNC_END;
+
+	if( VoiceSetup( pszVoice, cpVoice ) == false )
 	{
-		hr = cAudioFmt.AssignFormat(SPSF_22kHz16BitMono);
+		printf( "voice(%s) is not found\n", pszVoice );
+	}
+	else
+	{
+		WCHAR szText[8192];
+
+		CharToWchar( pszText, szText, sizeof(szText) );
+
+		hr = cpVoice->Speak( szText, SPF_DEFAULT, NULL );
 	}
 	
-	if( SUCCEEDED(hr) )
+FUNC_END:
+	if( cpStream )
 	{
-		hr = SPBindToFile( "c:\\temp\\ttstemp.wav",  SPFM_CREATE_ALWAYS, &cpStream, &cAudioFmt.FormatId(),cAudioFmt.WaveFormatExPtr() );
-	}
-	
-  if( SUCCEEDED(hr) )
-	{
-		hr = cpVoice->SetOutput( cpStream, TRUE );
-	}
-
-  if( SUCCEEDED(hr) )
-	{
-		if( VoiceSetup( pszVoice, cpVoice ) == false )
-		{
-			printf( "voice(%s) is not found\n", pszVoice );
-		}
-		else
-		{
-			WCHAR szText[8192];
-
-			CharToWchar( pszText, szText, sizeof(szText) );
-
-			hr = cpVoice->Speak( szText, SPF_DEFAULT, NULL );
-		}
-	}
-	
-	if( SUCCEEDED(hr) )
-	{
-		hr = cpStream->Close();
+		cpStream->Close();
 	}
 
 	cpStream.Release ();
