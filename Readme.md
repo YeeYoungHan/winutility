@@ -77,6 +77,13 @@ dos> DosCropImage.exe {input image filename} {output image filename} {x} {y} {wi
  dos> PrintDoc.exe c:\temp\dir.txt
 ```
 
+* PrintExtList
+  * 도스창에서 지정된 폴더에 포함된 파일들을 확장자별로 개수 출력하는 프로그램
+
+```
+ dos> PrintExtList.exe {folder path}
+```
+
 * Publish
   * 본 프로젝트를 빌드한 release 프로그램
 
