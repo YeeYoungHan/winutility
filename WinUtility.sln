@@ -51,6 +51,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TTS", "TTS\TTS.vcproj", "{F
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PrintExtList", "PrintExtList\PrintExtList.vcproj", "{5D36F603-642E-443A-B133-1B62A20CB9F5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LoadDll", "LoadDll\LoadDll.vcproj", "{4EC30732-57ED-4742-A9DF-D98E60C5CA0A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -157,6 +159,10 @@ Global
 		{5D36F603-642E-443A-B133-1B62A20CB9F5}.Debug|Win32.Build.0 = Debug|Win32
 		{5D36F603-642E-443A-B133-1B62A20CB9F5}.Release|Win32.ActiveCfg = Release|Win32
 		{5D36F603-642E-443A-B133-1B62A20CB9F5}.Release|Win32.Build.0 = Release|Win32
+		{4EC30732-57ED-4742-A9DF-D98E60C5CA0A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4EC30732-57ED-4742-A9DF-D98E60C5CA0A}.Debug|Win32.Build.0 = Debug|Win32
+		{4EC30732-57ED-4742-A9DF-D98E60C5CA0A}.Release|Win32.ActiveCfg = Release|Win32
+		{4EC30732-57ED-4742-A9DF-D98E60C5CA0A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
