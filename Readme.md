@@ -61,6 +61,9 @@ dos> DosCropImage.exe {input image filename} {output image filename} {x} {y} {wi
 * KillProcess
   * 도스창에서 프로세스 종료하는 프로그램
 
+* LoadDll
+  * dll 이 로드 가능한지 확인하는 프로그
+
 * PcapSend
   * pcap 파일을 읽어서 네트워트로 전송하는 프로그램
 
