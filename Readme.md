@@ -101,6 +101,9 @@ dos> DosCropImage.exe {input image filename} {output image filename} {x} {y} {wi
       RemoveBOM.exe c:\temp\BOM.java c:\temp\BOM.java
 ```
 
+* RemoveEmptyDirectory
+  * 빈 폴더들을 삭제하는 프로그
+
 * RemoveSVN
   * 폴더에 포함된 모든 .svn 폴더를 제거하는 프로그램
   * 사용법
