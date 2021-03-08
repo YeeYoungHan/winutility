@@ -165,7 +165,7 @@ bool Utf8ToAnsiDirectory( const char * pszDirectory, const char * pszExt = NULL 
 	char			szPath[2048];
 	char			szFileName[2048];
 	HANDLE		hSearch;
-	BOOL			fisOk = TRUE;
+	BOOL			bOk = TRUE;
 	WIN32_FIND_DATA wfd;
 
 	if( pszExt )
@@ -185,7 +185,7 @@ bool Utf8ToAnsiDirectory( const char * pszDirectory, const char * pszExt = NULL 
 		return false;
 	}
 	
-	while( fisOk )
+	while( bOk )
 	{
 		if( strcmp( wfd.cFileName, "." ) && strcmp( wfd.cFileName, ".." ) )
 		{
@@ -216,7 +216,7 @@ bool Utf8ToAnsiDirectory( const char * pszDirectory, const char * pszExt = NULL 
 			}
 		}
 
-		fisOk = FindNextFile( hSearch, &wfd );
+		bOk = FindNextFile( hSearch, &wfd );
 	}
 
 	FindClose(hSearch);

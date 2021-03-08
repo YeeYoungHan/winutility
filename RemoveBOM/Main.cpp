@@ -28,7 +28,7 @@ void DirectoryRemoveBOM( const char * pszDirectory )
 	char			szPath[2048];
 	char			szFileName[2048];
 	HANDLE		hSearch;
-	BOOL			fisOk = TRUE;
+	BOOL			bOk = TRUE;
 	WIN32_FIND_DATA wfd;
 
 	_snprintf( szPath, sizeof(szPath), "%s\\*.*", pszDirectory );
@@ -41,7 +41,7 @@ void DirectoryRemoveBOM( const char * pszDirectory )
 		return;
 	}
 	
-	while( fisOk )
+	while( bOk )
 	{
 		if( strcmp( wfd.cFileName, "." ) && strcmp( wfd.cFileName, ".." ) )
 		{
@@ -57,7 +57,7 @@ void DirectoryRemoveBOM( const char * pszDirectory )
 			}
 		}
 
-		fisOk = FindNextFile( hSearch, &wfd );
+		bOk = FindNextFile( hSearch, &wfd );
 	}
 
 	FindClose(hSearch);

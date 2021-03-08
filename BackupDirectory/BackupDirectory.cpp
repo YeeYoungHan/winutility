@@ -55,8 +55,8 @@ void CopyDirectory( char * szSrcName, char * szDstName )
 {
 	char			szPath[1024*2];
 	char			szSrcFileName[1024*2], szDstFileName[1024*2];
-	HANDLE			hSearch;
-	BOOL			fisOk = TRUE, bResult;
+	HANDLE		hSearch;
+	BOOL			bOk = TRUE, bResult;
 	WIN32_FIND_DATA wfd;
 	FILETIME		ft;
 	BOOL			fisCopy;
@@ -70,7 +70,7 @@ void CopyDirectory( char * szSrcName, char * szDstName )
 		return;
 	}
 	
-	while( fisOk )
+	while( bOk )
 	{
 		if( !strcmp( wfd.cFileName, "." ) || !strcmp( wfd.cFileName, ".." ) )
 		{
@@ -129,7 +129,7 @@ void CopyDirectory( char * szSrcName, char * szDstName )
 		}
 
 WHILE_END:
-		fisOk = FindNextFile( hSearch, &wfd );
+		bOk = FindNextFile( hSearch, &wfd );
 	}
 
 	FindClose(hSearch);
@@ -146,7 +146,7 @@ int DeleteDirectoryIfNotExist( char * szSrcName, char * szDstName )
 	char			szPath[1024*2];
 	char			szSrcFileName[1024*2], szDstFileName[1024*2];
 	HANDLE		hSearch;
-	BOOL			fisOk = TRUE;
+	BOOL			bOk = TRUE;
 	WIN32_FIND_DATA wfd;
 	FILETIME		ft;
 	int				iFileCount = 0;
@@ -160,7 +160,7 @@ int DeleteDirectoryIfNotExist( char * szSrcName, char * szDstName )
 		return 0;
 	}
 	
-	while( fisOk )
+	while( bOk )
 	{
 		if( !strcmp( wfd.cFileName, "." ) || !strcmp( wfd.cFileName, ".." ) )
 		{
@@ -193,7 +193,7 @@ int DeleteDirectoryIfNotExist( char * szSrcName, char * szDstName )
 		}
 
 WHILE_END:
-		fisOk = FindNextFile( hSearch, &wfd );
+		bOk = FindNextFile( hSearch, &wfd );
 	}
 
 	FindClose(hSearch);
