@@ -12,6 +12,9 @@
 
 ### 폴더 설명
 
+* AddBOM
+  * utf8 BOM 을 추가하는 프로그
+
 * BackupDirectory
   * 폴더 백업 프로그램
   * 사용법
