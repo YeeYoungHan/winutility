@@ -24,7 +24,7 @@ typedef  unsigned __int64 uint64_t;
 
 int main( int argc, char * argv[] )
 {
-	if( argc != 3 )
+	if( argc != 2 )
 	{
 		printf( "[Usage] %s {disk}\n", argv[0] );
 		printf( "        %s d:\\\n", argv[0] );
