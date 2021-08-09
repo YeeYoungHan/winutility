@@ -57,6 +57,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddBOM", "AddBOM\AddBOM.vcp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RemoveEmptyDirectory", "RemoveEmptyDirectory\RemoveEmptyDirectory.vcproj", "{F06529B2-7931-4E57-9145-7F7FD4BB1135}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PrintSshdFailed", "PrintSshdFailed\PrintSshdFailed.vcproj", "{120C5F72-8062-4AA8-B0E5-4EF8D5197C90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -175,6 +177,10 @@ Global
 		{F06529B2-7931-4E57-9145-7F7FD4BB1135}.Debug|Win32.Build.0 = Debug|Win32
 		{F06529B2-7931-4E57-9145-7F7FD4BB1135}.Release|Win32.ActiveCfg = Release|Win32
 		{F06529B2-7931-4E57-9145-7F7FD4BB1135}.Release|Win32.Build.0 = Release|Win32
+		{120C5F72-8062-4AA8-B0E5-4EF8D5197C90}.Debug|Win32.ActiveCfg = Debug|Win32
+		{120C5F72-8062-4AA8-B0E5-4EF8D5197C90}.Debug|Win32.Build.0 = Debug|Win32
+		{120C5F72-8062-4AA8-B0E5-4EF8D5197C90}.Release|Win32.ActiveCfg = Release|Win32
+		{120C5F72-8062-4AA8-B0E5-4EF8D5197C90}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
