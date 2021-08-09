@@ -17,6 +17,7 @@
  */
 
 #include "StringMap.h"
+#include <algorithm>
 
 void CStringMap::Insert( const char * pszKey )
 {
@@ -41,4 +42,43 @@ void CStringMap::Print( )
 	{
 		printf( "%s => %d\n", itMap->first.c_str(), itMap->second );
 	}
+}
+
+static bool Compare( CStringInt & clsA, CStringInt & clsB )
+{
+	if( clsA.m_iCount > clsB.m_iCount ) return true;
+
+	return false;
+}
+
+void CStringMap::PrintTop( int iTopCount )
+{
+	STRING_VECTOR arrBuf( m_clsMap.size() );
+	STRING_MAP::iterator itMap;
+	int iIndex = 0;
+
+	for( itMap = m_clsMap.begin(); itMap != m_clsMap.end(); ++itMap )
+	{
+		arrBuf[iIndex].m_strName = itMap->first;
+		arrBuf[iIndex].m_iCount = itMap->second;
+
+		++iIndex;
+	}
+
+	std::sort( arrBuf.begin(), arrBuf.end(), Compare );
+
+	if( iTopCount > (int)m_clsMap.size() )
+	{
+		iTopCount = (int)m_clsMap.size();
+	}
+
+	for( int i = 0; i < iTopCount; ++i )
+	{
+		printf( "%s => %d\n", arrBuf[i].m_strName.c_str(), arrBuf[i].m_iCount );
+	}
+}
+
+int CStringMap::GetCount( )
+{
+	return m_clsMap.size();
 }

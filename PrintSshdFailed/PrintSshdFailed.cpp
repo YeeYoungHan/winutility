@@ -65,13 +65,21 @@ bool Parse( const char * pszBuf, std::string & strUserId, std::string & strIp )
 
 int main( int argc, char * argv[] )
 {
-	if( argc != 2 )
+	if( argc != 3 )
 	{
-		printf( "[Usage] %s {file name}\n", argv[0] );
+		printf( "[Usage] %s {file name} {all|top count}\n", argv[0] );
+		printf( "        %s secure all\n", argv[0] );
+		printf( "        %s secure 10\n", argv[0] );
 		return 0;
 	}
 
 	const char * pszFileName = argv[1];
+	int iTopCount = -1;
+
+	if( strcmp( argv[2], "all" ) )
+	{
+		iTopCount = atoi( argv[2] );
+	}
 
 	CStringMap clsUserIdMap, clsIpMap;
 	std::string strUserId, strIp;
@@ -99,14 +107,32 @@ int main( int argc, char * argv[] )
 
 	fclose( fd );
 
+	printf( "Failed User ID count = %d\n", clsUserIdMap.GetCount() );
+	printf( "Failed IP count = %d\n", clsIpMap.GetCount() );
+	printf( "\n" );
+
 	printf( "Failed User List\n" );
 	printf( "==================================\n" );
-	clsUserIdMap.Print();
+	if( iTopCount == -1 )
+	{
+		clsUserIdMap.Print();
+	}
+	else
+	{
+		clsUserIdMap.PrintTop( iTopCount );
+	}
 
-
+	printf( "\n" );
 	printf( "Failed IP List\n" );
 	printf( "==================================\n" );
-	clsIpMap.Print();
+	if( iTopCount == -1 )
+	{
+		clsIpMap.Print();
+	}
+	else
+	{
+		clsIpMap.PrintTop( iTopCount );
+	}
 
 	return 0;
 }

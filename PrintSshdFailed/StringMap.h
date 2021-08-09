@@ -20,15 +20,26 @@
 #define _STRING_MAP_H_
 
 #include <string>
+#include <vector>
 #include <map>
 
+class CStringInt
+{
+public:
+	std::string m_strName;
+	int					m_iCount;
+};
+
 typedef std::map< std::string, int > STRING_MAP;
+typedef std::vector< CStringInt > STRING_VECTOR;
 
 class CStringMap
 {
 public:
 	void Insert( const char * pszKey );
 	void Print( );
+	void PrintTop( int iTopCount );
+	int GetCount( );
 
 	STRING_MAP m_clsMap;
 };
