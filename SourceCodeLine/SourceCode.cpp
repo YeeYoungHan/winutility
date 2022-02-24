@@ -26,7 +26,7 @@ CSourceFolder::CSourceFolder() : m_iLineCount(0)
 }
 
 // 기본 소스 코드 확장자
-static const char * garrExt[] = { "cpp", "c", "hpp", "h", "m", "mm", "cc", "java", "js", "kt", "cs", "html", "htm", "css", "php", NULL };
+static const char * garrExt[] = { "cpp", "c", "hpp", "h", "m", "mm", "cc", "java", "js", "kt", "cs", "html", "htm", "css", "php", "jsp", NULL };
 
 CSourceCode::CSourceCode() : m_hWnd(NULL), m_bStop(false), m_bRun(false)
 {
