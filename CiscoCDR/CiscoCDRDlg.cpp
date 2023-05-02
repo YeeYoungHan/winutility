@@ -105,6 +105,8 @@ BOOL CCiscoCDRDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
+	m_clsCdrList.SetExtendedStyle( LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT ); 
+
 	gclsSetup.GetFile();
 
 	RECT sttRect, sttCdrRect;
