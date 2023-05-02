@@ -334,16 +334,25 @@ void CCiscoCDRDlg::AddRow( STRING_LIST & clsList )
 		{
 			if( iIndex == m_iDateTimeOriginationIndex || iIndex == m_iDateTimeConnectIndex || iIndex == m_iDateTimeDisconnectIndex )
 			{
-				time_t iTime = atoi( itList->c_str() );
-				struct tm	sttTm;
-				char szTime[31];
+				const char * pszText = itList->c_str();
 
-				localtime_s( &sttTm, &iTime );
+				if( !strcmp( pszText, "" ) || !strcmp( pszText, "0" ) )
+				{
+					m_clsCdrList.SetItemText( iRow, iCol, "" );
+				}
+				else
+				{
+					time_t iTime = atoi( itList->c_str() );
+					struct tm	sttTm;
+					char szTime[31];
 
-				_snprintf( szTime, sizeof(szTime), "%04d/%02d/%02d %02d:%02d:%02d", sttTm.tm_year + 1900, sttTm.tm_mon + 1, sttTm.tm_mday
-					, sttTm.tm_hour, sttTm.tm_min, sttTm.tm_sec );
+					localtime_s( &sttTm, &iTime );
 
-				m_clsCdrList.SetItemText( iRow, iCol, szTime );
+					_snprintf( szTime, sizeof(szTime), "%04d/%02d/%02d %02d:%02d:%02d", sttTm.tm_year + 1900, sttTm.tm_mon + 1, sttTm.tm_mday
+						, sttTm.tm_hour, sttTm.tm_min, sttTm.tm_sec );
+
+					m_clsCdrList.SetItemText( iRow, iCol, szTime );
+				}
 			}
 			else
 			{
