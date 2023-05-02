@@ -23,6 +23,11 @@ public:
 // Implementation
 protected:
 	HICON m_hIcon;
+	CListCtrl m_clsCdrList;
+	RECT	m_sttCdrListMargin;
+	int m_iDateTimeOriginationIndex;
+	int m_iDateTimeConnectIndex;
+	int m_iDateTimeDisconnectIndex;
 
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
@@ -34,11 +39,9 @@ public:
 	afx_msg void OnBnClickedOk();
 	afx_msg void OnBnClickedOpen();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void OnDestroy();
 
 	void Show( const char * pszFileName );
 	bool ShowHeader( STRING_LIST & clsList );
 	void AddRow( STRING_LIST & clsList );
-
-	CListCtrl m_clsCdrList;
-	RECT	m_sttCdrListMargin;
 };

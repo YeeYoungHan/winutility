@@ -258,6 +258,18 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="설정파일"
+			>
+			<File
+				RelativePath=".\Setup.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Setup.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\ReadMe.txt"
 			>

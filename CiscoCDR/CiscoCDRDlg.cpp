@@ -5,6 +5,7 @@
 #include "stdafx.h"
 #include "CiscoCDR.h"
 #include "CiscoCDRDlg.h"
+#include "Setup.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -67,6 +68,7 @@ BEGIN_MESSAGE_MAP(CCiscoCDRDlg, CDialog)
 	ON_BN_CLICKED(IDOK, &CCiscoCDRDlg::OnBnClickedOk)
 	ON_BN_CLICKED(IDC_OPEN, &CCiscoCDRDlg::OnBnClickedOpen)
 	ON_WM_SIZE()
+	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 
@@ -100,6 +102,8 @@ BOOL CCiscoCDRDlg::OnInitDialog()
 	//  when the application's main window is not a dialog
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
+
+	gclsSetup.GetFile();
 
 	RECT sttRect, sttCdrRect;
 
@@ -181,6 +185,32 @@ void CCiscoCDRDlg::OnBnClickedOpen()
 	}
 }
 
+void CCiscoCDRDlg::OnSize(UINT nType, int cx, int cy)
+{
+	CDialog::OnSize(nType, cx, cy);
+
+	if( m_clsCdrList.GetSafeHwnd() )
+	{
+		m_clsCdrList.SetWindowPos( NULL, m_sttCdrListMargin.left, m_sttCdrListMargin.top
+			, cx - m_sttCdrListMargin.left - m_sttCdrListMargin.right, cy - m_sttCdrListMargin.top - m_sttCdrListMargin.bottom, SWP_NOZORDER );
+	}
+}
+
+void CCiscoCDRDlg::OnDestroy()
+{
+	CDialog::OnDestroy();
+
+	CHeaderCtrl * pclsHeaderCtrl = m_clsCdrList.GetHeaderCtrl();
+	int i, iCount = pclsHeaderCtrl->GetItemCount();
+
+	for( i = 0; i < iCount; ++i )
+	{
+		gclsSetup.PutInt( "cdr", i, m_clsCdrList.GetColumnWidth( i ) );
+	}
+
+	gclsSetup.PutFile();
+}
+
 void CCiscoCDRDlg::Show( const char * pszFileName )
 {
 	int iHeaderCount = m_clsCdrList.GetHeaderCtrl()->GetItemCount();
@@ -233,11 +263,31 @@ void CCiscoCDRDlg::Show( const char * pszFileName )
 bool CCiscoCDRDlg::ShowHeader( STRING_LIST & clsList )
 {
 	STRING_LIST::iterator itList;
+	const char * pszText;
 	int iCol = 0;
+
+	m_iDateTimeOriginationIndex = -1;
+	m_iDateTimeConnectIndex = -1;
+	m_iDateTimeDisconnectIndex = -1;
 
 	for( itList = clsList.begin(); itList != clsList.end(); ++itList )
 	{
-		m_clsCdrList.InsertColumn( iCol, itList->c_str(), LVCFMT_LEFT, 50 );
+		pszText = itList->c_str();
+
+		if( !strcmp( pszText, "dateTimeOrigination" ) )
+		{
+			m_iDateTimeOriginationIndex = iCol;
+		}
+		else if( !strcmp( pszText, "dateTimeConnect" ) )
+		{
+			m_iDateTimeConnectIndex = iCol;
+		}
+		else if( !strcmp( pszText, "dateTimeDisconnect" ) )
+		{
+			m_iDateTimeDisconnectIndex = iCol;
+		}
+
+		m_clsCdrList.InsertColumn( iCol, pszText, LVCFMT_LEFT, gclsSetup.GetInt( "cdr", iCol, 50 ) );
 		++iCol;
 	}
 
@@ -253,26 +303,38 @@ void CCiscoCDRDlg::AddRow( STRING_LIST & clsList )
 
 	for( itList = clsList.begin(); itList != clsList.end(); ++itList )
 	{
-		if( iCol == 0 )
+		if( iCol == m_iDateTimeOriginationIndex || iCol == m_iDateTimeConnectIndex || iCol == m_iDateTimeDisconnectIndex )
 		{
-			m_clsCdrList.InsertItem( iRow, itList->c_str() );
+			time_t iTime = atoi( itList->c_str() );
+			struct tm	sttTm;
+			char szTime[31];
+
+			localtime_s( &sttTm, &iTime );
+
+			_snprintf( szTime, sizeof(szTime), "%04d/%02d/%02d %02d:%02d:%02d", sttTm.tm_year + 1900, sttTm.tm_mon + 1, sttTm.tm_mday
+				, sttTm.tm_hour, sttTm.tm_min, sttTm.tm_sec );
+
+			if( iCol == 0 )
+			{
+				m_clsCdrList.InsertItem( iRow, szTime );
+			}
+			else
+			{
+				m_clsCdrList.SetItemText( iRow, iCol, szTime );
+			}
 		}
 		else
 		{
-			m_clsCdrList.SetItemText( iRow, iCol, itList->c_str() );
+			if( iCol == 0 )
+			{
+				m_clsCdrList.InsertItem( iRow, itList->c_str() );
+			}
+			else
+			{
+				m_clsCdrList.SetItemText( iRow, iCol, itList->c_str() );
+			}
 		}
 
 		++iCol;
-	}
-}
-
-void CCiscoCDRDlg::OnSize(UINT nType, int cx, int cy)
-{
-	CDialog::OnSize(nType, cx, cy);
-
-	if( m_clsCdrList.GetSafeHwnd() )
-	{
-		m_clsCdrList.SetWindowPos( NULL, m_sttCdrListMargin.left, m_sttCdrListMargin.top
-			, cx - m_sttCdrListMargin.left - m_sttCdrListMargin.right, cy - m_sttCdrListMargin.top - m_sttCdrListMargin.bottom, SWP_NOZORDER );
 	}
 }
