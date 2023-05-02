@@ -65,6 +65,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TcpRecv", "TcpRecv\TcpRecv.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ApacheAccessLog", "ApacheAccessLog\ApacheAccessLog.vcproj", "{B0D2AB71-EC11-4D95-99B3-2EEBBAD5596F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CiscoCDR", "CiscoCDR\CiscoCDR.vcproj", "{4B7A22B8-18BD-4D8D-8B4F-AFE76648D6DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -199,6 +201,10 @@ Global
 		{B0D2AB71-EC11-4D95-99B3-2EEBBAD5596F}.Debug|Win32.Build.0 = Debug|Win32
 		{B0D2AB71-EC11-4D95-99B3-2EEBBAD5596F}.Release|Win32.ActiveCfg = Release|Win32
 		{B0D2AB71-EC11-4D95-99B3-2EEBBAD5596F}.Release|Win32.Build.0 = Release|Win32
+		{4B7A22B8-18BD-4D8D-8B4F-AFE76648D6DC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4B7A22B8-18BD-4D8D-8B4F-AFE76648D6DC}.Debug|Win32.Build.0 = Debug|Win32
+		{4B7A22B8-18BD-4D8D-8B4F-AFE76648D6DC}.Release|Win32.ActiveCfg = Release|Win32
+		{4B7A22B8-18BD-4D8D-8B4F-AFE76648D6DC}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
