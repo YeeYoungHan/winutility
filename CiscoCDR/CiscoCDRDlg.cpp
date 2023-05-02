@@ -278,6 +278,9 @@ bool CCiscoCDRDlg::ShowHeader( STRING_LIST & clsList )
 
 	gclsColList = clsList;
 
+	m_clsCdrList.InsertColumn( 0, "line", LVCFMT_LEFT, gclsSetup.GetInt( "cdr", iCol, 50 ) );
+	++iCol;
+
 	for( itList = clsList.begin(); itList != clsList.end(); ++itList )
 	{
 		pszText = itList->c_str();
@@ -316,8 +319,13 @@ void CCiscoCDRDlg::AddRow( STRING_LIST & clsList )
 	INT_MAP::iterator itMap;
 	STRING_LIST::iterator itList;
 	int iCol = 0, iIndex = 0;
+	char szLine[11];
 
 	int iRow = m_clsCdrList.GetItemCount();
+
+	_snprintf( szLine, sizeof(szLine), "%d", iRow + 1 );
+	m_clsCdrList.InsertItem( iRow, szLine );
+	++iCol;
 
 	for( itList = clsList.begin(); itList != clsList.end(); ++itList )
 	{
@@ -335,25 +343,11 @@ void CCiscoCDRDlg::AddRow( STRING_LIST & clsList )
 				_snprintf( szTime, sizeof(szTime), "%04d/%02d/%02d %02d:%02d:%02d", sttTm.tm_year + 1900, sttTm.tm_mon + 1, sttTm.tm_mday
 					, sttTm.tm_hour, sttTm.tm_min, sttTm.tm_sec );
 
-				if( iCol == 0 )
-				{
-					m_clsCdrList.InsertItem( iRow, szTime );
-				}
-				else
-				{
-					m_clsCdrList.SetItemText( iRow, iCol, szTime );
-				}
+				m_clsCdrList.SetItemText( iRow, iCol, szTime );
 			}
 			else
 			{
-				if( iCol == 0 )
-				{
-					m_clsCdrList.InsertItem( iRow, itList->c_str() );
-				}
-				else
-				{
-					m_clsCdrList.SetItemText( iRow, iCol, itList->c_str() );
-				}
+				m_clsCdrList.SetItemText( iRow, iCol, itList->c_str() );
 			}
 
 			++iCol;
