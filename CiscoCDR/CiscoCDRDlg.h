@@ -50,4 +50,5 @@ public:
 	bool ShowHeader( STRING_LIST & clsList );
 	void AddRow( STRING_LIST & clsList );
 	void SaveColumn();
+	afx_msg void OnNMDblclkCdrList(NMHDR *pNMHDR, LRESULT *pResult);
 };

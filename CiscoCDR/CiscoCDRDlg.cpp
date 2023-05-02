@@ -71,6 +71,7 @@ BEGIN_MESSAGE_MAP(CCiscoCDRDlg, CDialog)
 	ON_WM_SIZE()
 	ON_WM_DESTROY()
 	ON_BN_CLICKED(IDC_COLUMN, &CCiscoCDRDlg::OnBnClickedColumn)
+	ON_NOTIFY(NM_DBLCLK, IDC_CDR_LIST, &CCiscoCDRDlg::OnNMDblclkCdrList)
 END_MESSAGE_MAP()
 
 
@@ -379,4 +380,18 @@ void CCiscoCDRDlg::SaveColumn()
 	}
 
 	gclsSetup.PutFile();
+}
+
+void CCiscoCDRDlg::OnNMDblclkCdrList(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	
+	if( pNMItemActivate->iItem != -1 )
+	{
+		CString strText = m_clsCdrList.GetItemText( pNMItemActivate->iItem, pNMItemActivate->iSubItem );
+
+		
+	}
+
+	*pResult = 0;
 }
