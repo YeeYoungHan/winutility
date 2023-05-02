@@ -194,6 +194,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ColumnDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -225,6 +229,10 @@
 			</File>
 			<File
 				RelativePath=".\CiscoCDRDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ColumnDlg.h"
 				>
 			</File>
 			<File

@@ -5,6 +5,7 @@
 #include "stdafx.h"
 #include "CiscoCDR.h"
 #include "CiscoCDRDlg.h"
+#include "ColumnDlg.h"
 #include "Setup.h"
 
 #ifdef _DEBUG
@@ -69,6 +70,7 @@ BEGIN_MESSAGE_MAP(CCiscoCDRDlg, CDialog)
 	ON_BN_CLICKED(IDC_OPEN, &CCiscoCDRDlg::OnBnClickedOpen)
 	ON_WM_SIZE()
 	ON_WM_DESTROY()
+	ON_BN_CLICKED(IDC_COLUMN, &CCiscoCDRDlg::OnBnClickedColumn)
 END_MESSAGE_MAP()
 
 
@@ -182,6 +184,18 @@ void CCiscoCDRDlg::OnBnClickedOpen()
 	if( clsDlg.DoModal() == IDOK )
 	{
 		Show( clsDlg.GetPathName() );
+		m_strFileName = clsDlg.GetPathName();
+	}
+}
+
+void CCiscoCDRDlg::OnBnClickedColumn()
+{
+	CColumnDlg clsDlg;
+
+	if( clsDlg.DoModal() == IDOK && m_strFileName.empty() == false )
+	{
+		SaveColumn();
+		Show( m_strFileName.c_str() );
 	}
 }
 
@@ -198,17 +212,9 @@ void CCiscoCDRDlg::OnSize(UINT nType, int cx, int cy)
 
 void CCiscoCDRDlg::OnDestroy()
 {
+	SaveColumn();
+
 	CDialog::OnDestroy();
-
-	CHeaderCtrl * pclsHeaderCtrl = m_clsCdrList.GetHeaderCtrl();
-	int i, iCount = pclsHeaderCtrl->GetItemCount();
-
-	for( i = 0; i < iCount; ++i )
-	{
-		gclsSetup.PutInt( "cdr", i, m_clsCdrList.GetColumnWidth( i ) );
-	}
-
-	gclsSetup.PutFile();
 }
 
 void CCiscoCDRDlg::Show( const char * pszFileName )
@@ -264,11 +270,13 @@ bool CCiscoCDRDlg::ShowHeader( STRING_LIST & clsList )
 {
 	STRING_LIST::iterator itList;
 	const char * pszText;
-	int iCol = 0;
+	int iCol = 0, iIndex = 0;
 
 	m_iDateTimeOriginationIndex = -1;
 	m_iDateTimeConnectIndex = -1;
 	m_iDateTimeDisconnectIndex = -1;
+
+	gclsColList = clsList;
 
 	for( itList = clsList.begin(); itList != clsList.end(); ++itList )
 	{
@@ -276,19 +284,28 @@ bool CCiscoCDRDlg::ShowHeader( STRING_LIST & clsList )
 
 		if( !strcmp( pszText, "dateTimeOrigination" ) )
 		{
-			m_iDateTimeOriginationIndex = iCol;
+			m_iDateTimeOriginationIndex = iIndex;
 		}
 		else if( !strcmp( pszText, "dateTimeConnect" ) )
 		{
-			m_iDateTimeConnectIndex = iCol;
+			m_iDateTimeConnectIndex = iIndex;
 		}
 		else if( !strcmp( pszText, "dateTimeDisconnect" ) )
 		{
-			m_iDateTimeDisconnectIndex = iCol;
+			m_iDateTimeDisconnectIndex = iIndex;
 		}
 
-		m_clsCdrList.InsertColumn( iCol, pszText, LVCFMT_LEFT, gclsSetup.GetInt( "cdr", iCol, 50 ) );
-		++iCol;
+		if( gclsSetup.GetInt( itList->c_str(), 0 ) == 1 )
+		{
+			m_clsNoShowMap.insert( INT_MAP::value_type( iIndex, iIndex ) );
+		}
+		else
+		{
+			m_clsCdrList.InsertColumn( iCol, pszText, LVCFMT_LEFT, gclsSetup.GetInt( "cdr", iCol, 50 ) );
+			++iCol;
+		}
+
+		++iIndex;
 	}
 
 	return true;
@@ -296,45 +313,65 @@ bool CCiscoCDRDlg::ShowHeader( STRING_LIST & clsList )
 
 void CCiscoCDRDlg::AddRow( STRING_LIST & clsList )
 {
+	INT_MAP::iterator itMap;
 	STRING_LIST::iterator itList;
-	int iCol = 0;
+	int iCol = 0, iIndex = 0;
 
 	int iRow = m_clsCdrList.GetItemCount();
 
 	for( itList = clsList.begin(); itList != clsList.end(); ++itList )
 	{
-		if( iCol == m_iDateTimeOriginationIndex || iCol == m_iDateTimeConnectIndex || iCol == m_iDateTimeDisconnectIndex )
+		itMap = m_clsNoShowMap.find( iIndex );
+		if( itMap == m_clsNoShowMap.end() )
 		{
-			time_t iTime = atoi( itList->c_str() );
-			struct tm	sttTm;
-			char szTime[31];
-
-			localtime_s( &sttTm, &iTime );
-
-			_snprintf( szTime, sizeof(szTime), "%04d/%02d/%02d %02d:%02d:%02d", sttTm.tm_year + 1900, sttTm.tm_mon + 1, sttTm.tm_mday
-				, sttTm.tm_hour, sttTm.tm_min, sttTm.tm_sec );
-
-			if( iCol == 0 )
+			if( iIndex == m_iDateTimeOriginationIndex || iIndex == m_iDateTimeConnectIndex || iIndex == m_iDateTimeDisconnectIndex )
 			{
-				m_clsCdrList.InsertItem( iRow, szTime );
+				time_t iTime = atoi( itList->c_str() );
+				struct tm	sttTm;
+				char szTime[31];
+
+				localtime_s( &sttTm, &iTime );
+
+				_snprintf( szTime, sizeof(szTime), "%04d/%02d/%02d %02d:%02d:%02d", sttTm.tm_year + 1900, sttTm.tm_mon + 1, sttTm.tm_mday
+					, sttTm.tm_hour, sttTm.tm_min, sttTm.tm_sec );
+
+				if( iCol == 0 )
+				{
+					m_clsCdrList.InsertItem( iRow, szTime );
+				}
+				else
+				{
+					m_clsCdrList.SetItemText( iRow, iCol, szTime );
+				}
 			}
 			else
 			{
-				m_clsCdrList.SetItemText( iRow, iCol, szTime );
+				if( iCol == 0 )
+				{
+					m_clsCdrList.InsertItem( iRow, itList->c_str() );
+				}
+				else
+				{
+					m_clsCdrList.SetItemText( iRow, iCol, itList->c_str() );
+				}
 			}
-		}
-		else
-		{
-			if( iCol == 0 )
-			{
-				m_clsCdrList.InsertItem( iRow, itList->c_str() );
-			}
-			else
-			{
-				m_clsCdrList.SetItemText( iRow, iCol, itList->c_str() );
-			}
+
+			++iCol;
 		}
 
-		++iCol;
+		++iIndex;
 	}
+}
+
+void CCiscoCDRDlg::SaveColumn()
+{
+	CHeaderCtrl * pclsHeaderCtrl = m_clsCdrList.GetHeaderCtrl();
+	int i, iCount = pclsHeaderCtrl->GetItemCount();
+
+	for( i = 0; i < iCount; ++i )
+	{
+		gclsSetup.PutInt( "cdr", i, m_clsCdrList.GetColumnWidth( i ) );
+	}
+
+	gclsSetup.PutFile();
 }

@@ -5,6 +5,8 @@
 
 #include "stdafx.h"
 
+STRING_LIST gclsColList;
+
 void SplitString( const char * pszText, STRING_LIST & clsList, char cSep )
 {
 	int iStartPos = -1, i;

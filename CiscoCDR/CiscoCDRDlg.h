@@ -4,7 +4,9 @@
 
 #pragma once
 #include "afxcmn.h"
+#include <map>
 
+typedef std::map< int, int > INT_MAP;
 
 // CCiscoCDRDlg dialog
 class CCiscoCDRDlg : public CDialog
@@ -28,6 +30,8 @@ protected:
 	int m_iDateTimeOriginationIndex;
 	int m_iDateTimeConnectIndex;
 	int m_iDateTimeDisconnectIndex;
+	INT_MAP m_clsNoShowMap;
+	std::string m_strFileName;
 
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
@@ -38,10 +42,12 @@ protected:
 public:
 	afx_msg void OnBnClickedOk();
 	afx_msg void OnBnClickedOpen();
+	afx_msg void OnBnClickedColumn();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnDestroy();
 
 	void Show( const char * pszFileName );
 	bool ShowHeader( STRING_LIST & clsList );
 	void AddRow( STRING_LIST & clsList );
+	void SaveColumn();
 };

@@ -56,3 +56,5 @@ typedef std::list< std::string > STRING_LIST;
 
 void SplitString( const char * pszText, STRING_LIST & clsList, char cSep );
 void ReplaceString( std::string & strCallId, const char * pszBefore, const char * pszAfter );
+
+extern STRING_LIST gclsColList;
