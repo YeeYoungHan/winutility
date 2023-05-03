@@ -32,6 +32,7 @@ protected:
 	int m_iDateTimeDisconnectIndex;
 	INT_MAP m_clsNoShowMap;
 	std::string m_strFileName;
+	CString m_strSearch;
 
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
@@ -51,4 +52,5 @@ public:
 	void AddRow( STRING_LIST & clsList );
 	void SaveColumn();
 	afx_msg void OnNMDblclkCdrList(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnNMCustomdrawCdrList(NMHDR *pNMHDR, LRESULT *pResult);
 };

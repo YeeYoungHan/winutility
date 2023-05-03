@@ -72,6 +72,7 @@ BEGIN_MESSAGE_MAP(CCiscoCDRDlg, CDialog)
 	ON_WM_DESTROY()
 	ON_BN_CLICKED(IDC_COLUMN, &CCiscoCDRDlg::OnBnClickedColumn)
 	ON_NOTIFY(NM_DBLCLK, IDC_CDR_LIST, &CCiscoCDRDlg::OnNMDblclkCdrList)
+	ON_NOTIFY(NM_CUSTOMDRAW, IDC_CDR_LIST, &CCiscoCDRDlg::OnNMCustomdrawCdrList)
 END_MESSAGE_MAP()
 
 
@@ -398,9 +399,48 @@ void CCiscoCDRDlg::OnNMDblclkCdrList(NMHDR *pNMHDR, LRESULT *pResult)
 	
 	if( pNMItemActivate->iItem != -1 )
 	{
-		CString strText = m_clsCdrList.GetItemText( pNMItemActivate->iItem, pNMItemActivate->iSubItem );
+		m_strSearch = m_clsCdrList.GetItemText( pNMItemActivate->iItem, pNMItemActivate->iSubItem );
+		m_clsCdrList.Invalidate();
+	}
 
+	*pResult = 0;
+}
+
+void CCiscoCDRDlg::OnNMCustomdrawCdrList(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
+	
+	if( pNMCD->dwDrawStage == CDDS_PREPAINT )
+	{
+		*pResult = (LRESULT)CDRF_NOTIFYITEMDRAW; 
+		return;
+	}
+
+	if( pNMCD->dwDrawStage == CDDS_ITEMPREPAINT )
+	{
+		*pResult = (LRESULT)CDRF_NOTIFYSUBITEMDRAW;
+		return;
+	}
+
+	if( pNMCD->dwDrawStage == (CDDS_SUBITEM | CDDS_ITEMPREPAINT) && m_strSearch.IsEmpty() == false )
+	{
+		NMLVCUSTOMDRAW *pDraw = (NMLVCUSTOMDRAW*)(pNMHDR); 
+		CString strText = m_clsCdrList.GetItemText( pNMCD->dwItemSpec, pDraw->iSubItem );
+
+		if( m_strSearch == strText )
+		{
+			pDraw->clrText = RGB( 255, 0, 0 );
+			pDraw->clrTextBk = RGB( 255, 255, 128 );
+		}
+		else
+		{
+			pDraw->clrText = RGB( 0, 0, 0 );
+			pDraw->clrTextBk = RGB( 255, 255, 255 );
+		}
 		
+		*pResult = (LRESULT)CDRF_NEWFONT;
+
+		return;
 	}
 
 	*pResult = 0;
