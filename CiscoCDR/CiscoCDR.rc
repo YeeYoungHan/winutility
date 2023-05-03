@@ -111,17 +111,19 @@ BEGIN
     CONTROL         "",IDC_CDR_LIST,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,31,513,279
 END
 
-IDD_DIALOG_COL DIALOGEX 0, 0, 377, 325
+IDD_DIALOG_COL DIALOGEX 0, 0, 377, 336
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Column"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,265,299,50,19
-    PUSHBUTTON      "CANCEL",IDCANCEL,320,299,50,19
-    LISTBOX         IDC_ALL_LIST,7,7,167,281,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-    LISTBOX         IDC_NO_SHOW_LIST,203,7,167,281,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-    PUSHBUTTON      ">",IDC_INSERT,178,110,21,20
-    PUSHBUTTON      "<",IDC_DELETE,178,134,21,20
+    DEFPUSHBUTTON   "OK",IDOK,265,310,50,19
+    PUSHBUTTON      "CANCEL",IDCANCEL,320,310,50,19
+    LISTBOX         IDC_ALL_LIST,7,25,167,281,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_NO_SHOW_LIST,203,25,167,281,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      ">",IDC_INSERT,178,128,21,20
+    PUSHBUTTON      "<",IDC_DELETE,178,152,21,20
+    LTEXT           "Visible Column",IDC_STATIC,9,12,46,8
+    LTEXT           "Hidden Column",IDC_STATIC,204,13,48,8
 END
 
 
@@ -147,13 +149,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "TODO: <Company name>"
-            VALUE "FileDescription", "TODO: <File description>"
+            VALUE "CompanyName", "websearch@naver.com"
+            VALUE "FileDescription", "Cisco CDR Viewer"
             VALUE "FileVersion", "1.0.0.1"
             VALUE "InternalName", "CiscoCDR.exe"
-            VALUE "LegalCopyright", "TODO: (c) <Company name>.  All rights reserved."
+            VALUE "LegalCopyright", "websearch@naver.com  All rights reserved."
             VALUE "OriginalFilename", "CiscoCDR.exe"
-            VALUE "ProductName", "TODO: <Product name>"
+            VALUE "ProductName", "Cisco CDR Viewer"
             VALUE "ProductVersion", "1.0.0.1"
         END
     END
@@ -193,7 +195,7 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 370
         TOPMARGIN, 7
-        BOTTOMMARGIN, 318
+        BOTTOMMARGIN, 329
     END
 END
 #endif    // APSTUDIO_INVOKED

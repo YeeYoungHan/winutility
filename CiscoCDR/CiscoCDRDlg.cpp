@@ -239,7 +239,7 @@ void CCiscoCDRDlg::Show( const char * pszFileName )
 	}
 
 	char szBuf[8192];
-	int iLine = 0;
+	int iLine = 0, iLen;
 	STRING_LIST clsList;
 
 	memset( szBuf, 0, sizeof(szBuf) );
@@ -247,6 +247,16 @@ void CCiscoCDRDlg::Show( const char * pszFileName )
 	while( fgets( szBuf, sizeof(szBuf), fd ) )
 	{
 		++iLine;
+
+		iLen = strlen(szBuf);
+		if( iLen >= 2 && szBuf[iLen-2] == '\r' )
+		{
+			szBuf[iLen-2] = '\0';
+		}
+		else if( iLen >= 1 && szBuf[iLen-1] == '\n' )
+		{
+			szBuf[iLen-1] = '\0';
+		}
 
 		SplitString( szBuf, clsList, ',' );
 		if( clsList.size() < 20 )
