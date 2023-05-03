@@ -326,7 +326,7 @@ void CCiscoCDRDlg::AddRow( STRING_LIST & clsList )
 
 	int iRow = m_clsCdrList.GetItemCount();
 
-	_snprintf( szLine, sizeof(szLine), "%d", iRow + 1 );
+	_snprintf( szLine, sizeof(szLine), "%d", iRow + 2 );
 	m_clsCdrList.InsertItem( iRow, szLine );
 	++iCol;
 
