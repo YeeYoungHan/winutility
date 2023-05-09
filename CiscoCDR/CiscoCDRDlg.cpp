@@ -360,6 +360,13 @@ void CCiscoCDRDlg::AddRow( STRING_LIST & clsList )
 	m_clsCdrList.InsertItem( iRow, szLine );
 	++iCol;
 
+	itList = clsList.begin();
+	if( itList != clsList.end() && !strcmp( itList->c_str(), "INTEGER" ) )
+	{
+		// 컬럼 형식 row 는 값들을 보여주지 않는다.
+		return;
+	}
+
 	for( itList = clsList.begin(); itList != clsList.end(); ++itList )
 	{
 		itMap = m_clsNoShowMap.find( iIndex );
