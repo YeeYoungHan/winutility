@@ -255,6 +255,7 @@ void CCiscoCDRDlg::Show( const char * pszFileName )
 
 	char szBuf[8192];
 	int iLine = 0, iLen;
+	std::string strBuf;
 	STRING_LIST clsList;
 
 	memset( szBuf, 0, sizeof(szBuf) );
@@ -273,7 +274,11 @@ void CCiscoCDRDlg::Show( const char * pszFileName )
 			szBuf[iLen-1] = '\0';
 		}
 
-		SplitString( szBuf, clsList, ',' );
+		strBuf = szBuf;
+
+		ReplaceString( strBuf, "\"", "" );
+
+		SplitString( strBuf.c_str(), clsList, ',' );
 		if( clsList.size() < 20 )
 		{
 			break;
