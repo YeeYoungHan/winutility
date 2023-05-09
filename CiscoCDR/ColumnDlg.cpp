@@ -54,29 +54,45 @@ END_MESSAGE_MAP()
 
 void CColumnDlg::OnBnClickedInsert()
 {
-	int iIndex = m_clsShowList.GetCurSel();
-
-	if( iIndex >= 0 )
+	int iCount = m_clsShowList.GetSelCount();
+	if( iCount > 0 )
 	{
-		CString strText;
+		int * parrSel = new int[iCount];
+		m_clsShowList.GetSelItems( iCount, parrSel ); 
 
-		m_clsShowList.GetText( iIndex, strText );
-		m_clsShowList.DeleteString( iIndex );
-		m_clsNoShowList.AddString( strText );
+		for( int i = iCount - 1; i >= 0; --i )
+		{
+			CString strText;
+			int iIndex = parrSel[i];
+
+			m_clsShowList.GetText( iIndex, strText );
+			m_clsShowList.DeleteString( iIndex );
+			m_clsNoShowList.AddString( strText );
+		}
+
+		delete parrSel;
 	}
 }
 
 void CColumnDlg::OnBnClickedDelete()
 {
-	int iIndex = m_clsNoShowList.GetCurSel();
-
-	if( iIndex >= 0 )
+	int iCount = m_clsNoShowList.GetSelCount();
+	if( iCount > 0 )
 	{
-		CString strText;
+		int * parrSel = new int[iCount];
+		m_clsNoShowList.GetSelItems( iCount, parrSel ); 
 
-		m_clsNoShowList.GetText( iIndex, strText );
-		m_clsNoShowList.DeleteString( iIndex );
-		m_clsShowList.AddString( strText );
+		for( int i = iCount - 1; i >= 0; --i )
+		{
+			CString strText;
+			int iIndex = parrSel[i];
+
+			m_clsNoShowList.GetText( iIndex, strText );
+			m_clsNoShowList.DeleteString( iIndex );
+			m_clsShowList.AddString( strText );
+		}
+
+		delete parrSel;
 	}
 }
 
