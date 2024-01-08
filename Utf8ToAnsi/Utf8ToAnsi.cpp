@@ -193,7 +193,7 @@ bool Utf8ToAnsiDirectory( const char * pszDirectory, const char * pszExt = NULL 
 
 			if( wfd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY )
 			{
-				Utf8ToAnsiDirectory( szFileName );
+				Utf8ToAnsiDirectory( szFileName, pszExt );
 			}
 			else
 			{
